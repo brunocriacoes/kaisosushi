@@ -2,7 +2,7 @@
 
 
 
-    <div class="inner inner-title" style="background-image: url('<?= dir_template( '/view/site/src/bg/1.jpg' ) ?>');">
+    <div class="inner inner-title" style="background-image: url('<?= dir_template( '/view/site/src/bg/login.jpg' ) ?>');">
         <h1>Registro</h1>
     </div>
     <div class="space"></div>

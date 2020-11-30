@@ -25,13 +25,13 @@
                 </div>
                 <div class="link-user user loged"> 
                     <div>
-                        <a href="<?= get_fidelidade() ?>" target="_blank"> Fidelidade </a>
+                        <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
                         <a href="<?= dir_template( '/login' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
                         <a href="<?= dir_template( '/login' ) ?>" class="hidden-md">LOGIN</a> <span class="hidden-md"> | </span>
                         <a href="<?= dir_template( '/me-registrar' ) ?>" class="hidden-md">REGISTRAR</a>
                     </div>
                     <div>
-                        <a href="<?= get_fidelidade() ?>" target="_blank"> Fidelidade </a>
+                        <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
                         <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
                         <span class="hidden-md">Olá <b>Bruno</b></span> <span class="hidden-md"> | </span>
                         <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-md">Perfil</a>

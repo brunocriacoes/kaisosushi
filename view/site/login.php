@@ -1,6 +1,6 @@
 <?php include __DIR__ . "/header.php" ?>
 
-    <div class="inner inner-title" style="background-image: url('./src/bg/4.jpg');">
+    <div class="inner inner-title" style="background-image: url('<?= dir_template( '/view/site/src/bg/login.jpg' ) ?>');">
         <h1>ENTRAR</h1>
     </div>
     <div class="space"></div>

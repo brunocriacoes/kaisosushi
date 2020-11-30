@@ -14,14 +14,17 @@
                     </div>
                     <form action="javascript:void(0)" class="search">
                         <input type="text" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
-                        <button type="submit"> <img src="./src/ico/search.svg" alt=""> </button>
+                        <button type="submit"> <img src="<?= dir_template( '/view/site/src/ico/search.svg' ) ?>" alt=""> </button>
                     </form>
                 </div>
             </div>
             <div class="play"></div>
         </div>
+        <a href="#go-destaque" class="go">
+            <img src="<?= dir_template( '/view/site/src/ico/arrow-bottom.svg' ) ?>" width="50" alt="">
+        </a>
     </div>
-    <div class="inner inner-destaque">
+    <div class="inner inner-destaque" id="go-destaque">
         <div class="container">
             <div class="space" style="--line: 50px"></div>
             <h2>Nossos destaques</h2>
@@ -34,6 +37,7 @@
     <div class="inner inner-about">
         <div class="inner inner-shadow">
             <div class="container">
+                <div class="space"></div>
                 <h2>EXCELÊNCIA</h2>
                 <p>
                     SOMOS REFERÊNCIA NA CULINÁRIA JAPONESA, 
@@ -41,6 +45,7 @@
                     PARA ENTREGAR SABOR E UMA EXPERIÊNCIA ÚNICA 
                     AOS NOSSOS CLIENTES.
                 </p>
+                <div class="space"></div>
             </div>
         </div>
     </div>

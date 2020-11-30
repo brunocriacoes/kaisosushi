@@ -51,7 +51,7 @@ export default class View {
                     </a>
                     <i> 
                          ${prod.price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
-                        <img src="./src/ico/cart.svg" alt="">
+                        <img src="./view/site/src/ico/cart.svg" alt="">
                     </i>
                 </div>
             ` ).join('')
