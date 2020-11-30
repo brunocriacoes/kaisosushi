@@ -106,6 +106,15 @@ body {
 .link-user > div > a:hover {
     text-decoration: underline;
 }
+.link-footer-more {
+    display: block;
+    text-decoration: none;
+    color: #EEE;
+    line-height: 24px;
+}
+.link-footer-more:hover {
+    text-decoration: underline;
+}
 .btn-addcart {
     --size: 70px;
     display: block;
@@ -144,6 +153,13 @@ body {
 }
 .link-menu-completo:hover {
     text-decoration: underline;
+}
+.link-whatsapp {
+    display: block;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 90;
 }
 .grid-pop-menu {
     display: grid;
@@ -215,10 +231,11 @@ body {
     cursor: pointer;
 }
 .inner-about {
-    background-image: url( '../bg/3.jpg' );
+    background-image: url( '../bg/sobre.jpg' );
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-weight: lighter;
 }
 .inner-shadow {
     width: 100%;

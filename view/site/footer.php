@@ -1,29 +1,42 @@
-    
+   
+    <a href="<?= get_whatsapp() ?>?text=Ola" target="_blank" class="link-whatsapp">
+        <img src="<?= dir_template( '/view/site/src/ico/whatsapp.svg' ) ?>" height="50" alt="whatsapp">
+    </a>
     <div class="inner inner-footer">
         <div class="container">
             <div class="grid-footer">
                 <div>
                     <img src="<?= dir_template( '/view/site/src/image/logo.png' ) ?>" height="120" alt="">
                     <p>
-                        ACERCA KAISÕ <br>
-                        ALERGÉNIOS <br>
-                        TERMOS E CONDIÇÕES <br>
-                        POLÍTICA DE PRIVACIDADE <br>
-                        LIVRO DE RECLAMAÇÕES <br>
-                        CONTATO@KAISO.PT <br>
+                        <a href="<?= dir_template( '/acerca-kaiso' ) ?>" class="link-footer-more">
+                            ACERCA KAISÕ 
+                        </a>
+                        <a href="<?= dir_template( '/alergenios' ) ?>" class="link-footer-more">
+                            ALERGÉNIOS 
+                        </a>
+                        <a href="<?= dir_template( '/termos-e-consicoes' ) ?>" class="link-footer-more">
+                            TERMOS E CONDIÇÕES 
+                        </a>
+                        <a href="<?= dir_template( '/politica-de-privacidade' ) ?>" class="link-footer-more">
+                            POLÍTICA DE PRIVACIDADE 
+                        </a>
+                        <a href="https://www.livroreclamacoes.pt/inicio" target="_blank" class="link-footer-more">
+                            LIVRO DE RECLAMAÇÕES                         
+                        </a>
+                        <?= get_email() ?>
                     </p>
                 </div>
                 <div>
                     <h3>CENTRO DE AJUDA</h3>
-                    <a href="mail:CONTATO@KAISO.PT" class="btn-to-email">
+                    <a href="mail:<?= get_email() ?>" class="btn-to-email">
                         <img src="<?= dir_template( '/view/site/src/ico/email.svg' ) ?>" alt="">
                         Precisa de ajuda?
                     </a>
                 </div>
                 <div>
                     <h3>NOSSAS REDES SOCIAIS</h3>
-                    <a href="https://www.facebook.com"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/facebook.svg' ) ?>" alt=""> </a>
-                    <a href="https://www.instagram.com"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/instagram.svg' ) ?>" alt=""> </a>
+                    <a href="<?= get_facebook() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/facebook.svg' ) ?>" alt=""> </a>
+                    <a href="<?= get_instagram() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/instagram.svg' ) ?>" alt=""> </a>
                 </div>
             </div>
         </div>
@@ -64,6 +77,9 @@
             <a href="<?= dir_template( '/finalizar' ) ?>" class="btn-cart">Ir para pagamento</a>
         </div>
     </div>
+    <script>
+        <?php do_action('js_footer')?>
+    </script>
     <script src="<?= dir_template( '/view/site/src/js/index.js' ) ?>" type="module"></script>
 </body>
 </html>

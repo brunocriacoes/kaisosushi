@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/maki.png">
+    <link rel="stylesheet" href="./style.css">
+    <title>Kaiso Sushi</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="menu" onclick="show()">
+            <div>
+                <div class="header">
+                    <img class="logo" src="./img/logo.png" alt="Logo-Kaiso">
+                    <div>
+                        <span>Olá, Leandro!</span>
+                        <img class="user" src="./img/user.svg" alt="Perfil">
+                    </div>
+                </div>
+                <a href="painel.html"><img class="mIco" src="./img/gauge.svg" alt=""><h2>Painel</h2></a>
+                <a class="cor" href="pedidos.html"><img class="mIco" src="./img/box.svg" alt=""><h2>Pedidos</h2></a>
+                <a href="clientes.html"><img class="mIco" src="./img/user.svg" alt=""><h2>Clientes</h2></a>
+                <a href="destaques.html"><img class="mIco" src="./img/shooting-stars.svg" alt=""><h2>Destaques</h2></a>
+                <a href="cupom.html"><img class="mIco" src="./img/coupon.svg" alt=""><h2>Cupom</h2></a>
+                <a href="produtos.html"><img class="mIco" src="./img/sushi.svg" alt=""><h2>Produtos</h2></a>
+                <a href="frete.html"><img class="mIco" src="./img/truck.svg" alt=""><h2>Frete</h2></a>
+                <a href="categorias.html"><img class="mIco" src="./img/list.svg" alt=""><h2>Categorias</h2></a>
+                <a href="./index.html"><img class="mIco" src="./img/logout.svg" alt=""><h2>Sair</h2></a>
+            </div>
+            <div class="mobMenu">
+                <div>
+                    <img class="menuArrows" src="./img/arrows.svg" alt="">
+                </div>
+                <div>
+                    <img src="./img/logo.png" alt="" class="smalllogo">
+                </div>
+                <div>
+                    <img id="close" src="./img/close.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <!----------- End of Menu-->
+        <!------------ Começo do Corpo-->
+        <div class="corpo grid1 mob-fix">
+            <div class="left">
+                <h4>Alterar status</h4>
+                <form  class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
+                    <select name="" id="">
+                        <option value="">Entregue</option>
+                        <option value="">Cancelado</option>
+                        <option value="">À caminho</option>
+                    </select>
+                    <button class="">Atualizar</button>
+                </form>
+
+                <div class="space"></div>
+    
+                <h4>Detalhes do Cliente</h4>
+                <div class="bef">
+                    <form class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
+                        <select>
+                            <option value="">Julio Cesar</option>
+                            <option value="">Guilherme Alves</option>
+                            <option value="">Frank Aguiar</option>
+                        </select>
+                        <input type="submit" value="Alterar">
+                    </form>
+                    <div class="space"></div>
+                <div>
+                    <label for="email">E-mail: </label> <span class="email">contato@kaisosushi.pt</span>
+                </div>
+                <div>
+                    <label for="telefone">Telefone: </label><span class="telefone">(11)94777-6320</span>
+                </div>
+                <div class="space"></div>
+                <form class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
+                    <select>
+                        <option value="">Casa</option>
+                        <option value="">Trabalho</option>
+                        <option value="">Casa 2</option>
+                    </select>
+                    <input type="submit" value="Alterar">
+                </form>
+                    <div class="space"></div>
+                    <p>R. Alberto de Sousa</p>
+                    <p>1600-201 R. Alberto de Sousa</p>
+                </div>
+            </div>
+
+            <div>
+            <h4>Detalhes do Pedido</h4>
+            <div class="right bef">
+                
+                <div class="lista-de-produtos">
+                <div class="grid-custom titulo-cinza" style="--cols: 40px 1fr 100px 70px">
+                    <span></span>
+                    <span>Item</span>
+                    <span>Quantidade</span>
+                    <span>Valor</span>
+                    </div>
+                    
+                    <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
+                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span>item 1</span>
+                        <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
+                            <button class="botao-mais-menos">-</button>
+                            <input type="number">
+                            <button class="botao-mais-menos">+</button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                        </span>                    
+                    <span>€53,33</span>
+                    </div>
+                    <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
+                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span>item 1</span>
+                    <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
+                            <button class="botao-mais-menos">-</button>
+                            <input type="number">
+                            <button class="botao-mais-menos">+</button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                    </span>                    
+                    <span>€53,33</span>
+                    </div>
+                    <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
+                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span>item 1</span>
+                        <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
+                            <button class="botao-mais-menos">-</button>
+                            <input type="number">
+                            <button class="botao-mais-menos">+</button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                        </span>                    
+                    <span>€53,33</span>
+                    </div>
+                </div>
+                
+                
+                <div class="space"></div>
+                <div class="space"></div>
+
+                
+                <br>
+                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                    <div>
+                        <label for="produto">Produto</label>
+                        <select name="" id="produto">
+                        <option value="">Sushi</option>
+                        <option value="">Sashimi</option>
+                        <option value="">Yakisoba</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="quantidade">Quantidade</label>
+                        <input type="number" name="" id="quantidade">
+                    </div>
+                    <div>
+                        <label for="">&nbsp;</label>
+                        <input type="submit" value="Adicionar">
+                    </div>
+                </form>
+
+                
+                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                    <div>
+                    <label for="escolha">Entrega</label>    
+                        <select name="" id="escolha">
+                                <option value="">Delivery</option>
+                                <option value="">Retirar no Estabelescimento</option>
+                            </select>
+                    </div>
+                    <div>   
+                        <label for="frete">Frete</label>
+                        <input type="number" name="" id="frete">
+                    </div>
+                    <div>
+                        <label for="">&nbsp;</label>
+                        <input type="submit" value="Aplicar">
+                    </div>
+                </form>
+                
+                
+                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                    <div>
+                        <label for="">Desconto %</label>
+                        <input type="number" name="" id="porcentagem">
+                    </div>
+                    <div>    
+                        <label for="fixo">Desconto €</label>
+                        <input type="number" name="" id="fixo">
+                    </div>
+                    <div>
+                        <label for="">&nbsp;</label>
+                        <input type="submit" value="Aplicar">
+                    </div>
+                </form>
+
+                
+                <form class="detalhes-formularios grid-custom grid-tres" action="">
+                    <div>
+                        <label for="">Isira o código do cupom</label>
+                        <input type="text" name="" id="cupom">
+                    </div>
+                    <div>
+                        <label for="">&nbsp;</label>
+                        <input type="submit" value="Aplicar">
+                    </div>
+                </form>
+                
+                <div class="space"></div>
+
+                <div class="grid-custom" style="--cols: 1fr 70px" text-right>
+                    <p>Sub-total: </p><b>€53,33</b>
+                    <p>Desconto: </p><b>-€1,00</b>
+                    <p>Frete: </p><b>€3,00</b>
+                    <p>Cupom: </p><b>-€5,00</b>
+                    <p>Total: </p><b>€99,99</b>
+                </div>             
+                
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

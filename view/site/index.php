@@ -34,14 +34,12 @@
     <div class="inner inner-about">
         <div class="inner inner-shadow">
             <div class="container">
-                <h2>Quem somos nós?</h2>
+                <h2>EXCELÊNCIA</h2>
                 <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit 
-                    voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam 
-                    voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                    sed quia consequuntur magni dolores eos.
+                    SOMOS REFERÊNCIA NA CULINÁRIA JAPONESA, 
+                    NOSSOS PRATOS SÃO ELABORADOS E PROJETADOS  <br>
+                    PARA ENTREGAR SABOR E UMA EXPERIÊNCIA ÚNICA 
+                    AOS NOSSOS CLIENTES.
                 </p>
             </div>
         </div>

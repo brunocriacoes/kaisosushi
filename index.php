@@ -4,7 +4,7 @@ session_start();
 
 $file_env =  __DIR__ . "/.env";
 if( file_exists( $file_env ) ):
-    $_ENV = parse_ini_file( $file_env );
+    $_ENV = parse_ini_file( $file_env, TRUE, INI_SCANNER_RAW );
 endif;
 
 $list_dir = [    
@@ -76,7 +76,7 @@ function do_router()
 
 function add_action( $name, $callable, $priority = 0 )
 {
-    $GLOBALS['APP_PIPE_LINE'][$name][$priority] = $callable;
+    $GLOBALS['APP_PIPE_LINE'][$name][$priority][] = $callable;
 }
 
 function do_action( $name ) 

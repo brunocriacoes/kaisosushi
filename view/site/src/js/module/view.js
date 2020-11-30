@@ -1,13 +1,5 @@
 import ListProducts from './products.js'
-globalThis.slider = {
-    step: 0,
-    itens: [ 
-        './src/bg/1.jpg',
-        './src/bg/2.jpg',
-        './src/bg/3.jpg',
-        './src/bg/4.jpg'
-    ]
-}
+
 
 export default class View {
     static init()
