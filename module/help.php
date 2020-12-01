@@ -45,8 +45,50 @@ function maker_slug($string)
 }
 function import_foto($foto_dir)
 {
-    
     $image = pathinfo($foto_dir);
     // copy($foto_dir, __DIR__ . "/../view/upload/product/" . $image["basename"]);
     return $image["basename"];
+}
+function get_last_product( $number = 12 )
+{
+    $prods = new ProductRepository;
+    $list = $prods->list( [ "offset" => 0, "max_result" => $number ] );
+    $list = array_map( function( $prod ) {
+        $prod["link"] = dir_template( '/produto/' ) . $prod['slug'];
+        if( ! file_exists( __DIR__ . "/../view/upload/product/". $prod["photo"] ) ) :
+            $prod["photo"] = dir_template( '/view/upload/product/default.jpg' );
+        else:
+            $prod["photo"] = dir_template( '/view/upload/product/' ) . utf8_encode( $prod['photo'] );
+        endif;
+        $prod["title"] = utf8_encode( $prod['name'] );
+        $prod["price"] = '&euro; ' . number_format( $prod["price"], '2', ',', '.' );
+        return $prod;
+    }, $list );
+    return $list;
+}
+function set_corruent_prod()
+{
+    $parse_url =  get_param( 'produto/:slug_prod' );
+    $product = new ProductRepository;
+    $prod    = $product->getBySlug($parse_url["slug_prod"]);
+    $GLOBALS["corruent"]["title"] = utf8_encode( $prod['name'] );
+    $GLOBALS["corruent"]["photo"] = dir_template( '/view/upload/product/' ) . utf8_encode( $prod['photo'] );
+    $GLOBALS["corruent"]["price"] = '&euro; ' . number_format( $prod["price"], '2', ',', '.' );
+    $GLOBALS["corruent"]["description"] = utf8_encode( $prod['description'] );
+}
+function title()
+{
+    return $GLOBALS["corruent"]["title"] ?? null;
+}
+function photo()
+{
+    return $GLOBALS["corruent"]["photo"] ?? null;
+}
+function price()
+{
+    return $GLOBALS["corruent"]["price"] ?? null;
+}
+function description()
+{
+    return $GLOBALS["corruent"]["description"] ?? null;
 }

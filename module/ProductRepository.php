@@ -20,7 +20,7 @@ class ProductRepository
     }    
     function list( array $params )
     {
-        return query( "SELECT * FROM product LIMIT '{$params['offset']},{$params['max_result']}'" );
+        return query( "SELECT * FROM product ORDER BY id ASC LIMIT {$params['offset']},{$params['max_result']}  " );
     }    
     function listByCategorySlug( string $params )
     {
@@ -33,7 +33,7 @@ class ProductRepository
     }
     function getBySlug( string $slug )
     {
-        $query = query( "SELECT * FROM product WHERE slug=$slug" );
+        $query = query( "SELECT * FROM product WHERE slug='$slug'" );
         return $query[0];
     }
     function getById( int $id )

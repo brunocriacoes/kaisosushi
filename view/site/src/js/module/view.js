@@ -40,22 +40,22 @@ export default class View {
     }
     destaques()
     {
-        let products = ListProducts.slice( 0, 6 )
-        let $palco = document.querySelector( '.grid-destaque' )
-        if( $palco ) {
-            $palco.innerHTML = products.map( prod => `
-                <div>
-                    <a href="./produto.html?id=${prod.id}">
-                        <img src="${prod.foto}" alt="">
-                        <span>${prod.title}</span>
-                    </a>
-                    <i> 
-                         ${prod.price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
-                        <img src="./view/site/src/ico/cart.svg" alt="">
-                    </i>
-                </div>
-            ` ).join('')
-        }
+        // let products = ListProducts.slice( 0, 6 )
+        // let $palco = document.querySelector( '.grid-destaque' )
+        // if( $palco ) {
+        //     $palco.innerHTML = products.map( prod => `
+        //         <div>
+        //             <a href="./produto.html?id=${prod.id}">
+        //                 <img src="${prod.foto}" alt="">
+        //                 <span>${prod.title}</span>
+        //             </a>
+        //             <i> 
+        //                  ${prod.price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+        //                 <img src="./view/site/src/ico/cart.svg" alt="">
+        //             </i>
+        //         </div>
+        //     ` ).join('')
+        // }
     }
     static slide_play() 
     {

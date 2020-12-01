@@ -30,6 +30,18 @@
             <h2>Nossos destaques</h2>
             <div class="space"></div>
             <div class="grid-destaque">
+                <?php foreach( get_last_product(6) as $prod ) : ?>
+                <div>
+                    <a href="<?= $prod['link'] ?>" title="<?= $prod['title'] ?>">
+                        <img src="<?= $prod['photo'] ?>" alt="<?= $prod['title'] ?>">
+                        <span><?= $prod['title'] ?></span>
+                    </a>
+                    <i> 
+                        <?= $prod['price'] ?>
+                        <img src="./view/site/src/ico/cart.svg" alt="<?= $prod['title'] ?>">
+                    </i>
+                </div>
+                <?php endforeach; ?>
             </div>
             <div class="space" style="--line: 50px"></div>
         </div>
