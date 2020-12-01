@@ -3,7 +3,7 @@ class CategoryRepository
 {
     function register( array $params )
     {
-        query( "INSERT INTO category ( name, slug ) VALUES ( `{$params['name']}`, `{$params['slug']}`" );
+        query( "INSERT INTO category ( name, slug ) VALUES ( '{$params['name']}', '{$params['slug']}' )" );
     }    
     function update( array $params )
     {

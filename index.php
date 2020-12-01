@@ -2,6 +2,8 @@
 
 session_start();
 
+header('Content-Type: text/html; charset=utf-8');
+
 $file_env =  __DIR__ . "/.env";
 if( file_exists( $file_env ) ):
     $_ENV = parse_ini_file( $file_env, TRUE, INI_SCANNER_RAW );
@@ -125,8 +127,17 @@ function redirect( $path )
 function query( $sql )
 {
     $con = new mysqli( $_ENV['HOST'], $_ENV['HOST_USER'], $_ENV['HOST_PASS'], $_ENV['HOST_DB'] );
+    // $con->set_charset("utf8");
+    // var_dump( $sql );
+    // mysqli_set_charset($con,"utf8");
+    // htmlspecialchars($sql, ENT_NOQUOTES, "UTF-8");
+    $sql = mb_convert_encoding($sql, "ISO-8859-1", "UTF-8");
     $query = $con->query( $sql );
-    return $query->fetch_all( MYSQLI_ASSOC );
+    try {
+        return $query->fetch_all( MYSQLI_ASSOC );
+    } catch (\Throwable $th) {
+        return [];
+    }
 }
 
 function send_mail( $to, $subject, $body, $header = [] ) 

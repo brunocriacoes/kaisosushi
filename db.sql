@@ -24,15 +24,14 @@ create table product (
     description text,
     price double,
     price_offer double,
-    photo_main varchar(147),
-    photo_1 varchar(147),
-    photo_2 varchar(147),
-    photo_3 varchar(147)
+    photo varchar(255),
+
 );
 
 create table category (
     id int not null auto_increment primary key,
-    name varchar(75)
+    name varchar(75),
+    slug varchar(75)
 );
 
 create table delivery (
