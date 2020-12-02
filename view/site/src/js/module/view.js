@@ -14,17 +14,17 @@ export default class View {
     }
     listMenu() 
     {
-        let $palco   =  document.querySelector( '.grid-pop-menu' )
-        let products = ListProducts.slice( 0, 14 )
-        if( $palco )
-        {
-            $palco.innerHTML = products.map( prod => `
-                <a href="./produto.html?id=${prod.id}">
-                    <img src="${prod.foto}" alt="">
-                    <span> ${prod.title.substr(0,18)}... </span>
-                </a>
-            ` ).join('')
-        }
+        // let $palco   =  document.querySelector( '.grid-pop-menu' )
+        // let products = ListProducts.slice( 0, 14 )
+        // if( $palco )
+        // {
+        //     $palco.innerHTML = products.map( prod => `
+        //         <a href="./produto.html?id=${prod.id}">
+        //             <img src="${prod.foto}" alt="">
+        //             <span> ${prod.title.substr(0,18)}... </span>
+        //         </a>
+        //     ` ).join('')
+        // }
     }
     toggle_menu()
     {

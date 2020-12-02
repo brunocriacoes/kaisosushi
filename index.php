@@ -123,14 +123,16 @@ function redirect( $path )
     echo "<script> window.location.href=\"{$path}\" </script>";
     die;
 }
-
+function is_dev() {
+    return stripos( $_SERVER['HTTP_HOST'], '.co' ) !== false;
+}
 function query( $sql )
 {
-    $con = new mysqli( $_ENV['HOST'], $_ENV['HOST_USER'], $_ENV['HOST_PASS'], $_ENV['HOST_DB'] );
-    // $con->set_charset("utf8");
-    // var_dump( $sql );
-    // mysqli_set_charset($con,"utf8");
-    // htmlspecialchars($sql, ENT_NOQUOTES, "UTF-8");
+    $host = is_dev() ? $_ENV['HOST'] : $_ENV['HOST_PRODUCTION']['HOST'];
+    $user = is_dev() ? $_ENV['HOST_USER'] : $_ENV['HOST_PRODUCTION']['HOST_USER'];
+    $pass = is_dev() ? $_ENV['HOST_PASS'] : $_ENV['HOST_PRODUCTION']['HOST_PASS'];
+    $db = is_dev() ? $_ENV['HOST_DB'] : $_ENV['HOST_PRODUCTION']['HOST_DB'];
+    $con = new mysqli( $host, $user, $pass, $db );
     $sql = mb_convert_encoding($sql, "ISO-8859-1", "UTF-8");
     $query = $con->query( $sql );
     try {

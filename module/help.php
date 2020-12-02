@@ -92,3 +92,37 @@ function description()
 {
     return $GLOBALS["corruent"]["description"] ?? null;
 }
+function get_all_category()
+{
+    $category = new CategoryRepository;
+    $list = $category->list();
+    $list = array_map( function( $cat ) {
+        return [
+            "title" => utf8_encode( $cat['name'] ),
+            "link" => dir_template( '/menu/' ) . $cat['slug']
+        ];
+    }, $list );
+    return $list;
+}
+function get_product_corruent_cat()
+{
+    $prods = new ProductRepository;
+    $parse_url =  get_param( 'produto/:slug_cat' );
+    $list = $prods->listByCategorySlug([
+        "category_slug" => $parse_url['slug_cat'],
+        "offset" => 0,
+        "max_result" => 100
+    ] );
+    $list = array_map( function( $prod ) {
+        $prod["link"] = dir_template( '/produto/' ) . $prod['slug'];
+        if( ! file_exists( __DIR__ . "/../view/upload/product/". $prod["photo"] ) ) :
+            $prod["photo"] = dir_template( '/view/upload/product/default.jpg' );
+        else:
+            $prod["photo"] = dir_template( '/view/upload/product/' ) . utf8_encode( $prod['photo'] );
+        endif;
+        $prod["title"] = utf8_encode( $prod['name'] );
+        $prod["price"] = '&euro; ' . number_format( $prod["price"], '2', ',', '.' );
+        return $prod;
+    }, $list );
+    return $list;
+}

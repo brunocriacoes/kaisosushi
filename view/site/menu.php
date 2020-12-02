@@ -30,12 +30,36 @@
             <div class="grid-category">
                 <div>
                    <h3>Menu</h3>
-                   <div id="list-cat" class="list-cat">
-                       <a href="">Iten 1</a>
+                   <div class="hidden-md">
+                       <div id="list-cat" class="list-cat">
+                            <?php foreach( get_all_category() as $cat ) : ?>
+                                <a href="<?= $cat["link"] ?>" title="<?= $cat["title"] ?>"><?= $cat["title"] ?></a>
+                            <?php endforeach; ?>
+                       </div>
+                   </div>
+                   <div class="hidden-log">
+                       <form action="javascript:void(0)" class="form">
+                           <select name="" id="">
+                                <?php foreach( get_all_category() as $cat ) : ?>
+                                    <option value="<?= $cat["link"] ?>"><?= $cat["title"] ?></option>
+                                <?php endforeach; ?>
+                           </select>
+                       </form>
                    </div>
                 </div>
                 <div id="list-prod" class="grid-destaque">
-
+                    <?php foreach( get_product_corruent_cat() as $prod ) : ?>
+                        <div>
+                            <a href="<?= $prod['link'] ?>" title="<?= $prod['title'] ?>">
+                                <img src="<?= $prod['photo'] ?>" alt="<?= $prod['title'] ?>">
+                                <span><?= $prod['title'] ?></span>
+                            </a>
+                            <i> 
+                                <?= $prod['price'] ?>
+                                <img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt="<?= $prod['title'] ?>">
+                            </i>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="space" style="--line:70px"></div>

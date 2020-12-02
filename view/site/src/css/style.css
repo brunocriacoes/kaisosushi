@@ -678,6 +678,11 @@ body {
     margin: 0;
     padding: 0;
 }
+.form select option {
+    background-color: #111;
+    border: none;
+}
+.form select,
 .form input {
     display: block;
     padding: 7px 14px;

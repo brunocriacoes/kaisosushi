@@ -22,14 +22,15 @@ class ProductRepository
     {
         return query( "SELECT * FROM product ORDER BY id ASC LIMIT {$params['offset']},{$params['max_result']}  " );
     }    
-    function listByCategorySlug( string $params )
+    function listByCategorySlug( array $params )
     {
-        $category    = query( "SELECT * FROM category WHERE slug='{$slug_category['category_slug']}'" );
-        $category_id = $category[0]->id;
-        $toxonomy    = query( "SELECT * FROM taxonomy WHERE post_id=$category_id AND relation='APLY_CATEGORY'" );
-        $products_ids = array_map( function( $product ) { return $product['id']; }, $toxonomy );
+        $category    = query( "SELECT * FROM category WHERE slug = '{$params['category_slug']}'" );
+        $category_id = $category[0]["id"];
+        $toxonomy    = query( "SELECT * FROM taxonomy WHERE post_id=$category_id AND relation='IN_CATEGORY'" );
+        $products_ids = array_map( function( $product ) { return $product['post_taxonomy_id']; }, $toxonomy );
         $ids = implode( ',', $products_ids );
-        return query( "SELECT * FROM product WHERE id IN ($ids) LIMIT '{$params['offset']},{$params['max_result']}'" );
+        $sql = "SELECT * FROM product WHERE id IN ($ids) LIMIT {$params['offset']},{$params['max_result']}";
+        return query( $sql );
     }
     function getBySlug( string $slug )
     {

@@ -13,7 +13,7 @@ class CategoryRepository
     {
         query( "DELETE FROM category WHERE id=`{$id}`" );
     }    
-    function list( array $params )
+    function list()
     {
         return query( "SELECT * FROM category" );
     }
