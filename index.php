@@ -124,7 +124,7 @@ function redirect( $path )
     die;
 }
 function is_dev() {
-    return stripos( $_SERVER['HTTP_HOST'], '.co' ) !== false;
+    return stripos( $_SERVER['HTTP_HOST'], '.con' ) !== false;
 }
 function query( $sql )
 {
