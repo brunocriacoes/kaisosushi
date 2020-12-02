@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+echo md5('mangaka123');
 header('Content-Type: text/html; charset=utf-8');
 
 $file_env =  __DIR__ . "/.env";

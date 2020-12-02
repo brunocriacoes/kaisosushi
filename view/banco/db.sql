@@ -1,7 +1,3 @@
-create table banner (
-    id int not null auto_increment primary key,
-    photo varchar(255)
-);
 
 create table meta (
     id int not null auto_increment primary key,
@@ -84,7 +80,7 @@ create table client (
     whatsapp varchar(100),
     password varchar(64),
     photo varchar(75),
-    status binary(1),
+    status tinyint(1),
     data_register date
 );
 
