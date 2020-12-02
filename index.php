@@ -133,6 +133,7 @@ function query( $sql )
     $pass = is_dev() ? $_ENV['HOST_PASS'] : $_ENV['HOST_PRODUCTION']['HOST_PASS'];
     $db = is_dev() ? $_ENV['HOST_DB'] : $_ENV['HOST_PRODUCTION']['HOST_DB'];
     $con = new mysqli( $host, $user, $pass, $db );
+    var_dump( $con );
     $sql = mb_convert_encoding($sql, "ISO-8859-1", "UTF-8");
     $query = $con->query( $sql );
     try {
