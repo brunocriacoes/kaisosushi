@@ -5,12 +5,18 @@
         <div class="produto-left categoria-list">
             <h4>Categorias</h4>
             <div class="bef">
-                <form>
+                <form action="" method="POST">
                     <div>
                     <label for="nome">
                         Nome da categoria
                     </label>
-                    <input type="text" name="" id="nome">
+                    <input type="text" name="name" value="<?= $_REQUEST["nome"] ?? '' ?>" require id="nome">
+                    </div>
+                    <div>
+                    <label for="nome">
+                        Slug
+                    </label>
+                    <input type="text" name="slug" value="<?= $_REQUEST["slug"] ?? '' ?>" require id="nome">
                     </div>
                     <div>
                         <input type="submit" value="Salvar">

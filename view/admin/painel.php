@@ -43,7 +43,7 @@
                 <span><b>€ 23,35</b></span>
                 <span class="mobno">Delivery</span>
                 <span>Pendente</span>
-                <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                     <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                 </a>
             </div>
@@ -53,7 +53,7 @@
                 <span><b>€ 23,35</b></span>
                 <span class="mobno">Delivery</span>
                 <span>Pendente</span>
-                <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                     <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                 </a>
             </div>
@@ -63,7 +63,7 @@
                 <span><b>€ 23,35</b></span>
                 <span class="mobno">Delivery</span>
                 <span>Pendente</span>
-                <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                     <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                 </a>
             </div>

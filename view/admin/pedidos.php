@@ -24,7 +24,7 @@
                     <span>11/11/111</span>
                     <span class="mobno">€23,35</span>
                     <span>Pendente</span>
-                    <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                    <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                         <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                     </a>
                 </div>
@@ -34,7 +34,7 @@
                     <span>11/11/111</span>
                     <span class="mobno">€23,35</span>
                     <span>Pendente</span>
-                    <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                    <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                         <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                     <span>11/11/111</span>
                     <span class="mobno">€23,35</span>
                     <span>Pendente</span>
-                    <a class="eye" href="<?php echo dir_template( '/view/admin/pedidos-visualizar.php' ); ?>">
+                    <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                         <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                     </a>
                 </div>

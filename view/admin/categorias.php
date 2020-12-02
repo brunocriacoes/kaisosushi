@@ -4,25 +4,23 @@
         <div class="corpo">
             <div class="titulo-cupom-grid grid-custom" style="--cols: 1fr 200px">
                 <h4>Categorias</h4>
-                <a class="add-cupom" href="<?php echo dir_template( '/view/admin/editar-categoria.php' ); ?>">Adicionar Categoria</a>
+                <a class="add-cupom" href="<?php echo dir_template( '/admin/editar-categorias' ); ?>">Adicionar Categoria</a>
             </div>
             <div class="space"></div>
             <div class="bef produtos-lista">
                 <div class="corL grid-custom" style="--cols:1fr 1fr 40px">
                     <span>Categorias</span>
-                    <span>Produtos</span>
                     <span></span>
                 </div>
-                <div class="grid-custom" style="--cols:1fr 1fr 40px">
-                    <span>Categoria A</span>
-                    <span>Produtos</span>
-                    <a class="eye" href="<?php echo dir_template( '/view/admin/editar-categoria.php' ); ?>"><img class="ico" src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt=""></a>
-                </div>
-                <div class="grid-custom" style="--cols:1fr 1fr 40px">
-                    <span>Categoria B</span>
-                    <span>Produtos</span>
-                    <a class="eye" href="<?php echo dir_template( '/view/admin/editar-categoria.php' ); ?>"><img class="ico" src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt=""></a>
-                </div>
+                 <?php foreach( get_all_category() as $cat ) : ?>
+                    <div class="grid-custom" style="--cols:1fr 80px">
+                    <span><?= $cat["title"] ?></span>
+                    <div class="grid-custom produtos-icones" style="--cols: 40px 40px">
+                        <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-categorias' ); ?>/<?php echo $cat["id"]??0?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
+                        <a class="bin-bg" href="#"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
+                    </div>
+                    </div>     
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
