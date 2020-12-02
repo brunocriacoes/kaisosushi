@@ -1,46 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/maki.png">
-    <link rel="stylesheet" href="./style.css">
-    <title>Kaiso Sushi</title>
-</head>
-<body>
-    <div class="wrapper">
-        <div id="menu" onclick="show()">
-            <div>
-                <div class="header">
-                    <img class="logo" src="./img/logo.png" alt="Logo-Kaiso">
-                    <div>
-                        <span>Olá, Leandro!</span>
-                        <img class="user" src="./img/user.svg" alt="Perfil">
-                    </div>
-                </div>
-                <a href="painel.html"><img class="mIco" src="./img/gauge.svg" alt=""><h2>Painel</h2></a>
-                <a class="cor" href="pedidos.html"><img class="mIco" src="./img/box.svg" alt=""><h2>Pedidos</h2></a>
-                <a href="clientes.html"><img class="mIco" src="./img/user.svg" alt=""><h2>Clientes</h2></a>
-                <a href="destaques.html"><img class="mIco" src="./img/shooting-stars.svg" alt=""><h2>Destaques</h2></a>
-                <a href="cupom.html"><img class="mIco" src="./img/coupon.svg" alt=""><h2>Cupom</h2></a>
-                <a href="produtos.html"><img class="mIco" src="./img/sushi.svg" alt=""><h2>Produtos</h2></a>
-                <a href="frete.html"><img class="mIco" src="./img/truck.svg" alt=""><h2>Frete</h2></a>
-                <a href="categorias.html"><img class="mIco" src="./img/list.svg" alt=""><h2>Categorias</h2></a>
-                <a href="./index.html"><img class="mIco" src="./img/logout.svg" alt=""><h2>Sair</h2></a>
-            </div>
-            <div class="mobMenu">
-                <div>
-                    <img class="menuArrows" src="./img/arrows.svg" alt="">
-                </div>
-                <div>
-                    <img src="./img/logo.png" alt="" class="smalllogo">
-                </div>
-                <div>
-                    <img id="close" src="./img/close.svg" alt="">
-                </div>
-            </div>
-        </div>
-        <!----------- End of Menu-->
+<?php include __DIR__ . "/header.php" ?>
         <!------------ Começo do Corpo-->
         <div class="corpo grid1 mob-fix">
             <div class="left">
@@ -101,35 +59,35 @@
                     </div>
                     
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
                     <span>item 1</span>
                         <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
                             <button class="botao-mais-menos">-</button>
                             <input type="number">
                             <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
                         </span>                    
                     <span>€53,33</span>
                     </div>
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
                     <span>item 1</span>
                     <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
                             <button class="botao-mais-menos">-</button>
                             <input type="number">
                             <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
                     </span>                    
                     <span>€53,33</span>
                     </div>
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="./img/bin.svg" alt="" class="ico ico-lixeira"></span>
+                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
                     <span>item 1</span>
                         <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
                             <button class="botao-mais-menos">-</button>
                             <input type="number">
                             <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="./img/refresh.svg" alt=""></button>
+                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
                         </span>                    
                     <span>€53,33</span>
                     </div>
@@ -222,6 +180,4 @@
         </div>
 
     </div>
-    <script src="script.js"></script>
-</body>
-</html>
+<?php include __DIR__ . "/footer.php" ?>
