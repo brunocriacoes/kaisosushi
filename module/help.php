@@ -126,5 +126,3 @@ function get_product_corruent_cat()
     }, $list );
     return $list;
 }
-var_dump( is_dev() );
-var_dump( $_ENV['HOST_PRODUCTION']['HOST_USER'] );
