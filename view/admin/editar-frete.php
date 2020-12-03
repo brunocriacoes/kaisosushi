@@ -2,15 +2,22 @@
         <!------------ Começo do Corpo-->
         <div class="corpo">
             <h4>Editar Frete</h4>
-           <form class="editor-frete bef" action="">
+           <form class="editor-frete bef" action="" method="POST">
                <div class="corL">
+               <div>
+                    <label for="type">Entrega</label>
+                    <select name="type"  id="type">
+                        <option value="takeway">Takeway</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                </div>
                 <div>
                     <label for="localizacao">Localização</label>
-                    <input type="text" name="" id="localizacao">
+                    <input type="text" name="adress" value="<?= $_REQUEST["adress"] ?? '' ?>" id="localizacao">
                 </div>
                 <div>
                     <label for="taxa">Taxa</label>
-                    <input type="text" name="" id="taxa">
+                    <input type="text" name="money" value="<?= $_REQUEST["money"] ?? '' ?>" id="money">
                 </div>
                 
                 <input type="submit" value="Adicionar">
