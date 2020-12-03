@@ -3,24 +3,32 @@
     <div class="inner inner-header-category">
         <div>
             <div class="container">
+                <div class="space"></div>
                 <div class="grid-header-category">
                     <div>
                         <b>ESCOLHA O TIPO DE ENTREGA</b>
-                        <div>
-                            <span>TAKE AWAY</span>
+                        <div class="space"></div>
+                        <div class="tipo_entrega">
+                            <span class="active">TAKE AWAY</span>
                             <span>DELIVERY</span>
                         </div>
                     </div>
                     <div>
                         <b>DATA</b>
-                        <span>HOJE</span>
+                        <div class="space"></div>
+                        <span class="hoje">HOJE</span>
                     </div>
-                    <div class="grid-header-local">
-                        <img src="./src/ico/map.svg" alt="map">
-                        <span>José Mauro de Vasconcelos,8</span>
+                    <div>
+                        <b>&nbsp;</b>
+                        <div class="space"></div>
+                        <div class="is_delivery">
+                            <img src="<?= dir_template( '/view/site/src/ico/map.svg' ) ?>" alt="map">
+                            <span>José Mauro de Vasconcelos,8</span>
+                            <span class="btn-alter">ALTERAR</span>
+                        </div>
                     </div>
-                    <span class="btn-alter">ALTERAR</span>
                 </div>
+                <div class="space"></div>
             </div>
         </div>
     </div>
