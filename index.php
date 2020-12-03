@@ -138,7 +138,7 @@ function query( $sql )
         // $result = $query->fetch_all( MYSQLI_ASSOC );
         $con = new PDO("mysql:host={$host};dbname={$db}", $user, $pass);
         $query = $con->query( $sql );
-        $result = $query->fetch(PDO::FETCH_OBJ);
+        $result = $query->fetchAll();
         return $result;
     } catch (\Throwable $th) {
         echo "error ao conectar ao banco";
