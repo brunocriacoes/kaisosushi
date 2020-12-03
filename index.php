@@ -132,12 +132,13 @@ function query( $sql )
     $user = is_dev() ? $_ENV['HOST_USER'] : $_ENV['HOST_PRODUCTION']['HOST_USER'];
     $pass = is_dev() ? $_ENV['HOST_PASS'] : $_ENV['HOST_PRODUCTION']['HOST_PASS'];
     $db = is_dev() ? $_ENV['HOST_DB'] : $_ENV['HOST_PRODUCTION']['HOST_DB'];
-    $con = new mysqli( $host, $user, $pass, $db );
-    // $con = new PDO("mysql:host={$host};dbname={$db}", $user, $pass);
-    $query = $con->query( $sql );
     try {
+        $con = new mysqli( $host, $user, $pass, $db );
+        // $con = new PDO("mysql:host={$host};dbname={$db}", $user, $pass);
+        $query = $con->query( $sql );
         return $query->fetch_all( MYSQLI_ASSOC );
     } catch (\Throwable $th) {
+        echo "error ao conectar ao banco";
         return [];
     }
 }
