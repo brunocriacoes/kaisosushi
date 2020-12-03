@@ -132,7 +132,7 @@ function query( $sql )
     $user = is_dev() ? $_ENV['HOST_USER'] : $_ENV['HOST_PRODUCTION']['HOST_USER'];
     $pass = is_dev() ? $_ENV['HOST_PASS'] : $_ENV['HOST_PRODUCTION']['HOST_PASS'];
     $db = is_dev() ? $_ENV['HOST_DB'] : $_ENV['HOST_PRODUCTION']['HOST_DB'];
-    $con = new mysqli( $host, $user, $pass, $db );
+    $con = new mysqli( 'localhost', 'v93toznz_loja', '@Manga1987kA', 'v93toznz_kaiso' );
     var_dump( mysqli_error( $con ) );
     $sql = mb_convert_encoding($sql, "ISO-8859-1", "UTF-8");
     $query = $con->query( $sql );
