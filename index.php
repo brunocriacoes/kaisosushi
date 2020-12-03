@@ -133,9 +133,6 @@ function query( $sql )
     $pass = is_dev() ? $_ENV['HOST_PASS'] : $_ENV['HOST_PRODUCTION']['HOST_PASS'];
     $db = is_dev() ? $_ENV['HOST_DB'] : $_ENV['HOST_PRODUCTION']['HOST_DB'];
     try {
-        // $con = new mysqli( $host, $user, $pass, $db );
-        // $query = $con->query( $sql );
-        // $result = $query->fetch_all( MYSQLI_ASSOC );
         $con = new PDO("mysql:host={$host};dbname={$db}", $user, $pass);
         $query = $con->query( $sql );
         $result = $query->fetchAll();

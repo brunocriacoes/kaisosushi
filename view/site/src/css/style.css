@@ -639,11 +639,17 @@ body {
     backdrop-filter: blur(2px);
 }
 .grid-header-category {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
     align-items: baseline;
-    min-height: 250px;
     text-align: center;
+    grid-gap: 30px;
+}
+@media screen and (max-width: 800px ) 
+{
+    .grid-header-category {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 .grid-header-category b {
     display: block;
@@ -807,6 +813,45 @@ button:hover {
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in;
+}
+.tipo_entrega {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    background-color: #111;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.tipo_entrega span {
+    display: block;
+    padding: 15px;
+}
+.tipo_entrega span.active {
+    background-color: var(--vermelho);
+}
+.hoje {
+    display: block;
+    padding: 15px;
+    background-color: #111;
+    border-radius: 5px;
+}
+.is_delivery {
+    display: grid;
+    grid-template-columns: 30px 1fr 120px;
+    background-color: #111;
+    grid-gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 0px;
+    align-items: center;
+}
+.is_delivery img {
+    display: block;
+    filter: invert();
+    height: 30px;
+    padding: 5px;
 }
 @keyframes gogo {
     to {
