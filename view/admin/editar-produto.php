@@ -75,22 +75,12 @@
         <div class="produto-right">
             <h4>Categorias</h4>
             <div class="bef lista-categorias">
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Categoria 1</span>
+            <?php foreach( get_all_category() as $cat ) : ?>
+                    <div class="grid-custom" style="--cols:1fr 40px">
+                    <span><?= $cat["title"] ?></span>
                     <input type="checkbox" name="" id="">
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Categoria 2</span>
-                    <input type="checkbox" name="" id="">
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Categoria 3</span>
-                    <input type="checkbox" name="" id="">
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Categoria 4</span>
-                    <input type="checkbox" name="" id="">
-                </div>
+                    </div>     
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

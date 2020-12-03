@@ -16,24 +16,24 @@
                 <span>Sushi</span>
                 <span>€2,50</span>
                 <div class="grid produtos-icones" style="--cols: 2">
-                    <a class="pencil-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
-                    <a class="bin-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src=".<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
+                    <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
+                    <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
                 </div>
             </div>
             <div class="grid-custom " style="--cols: 1fr 50px 70px">
                 <span>Sashimi</span>
                 <span>€2,50</span>
                 <div class="grid produtos-icones" style="--cols: 2">
-                    <a class="pencil-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
-                    <a class="bin-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src=".<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
+                    <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
+                    <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
                 </div>
             </div>
             <div class="grid-custom " style="--cols: 1fr 50px 70px">
                 <span>Takoyaki</span>
                 <span>€10.35</span>
                 <div class="grid produtos-icones" style="--cols: 2">
-                    <a class="pencil-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
-                    <a class="bin-bg" href="<?php echo dir_template( '/view/admin/editar-produto.php' ); ?>"><img src=".<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
+                    <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
+                    <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-produto' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
                 </div>
             </div>
         </div>
