@@ -71,6 +71,7 @@ function set_corruent_prod()
     $parse_url =  get_param( 'produto/:slug_prod' );
     $product = new ProductRepository;
     $prod    = $product->getBySlug($parse_url["slug_prod"]);
+    $GLOBALS["corruent"]["id"] = $prod['id'] ;
     $GLOBALS["corruent"]["title"] = utf8_encode( $prod['name'] );
     $GLOBALS["corruent"]["photo"] = dir_template( '/view/upload/product/' ) . utf8_encode( $prod['photo'] );
     $GLOBALS["corruent"]["price"] = '&euro; ' . number_format( $prod["price"], '2', ',', '.' );
@@ -92,6 +93,11 @@ function description()
 {
     return $GLOBALS["corruent"]["description"] ?? null;
 }
+function id()
+{
+    return $GLOBALS["corruent"]["id"] ?? null;
+}
+
 function get_all_category()
 {
     $category = new CategoryRepository;

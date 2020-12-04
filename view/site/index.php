@@ -36,7 +36,7 @@
                             <img src="<?= $prod['photo'] ?>" alt="<?= $prod['title'] ?>">
                             <span><?= $prod['title'] ?></span>
                         </a>
-                        <i> 
+                        <i onclick="globalThis.cart.add( <?= $prod['id'] ?> )"> 
                             <?= $prod['price'] ?>
                             <img src="./view/site/src/ico/cart.svg" alt="<?= $prod['title'] ?>">
                         </i>
