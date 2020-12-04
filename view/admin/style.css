@@ -532,6 +532,10 @@ select {
     text-align: center;
 }
 /*----------------------- Criação do Cupom -------------------------*/
+.criacao-cupom-lista {
+    width: 500px;
+    max-width: 100%;
+}
 .criacao-cupom-lista label {
     color: rgba(119, 119, 119, 0.74);
 }
@@ -540,8 +544,7 @@ select {
     height: 30px;
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 350px;
-    max-width: 100%;
+    width: 100%;
 }
 .criacao-cupom-lista input[type=submit] {
     color: white;
@@ -688,9 +691,11 @@ textarea {
     display: block;
     margin-bottom: 10px;
 }
-.editor-frete input[type=text] {
+.editor-frete input[type=text], .editor-frete select {
     line-height: 40px;
+    height: 40px;
     margin-bottom: 10px;
+    width: 100% !important;
 }
 .editor-frete input[type=submit] {
     background-color: var(--rosaM);

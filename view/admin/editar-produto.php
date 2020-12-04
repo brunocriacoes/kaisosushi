@@ -4,67 +4,45 @@
         <div class="produto-left">
             <h4>Nome do produto</h4>
             <div class="bef">
-                <form>
+                <form action="" method="POST">
                     <div>
                     <label for="nome">
                         Nome do produto
                     </label>
-                    <input type="text" name="" id="nome">
+                    <input type="text" name="name" value="<?= $_REQUEST["name"] ?? '' ?>" require id="name">
                     <label for="slug">Slug</label>
-                    <input type="text" name="" id="slug">       
+                    <input type="text" name="slug" value="<?= $_REQUEST["slug"] ?? '' ?>" require id="slug">       
                     </div>
                     <div class="grid" style="--cols: 2">
                         <div class="valores">
                         <label for="valor">
                             Valor
                         </label>
-                        <input type="number" id="valor">
+                        <input type="text" name="price" value="<?= $_REQUEST["price"] ?? '' ?>" id="price">
                         </div>
                         <div class="valores">
                         <label for="valor-prom">
                             Valor Promocional
                         </label>
-                        <input type="number" id="valor">
+                        <input type="text" name="price_offer" value="<?= $_REQUEST["price_offer"] ?? '' ?>" id="price_offer">
                         </div>
                     </div>                        
                     <label for="desc">
                     Descrição
                     </label>
                     <div id="desc" class="container-areatexto">                
-                    <textarea name="" cols="15" rows="100"></textarea>
+                    <textarea name="description" value="<?= $_REQUEST["description"] ?? '' ?>" id="description" cols="15" rows="100"></textarea>
                     </div>
                     <br>
                     <h5>Imagem de Destaque</h5>
                     <div class="imagem-destaque">
                         <img src="<?php echo dir_template( '/view/admin/img/default.png' ); ?>" alt="">
                     </div>
+                    <input type="file" name="photo" value="<?= $_REQUEST["photo"] ?? '' ?>" id="photo">
                     <br>
-                    <h5>Imagens do produto</h5>
                     <div class="space" style="height: 10px;"></div>
                     <div class="space" style="height: 10px;"></div>
-                    <div class="produto-imagens grid" style="--cols: 3">
-                        <div>
-                            <span class="plano-de-fundo-img">
-                                <img src="<?php echo dir_template( '/view/admin/img/default.png' ); ?>" alt="" class="mini-img">
-                                <label for="file">Carregar Imagem</label>
-                                <input type="file" name="" id="file">
-                            </span>
-                        </div>
-                        <div>
-                            <div class="plano-de-fundo-img">
-                                <img src="<?php echo dir_template( '/view/admin/img/default.png' ); ?>" alt="" class="mini-img">
-                                <label for="file">Carregar Imagem</label>
-                                <input type="file" name="" id="file">
-                            </div>
-                        </div>
-                        <div>
-                            <div class="plano-de-fundo-img">
-                                <img src="<?php echo dir_template( '/view/admin/img/default.png' ); ?>" alt="" class="mini-img">
-                                <label for="file">Carregar Imagem</label>
-                                <input type="file" name="" id="file">
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div>
                         <input type="submit" value="Salvar">
                     </div>

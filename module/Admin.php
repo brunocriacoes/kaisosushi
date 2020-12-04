@@ -18,5 +18,6 @@ class Admin
         add_router( '/admin/pedidos', function() {}, __DIR__ . "/../view/admin/pedidos.php"  );
         add_router( '/admin/produtos', function() {}, __DIR__ . "/../view/admin/produtos.php"  );
         add_router( '/admin/produtos', function() {}, __DIR__ . "/../view/admin/produtos.php"  );
+        add_router( '/admin/criacao-cupom', function() {}, __DIR__ . "/../view/admin/criacao-cupom.php"  );
     }
 }
