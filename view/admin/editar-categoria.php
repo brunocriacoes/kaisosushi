@@ -28,22 +28,12 @@
         <div class="produto-right">
             <h4>Incluir Produto</h4>
             <div class="bef lista-categorias">
+            <?php foreach(get_last_product(1000) as $prods ) : ?>
                 <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Produtos 1</span>
+                    <span><?= $prods["title"]?></span>
                     <input type="checkbox" name="" id="">
                 </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Produtos 2</span>
-                    <input type="checkbox" name="" id="">
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Produtos 3</span>
-                    <input type="checkbox" name="" id="">
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 20px">
-                    <span>Produtos 4</span>
-                    <input type="checkbox" name="" id="">
-                </div>
+            <?php endforeach; ?>
             </div>
         </div>
     </div>

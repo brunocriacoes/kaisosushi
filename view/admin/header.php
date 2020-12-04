@@ -12,7 +12,7 @@
         <div id="menu" onclick="show()">
             <div>
                 <div class="header">
-                    <img class="logo" src="<?php echo dir_template( '/view/admin/img/logo.png' ); ?>" alt="Logo-Kaiso">
+                    <a href="<?php echo dir_template( '/admin' ); ?>" style="margin: 0px"><img class="logo" src="<?php echo dir_template( '/view/admin/img/logo.png' ); ?>" alt="Logo-Kaiso"></a>
                     <div>
                         <span>Olá, Leandro!</span>
                         <img class="user" src="<?php echo dir_template( '/view/admin/img/user.svg' ); ?>" alt="Perfil">
