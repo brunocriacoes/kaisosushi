@@ -13,11 +13,11 @@
                     <span id="product_price" class="prod-price"><?= price() ?></span>
                     <p id="product_description"><?= description() ?></p>
                     <div class="grid-quant">
-                        <img src="<?= dir_template( '/view/site/src/ico/minus.svg' ) ?>" class="prod-ico" alt="del">
-                        <span class="prod-quant">1</span>
-                        <img src="<?= dir_template( '/view/site/src/ico/plus.svg' ) ?>" class="prod-ico" alt="add">
+                        <img onclick="globalThis.singleMinus()" src="<?= dir_template( '/view/site/src/ico/minus.svg' ) ?>" class="prod-ico" alt="del">
+                        <span class="prod-quant" id="js-single-quant">1</span>
+                        <img onclick="globalThis.singlePlus()" src="<?= dir_template( '/view/site/src/ico/plus.svg' ) ?>" class="prod-ico" alt="add">
                         <div>
-                            <span class="btn-add-to-cart">
+                            <span class="btn-add-to-cart" onclick="globalThis.cart.addSingle( <?= id() ?> )">
                                 <img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt="carrinho">
                                 <span>ADICIONAR</span>
                             </span>
