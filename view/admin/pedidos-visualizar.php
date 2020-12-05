@@ -3,11 +3,11 @@
         <div class="corpo grid1 mob-fix">
             <div class="left">
                 <h4>Alterar status</h4>
-                <form  class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
-                    <select name="" id="">
-                        <option value="">Entregue</option>
-                        <option value="">Cancelado</option>
-                        <option value="">À caminho</option>
+                <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
+                    <select name="status" id="status" require >
+                        <option value="entregue">Entregue</option>
+                        <option value="cancelado">Cancelado</option>
+                        <option value="a-caminho">À caminho</option>
                     </select>
                     <button class="">Atualizar</button>
                 </form>
@@ -16,13 +16,13 @@
     
                 <h4>Detalhes do Cliente</h4>
                 <div class="bef">
-                    <form class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
-                        <select>
+                    <form action="" method="POST" class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
+                        <select name="client_id" disabled>
                             <option value="">Julio Cesar</option>
                             <option value="">Guilherme Alves</option>
                             <option value="">Frank Aguiar</option>
                         </select>
-                        <input type="submit" value="Alterar">
+                        <input type="submit" value="Alterar" disabled>
                     </form>
                     <div class="space"></div>
                 <div>
@@ -32,13 +32,13 @@
                     <label for="telefone">Telefone: </label><span class="telefone">(11)94777-6320</span>
                 </div>
                 <div class="space"></div>
-                <form class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
-                    <select>
+                <form action="" method="POST" class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
+                    <select name="address" disabled>
                         <option value="">Casa</option>
                         <option value="">Trabalho</option>
                         <option value="">Casa 2</option>
                     </select>
-                    <input type="submit" value="Alterar">
+                    <input type="submit" value="Alterar" disabled>
                 </form>
                     <div class="space"></div>
                     <p>R. Alberto de Sousa</p>
@@ -50,7 +50,7 @@
             <h4>Detalhes do Pedido</h4>
             <div class="right bef">
                 
-                <div class="lista-de-produtos">
+                <form action="" method="POST" class="lista-de-produtos">
                 <div class="grid-custom titulo-cinza" style="--cols: 40px 1fr 100px 70px">
                     <span></span>
                     <span>Item</span>
@@ -91,7 +91,7 @@
                         </span>                    
                     <span>€53,33</span>
                     </div>
-                </div>
+                </form>
                 
                 
                 <div class="space"></div>
@@ -110,7 +110,7 @@
                     </div>
                     <div>
                         <label for="quantidade">Quantidade</label>
-                        <input type="number" name="" id="quantidade">
+                        <input type="number" name="" id="quantidade" require>
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
@@ -129,7 +129,7 @@
                     </div>
                     <div>   
                         <label for="frete">Frete</label>
-                        <input type="number" name="" id="frete">
+                        <input type="text" name="frete" id="frete">
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
