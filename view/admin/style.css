@@ -164,7 +164,7 @@ input[type=submit]:disabled {
 #index {
     width: 100%;
     min-height: 100vh;
-    background-image: url("./img/sushi-bg.jpg");
+    background-image: url("./img/sobre.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -231,7 +231,19 @@ input[type=submit]:disabled {
     transition: 350ms;
     color: rgb(48, 226, 250);
 }
-
+.alerta {
+    color: #202020;
+    background-color: yellow;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+.alerta span {
+    font-weight: bold;
+    color: red;
+    margin-left: 20px;
+    cursor: pointer;
+}
 /*----------------------- Recuperar Senha --------------------*/
 #rec {
     width: 100%;
