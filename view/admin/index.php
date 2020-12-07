@@ -13,7 +13,7 @@
         <div class="alerta">
             E-mail ou Senha incorretos. Insira novamente! <span title="Fechar">X</span>
         </div>
-        <form action="<?php echo dir_template( '/admin/painel' ); ?>" method="POST">
+        <form action="" method="POST">
             <input name="email" require type="email" placeholder="E-mail">
             <input name="pass" require type="password" placeholder="Password">
             <div>
