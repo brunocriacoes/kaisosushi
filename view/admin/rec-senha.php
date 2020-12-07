@@ -9,7 +9,7 @@
 </head>
 <body class="estoylokito">
     <section id="rec">
-        <img src="<?php echo dir_template( '/view/admin/img/logo.png' ); ?>" alt="">
+        <img src="<?php echo dir_template( '/view/admin/img/kaiso.svg' ); ?>" alt="">
         <form action="painel.html">
             <p>Insira seu e-mail e em seguida enviaremos um e-mail com sua senha temporaria. Isso pode levar alguns minutos.</p>
             <input type="email" placeholder="E-mail">

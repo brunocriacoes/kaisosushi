@@ -55,5 +55,8 @@ class Admin
         add_router( '/admin/criacao-cupom', function() {
             admin_private();
         }, __DIR__ . "/../view/admin/criacao-cupom.php"  );
+        add_router( '/admin/rec-senha', function() {
+            admin_public();
+        }, __DIR__ . "/../view/admin/rec-senha.php"  );
     }
 }

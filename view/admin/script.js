@@ -4,3 +4,6 @@ function show() {
         document.getElementById('close').classList.toggle('aparecer');
     },100);
 }
+function fechar() {
+    document.getElementById('alerta').classList.toggle('sumir');
+}

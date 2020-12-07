@@ -244,11 +244,15 @@ input[type=submit]:disabled {
     margin-left: 20px;
     cursor: pointer;
 }
+
+#alerta.sumir {
+    display: none;
+}
 /*----------------------- Recuperar Senha --------------------*/
 #rec {
     width: 100%;
     min-height: 100vh;
-    background-image: url("./img/sushi-bg.jpg");
+    background-image: url("./img/sobre.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -898,10 +902,6 @@ textarea {
     #rec {
         width: 100%;
         min-height: 100vh;
-        background-image: url("./img/sushi-bg.jpg");
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
         display: flex;
         flex-direction: column;
         align-items: center;
