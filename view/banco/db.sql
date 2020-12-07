@@ -76,7 +76,7 @@ create table client (
     name varchar(75),
     last_name varchar(75),
     email varchar(100),
-    phome varchar(100),
+    phone varchar(100),
     whatsapp varchar(100),
     password varchar(64),
     photo varchar(75),
