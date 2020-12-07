@@ -13,33 +13,17 @@
                     <span>Taxa</span>
                     <span></span>
                 </div>
+
+                <?php foreach( get_all_frete() as $frete ) : ?>
                 <div class="grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                    <span class="mobno">Delivery</span>
-                    <span>Lisboa</span>
-                    <span>€2,50</span>
-                    <div class="grid produtos-icones" style="--cols: 2">
-                        <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
-                        <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
-                    </div>
-                </div>
-                <div class="grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                    <span class="mobno">Delivery</span>
-                    <span>Sintra</span>
-                    <span>€2,50</span>
+                    <span class="mobno"><?= $frete["type"] ?>Delivery</span>
+                    <span><?= $frete["address"] ?></span>
+                    <span><?= $frete["money"] ?></span>
                     <div class="grid produtos-icones" style="--cols: 2">
                     <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
                     <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
                 </div>
-                </div>
-                <div class="grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                    <span class="mobno">Delivery</span>
-                    <span>Santarém</span>
-                    <span>€10.35</span>
-                    <div class="grid produtos-icones" style="--cols: 2">
-                    <a class="pencil-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
-                    <a class="bin-bg" href="<?php echo dir_template( '/admin/editar-frete' ); ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
-                </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

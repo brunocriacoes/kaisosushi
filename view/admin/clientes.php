@@ -8,24 +8,14 @@
                     <span class="mobno">E-mail</span>
                     <span class="mobno">Telefone</span>
                 </div>
+                <?php foreach( get_all_client() as $client ) : ?>
                 <div class="grid-custom" style="--cols: 1fr 1fr 1fr 70px">
-                    <span>Cliente</span>
-                    <span class="mobno">example@gmail.com</span>
-                    <span class="mobno">(11)91111-1111</span>
+                    <span><?= $client["name"] ?></span>
+                    <span class="mobno"><?= $client["email"] ?></span>
+                    <span class="mobno"><?= $client["phone"] ?></span>
                     <a href="<?php echo dir_template( '/admin/clientes-detalhe' ); ?>" class="eye"><img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt=""></a>
                 </div>
-                <div class="grid-custom" style="--cols: 1fr 1fr 1fr 70px">
-                    <span>Cliente</span>
-                    <span class="mobno">example@gmail.com</span>
-                    <span class="mobno">(11)91111-1111</span>
-                    <a href="<?php echo dir_template( '/admin/clientes-detalhe' ); ?>" class="eye"><img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt=""></a>
-                </div>
-                <div class="grid-custom" style="--cols: 1fr 1fr 1fr 70px">
-                    <span>Cliente</span>
-                    <span class="mobno">example@gmail.com</span>
-                    <span class="mobno">(11)91111-1111</span>
-                    <a href="<?php echo dir_template( '/admin/clientes-detalhe' ); ?>" class="eye"><img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt=""></a>
-                </div>
+                <?php endforeach ?>
             </div>
     </div>
 
