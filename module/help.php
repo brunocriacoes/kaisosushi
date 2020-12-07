@@ -180,6 +180,34 @@ function remover_banner()
     unlink( __DIR__ . "/../view/upload/banner/{$file}" );
     redirect( dir_template( '/admin/destaques' ) );
 }
-
+function get_all_coupon() 
+{
+    $coupon = new CouponRepository;
+    return $coupon->list();
+}
+function get_all_frete()
+{
+    $frete = new DeliveryRepository;
+    return $frete->list( [
+        "offset" => 0,
+        "max_result" => 1000
+    ] );
+}
+function get_all_pedido()
+{
+    $order = new OrderRepository;
+    return $order->list( [
+        "offset" => 0,
+        "max_result" => 100
+    ] );
+}
+function get_all_client()
+{
+    $order = new ClientRepository;
+    return $order->list( [
+        "offset" => 0,
+        "max_result" => 1000
+    ] );
+}
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

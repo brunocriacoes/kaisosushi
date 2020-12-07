@@ -8,20 +8,21 @@ class OrderRepository
         query( "INSERT INTO `order` 
         ( cliente_id, date_register, date_update, status ) 
         VALUES
-        ( `{$params['cliente_id']}`, `$date_register`, `$date_update`, `{$params['status']}` ) " );
+        ( '{$params['cliente_id']}', '$date_register', '$date_update', '{$params['status']}' ) " );
     }    
     function update( array $params )
     {
         $date_update = date('Y-m-d');
-        query( "UPDATE `order` SET cliente_id=`{$params['cliente_id']}`,  WHERE date_update=`$date_update` AND status=`{$params['status']}` " );
+        query( "UPDATE `order` SET cliente_id='{$params['cliente_id']}',  WHERE date_update='$date_update' AND status='{$params['status']}' " );
     }    
     function delete( int $id )
     {
-        query( "DELETE FROM `order` WHERE id=`{$id}`" );
+        query( "DELETE FROM `order` WHERE id='{$id}'" );
     }    
     function list( array $params )
     {
-        return query( "SELECT * FROM `order` LIMIT `{$params['offset']},{$params['max_result']}`" );
+        $sql = "SELECT * FROM `order` LIMIT {$params['offset']},{$params['max_result']}";
+        return query( $sql );
     }  
     function about( int $order_id )
     {
