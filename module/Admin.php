@@ -58,5 +58,9 @@ class Admin
         add_router( '/admin/rec-senha', function() {
             admin_public();
         }, __DIR__ . "/../view/admin/rec-senha.php"  );
+        add_router( '/admin/destaques/apagar', function() {
+            admin_private();
+            remover_banner();
+        } );
     }
 }

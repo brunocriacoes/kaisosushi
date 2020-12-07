@@ -172,6 +172,14 @@ function admin_logout()
     $_SESSION["ADMIN"] = false;
     redirect( dir_template( '/admin' ) );
 }
+function remover_banner()
+{
+    $file = $_REQUEST["file"];
+    $file = pathinfo($file);
+    $file = $file["basename"];
+    unlink( __DIR__ . "/../view/upload/banner/{$file}" );
+    redirect( dir_template( '/admin/destaques' ) );
+}
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
