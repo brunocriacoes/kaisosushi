@@ -104,6 +104,7 @@ function get_all_category()
     $list = $category->list();
     $list = array_map(function ($cat) {
         return [
+            "id" => $cat['id'],
             "title" => utf8_encode($cat['name']),
             "link" => dir_template('/menu/') . $cat['slug']
         ];
@@ -209,5 +210,152 @@ function get_all_client()
         "max_result" => 1000
     ] );
 }
+function add_frente()
+{
+    if( !empty( $_POST ) ):
+        $frete = new DeliveryRepository;
+        $frete->register( [
+            "address" => $_REQUEST["address"],
+            "type" => $_REQUEST["type"],
+            "money" => $_REQUEST["money"],
+        ] );
+        redirect( dir_template( '/admin/frete' ) );
+    endif;
+}
+function edit_frente()
+{
+    $frete = new DeliveryRepository;
+    $parse_url =  get_param('/admin/editar-frete/:id');    
+    if( !empty( $_POST ) ):
+        $query = $frete->update( [
+            "id" => $parse_url["id"],
+            "address" => $_REQUEST["address"],
+            "type" => $_REQUEST["type"],
+            "money" => $_REQUEST["money"],
+        ] );
+        redirect( dir_template( '/admin/frete' ) );
+    else:
+        $_REQUEST = $frete->get_by_id($parse_url["id"]);
+    endif;
+}
+function del_frente()
+{
+    $frete = new DeliveryRepository;
+    $parse_url =  get_param('/admin/frete/deletar/:id');    
+    $frete->delete( $parse_url["id"] );
+    redirect( dir_template( '/admin/frete' ) );  
+}
+
+function add_category()
+{
+    if( !empty( $_POST ) ):
+        $cat = new CategoryRepository;
+        $cat->register( [
+            "name" => $_REQUEST["name"],
+            "slug" => $_REQUEST["slug"]
+        ] );
+        redirect( dir_template( '/admin/categorias' ) );
+    endif;
+}
+function edit_category()
+{
+    $cat = new CategoryRepository;
+    $parse_url =  get_param('/admin/editar-categorias/:id');    
+    if( !empty( $_POST ) ):
+        $query = $cat->update( [
+            "id" => $parse_url["id"],
+            "name" => $_REQUEST["name"],
+            "slug" => $_REQUEST["slug"]
+        ] );
+        redirect( dir_template( '/admin/categorias' ) );
+    else:
+        $_REQUEST = $cat->get_by_id($parse_url["id"]);
+    endif;
+}
+function del_category()
+{
+    $cat = new CategoryRepository;
+    $parse_url =  get_param('/admin/categoria/del/:id');    
+    $cat->delete( $parse_url["id"] );
+    redirect( dir_template( '/admin/categorias' ) );  
+}
+
+function add_coupon()
+{
+    if( !empty( $_POST ) ):
+        $cat = new CouponRepository;
+        $cat->register( [
+            "code" => $_REQUEST["code"],
+            "money" => $_REQUEST["money"],
+            "percentage" => $_REQUEST["percentage"]
+        ] );
+        redirect( dir_template( '/admin/cupom' ) );
+    endif;
+}
+function del_coupon()
+{
+    $coupon = new CouponRepository;
+    $parse_url = get_param('/admin/cupom/deletar/:id');    
+    $coupon->delete( $parse_url["id"] );
+    redirect( dir_template( '/admin/cupom' ) );  
+}
+
+function add_product()
+{
+    if( !empty( $_POST ) ):
+        $prod = new ProductRepository;
+        $rand = time();
+        $name = remove_accent($_FILES["photo"]["name"]);
+        $name = str_replace(' ', '', $name);
+        $name = strtolower($name);
+        $name = "{$rand}-{$name}";
+        copy($_FILES["photo"]["tmp_name"], __DIR__ . "/../view/upload/product/{$name}");
+        $prod->register( [
+            "name" => $_REQUEST["name"],
+            "slug" => $_REQUEST["slug"],
+            "price" => $_REQUEST["price"],
+            "price_offer" => $_REQUEST["price_offer"],
+            "description" => $_REQUEST["description"],
+            "photo" => $name,            
+        ] );
+        redirect( dir_template( '/admin/produtos' ) );
+    endif;
+}
+function edit_product()
+{
+    $prod = new ProductRepository;
+    $parse_url =  get_param('/admin/editar-produto/:id');    
+    if( !empty( $_POST ) ):
+        if( !empty( $_FILES["photo"]["name"] ) ):
+            $rand = time();
+            $name = remove_accent($_FILES["photo"]["name"]);
+            $name = str_replace(' ', '', $name);
+            $name = strtolower($name);
+            $name = "{$rand}-{$name}";
+            $_REQUEST["old_photo"] = $name;
+            copy($_FILES["photo"]["tmp_name"], __DIR__ . "/../view/upload/product/{$name}");
+        endif;
+        $prod->update( [
+            "id" => $parse_url["id"],
+            "name" => $_REQUEST["name"],
+            "slug" => $_REQUEST["slug"],
+            "price" => $_REQUEST["price"],
+            "price_offer" => $_REQUEST["price_offer"],
+            "description" => $_REQUEST["description"],
+            "photo" => $_REQUEST["old_photo"],
+        ] );
+        redirect( dir_template( '/admin/produtos' ) );
+    else:
+        $_REQUEST = $prod->get_by_id($parse_url["id"]);
+    endif;
+}
+function del_product()
+{
+    $prod = new ProductRepository;
+    $parse_url =  get_param('/admin/produto/del/:id');    
+    $prod->delete( $parse_url["id"] );
+    redirect( dir_template( '/admin/produtos' ) );  
+}
+
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

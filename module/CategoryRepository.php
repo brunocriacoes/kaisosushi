@@ -7,12 +7,19 @@ class CategoryRepository
     }    
     function update( array $params )
     {
-        query( "UPDATE cateory SET name=`{$params['name']}`, slug=`{$params['slug']}` WHERE id={$params['id']} " );
+        $sql = "UPDATE category SET name='{$params['name']}', slug='{$params['slug']}' WHERE id={$params['id']} ";
+        query( $sql  );
     }    
-    function delete( int $id )
+    function delete( $id )
     {
-        query( "DELETE FROM category WHERE id=`{$id}`" );
-    }    
+        query( "DELETE FROM category WHERE id={$id}" );
+    }
+    function get_by_id($id)
+    {
+        $sql = "SELECT * FROM category WHERE id={$id}";
+        $query = query($sql);
+        return $query[0];
+    }
     function list()
     {
         return query( "SELECT * FROM category" );

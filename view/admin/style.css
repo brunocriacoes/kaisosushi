@@ -134,9 +134,7 @@ input[type=submit]:disabled {
     margin: 0;
 }
 .user {
-    border: solid black 1px;
     border-radius: 20px;
-    background-color: white;
     filter: invert(0);
     width: 40px;
     margin-left: 15px;
@@ -809,9 +807,7 @@ textarea {
        width: 80px;
     }
     .user { 
-        border: solid black 1px;
         border-radius: 20px;
-        background-color: white;
         filter: invert(0);
         width: 30px;
     }
@@ -1068,4 +1064,12 @@ textarea {
     .produto-grid {
         --cols: 1 !important;
     }
+}
+.btn--upload {
+    display: inline-block !important;
+    background-color: #202020;
+    color: #DDD !important;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }

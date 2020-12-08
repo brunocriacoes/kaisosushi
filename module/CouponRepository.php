@@ -3,7 +3,7 @@ class CouponRepository
 {
     function register( array $params )
     {
-        query( "INSERT INTO coupon ( code, money, porcentage ) VALUES ( '{$params['code']}', '{$params['money']}', '{$params['porcetage']}' ) " );
+        query( "INSERT INTO coupon ( code, money, percentage ) VALUES ( '{$params['code']}', '{$params['money']}', '{$params['percentage']}' ) " );
     }    
     function update( array $params )
     {

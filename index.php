@@ -189,7 +189,7 @@ function url_to_array( string $path )
 {
     $path =  explode( '/', $path );
     $path = array_filter( $path, function( $router ) {
-        return strlen( $router ) > 1;
+        return strlen( $router ) > 0;
     } );
     return array_values( $path );
 }

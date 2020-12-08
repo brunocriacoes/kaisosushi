@@ -15,7 +15,7 @@
                     <a href="<?php echo dir_template( '/admin' ); ?>" style="margin: 0px"><img class="logo" src="<?php echo dir_template( '/view/admin/img/logo.png' ); ?>" alt="Logo-Kaiso"></a>
                     <div>
                         <span>Olá, Leandro!</span>
-                        <img class="user" src="<?php echo dir_template( '/view/admin/img/user.svg' ); ?>" alt="Perfil">
+                        <img class="user" src="<?php echo dir_template( '/view/admin/img/user.png' ); ?>" alt="Perfil">
                     </div>
                 </div>
                 <a href="<?php echo dir_template( '/admin/painel' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/gauge.svg' ); ?>" alt=""><h2>Painel</h2></a>

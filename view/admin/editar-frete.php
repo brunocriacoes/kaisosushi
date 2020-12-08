@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     <label for="localizacao">Localização</label>
-                    <input type="text" name="adress" value="<?= $_REQUEST["adress"] ?? '' ?>" id="localizacao">
+                    <input type="text" name="address" value="<?= $_REQUEST["address"] ?? '' ?>" id="localizacao">
                 </div>
                 <div>
                     <label for="taxa">Taxa</label>

@@ -7,16 +7,15 @@ class ProductRepository
     }    
     function update( array $params )
     {
-        query( "UPDATE product SET
+        $sql = "UPDATE product SET
         name='{$params['name']}', slug='{$params['slug']}', description='{$params['description']}', price='{$params['price']}', 
-        price_offer='{$params['price_offer']}', photo_main='{$params['photo_main']}', 
-        photo_1='{$params['photo_1']}', photo_2='{$params['photo_2']}', photo_3='{$params['photo_3']}'
-        WHERE id='{$params['id']}'
-        " );
+        price_offer='{$params['price_offer']}', photo='{$params['photo']}'
+        WHERE id={$params['id']} ";
+        query( $sql );
     }    
-    function delete( int $id )
+    function delete( $id )
     {
-        query( "DELETE FROM product WHERE id='{$id}'" );
+        query( "DELETE FROM product WHERE id={$id}" );
     }    
     function list( array $params )
     {
@@ -46,7 +45,12 @@ class ProductRepository
     {
         return query( "SELECT COUNT(*) AS total FROM product" );
     }
-
+    function get_by_id($id)
+    {
+        $sql = "SELECT * FROM product WHERE id={$id}";
+        $query = query($sql);
+        return $query[0];
+    }
     function search( string $term )
     {
         return query( "SELECT * FROM product WHERE product.name LIKE '%{$term}%'" );
