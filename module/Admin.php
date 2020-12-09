@@ -35,7 +35,7 @@ class Admin
             admin_private();
         }, __DIR__ . "/../view/admin/clientes.php"  );
         #------------- CLIENTES DETALHES -----------
-        add_router( '/admin/clientes-detalhe', function() {
+        add_router( '/admin/clientes-detalhe/:id', function() {
             admin_private();
         }, __DIR__ . "/../view/admin/clientes-detalhe.php"  );
 

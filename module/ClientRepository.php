@@ -53,4 +53,10 @@ class ClientRepository
         $password = md5( $params['password'] );
         return query( "SELECT * FROM client WHERE email='{$params['email']}' AND password='$password'" );
     }
+    function get_by_id($id)
+    {
+        $sql = "SELECT * FROM client WHERE id={$id}";
+        $query = query($sql);
+        return $query[0];
+    }
 }
