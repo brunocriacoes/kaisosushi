@@ -67,7 +67,7 @@ create table address (
     client_id int,
     address varchar(255),
     number varchar(30),
-    cyte varchar(75),
+    city varchar(75),
     complement varchar(75)
 );
 

@@ -1,4 +1,5 @@
 <?php include __DIR__ . "/header.php" ?>
+<?php $client = get_details_client() ?>
 <!------------ Começo do Corpo-->
         <div class="corpo">
             <h4>Detalhes do Cliente</h4>
@@ -10,9 +11,9 @@
                     <span>Telefone<span class="mobye">:</span></span>
                     </div>
                     <div class="grid-custom detalhes-do-cliente" style="--cols: 1fr 1fr 1fr">
-                    <span>Nailton Santos</span>
-                    <span>example@gmail.com</span>
-                    <span>(11)91111-1111</span>
+                    <span><?= $client["user"]["name"] ?></span>
+                    <span><?= $client["user"]["email"] ?></span>
+                    <span><?= $client["user"]["phone"] ?></span>
                     </div>
                 </div>    
                 <div class="space"></div>
@@ -20,32 +21,19 @@
                 <div class="corL enderecos-title">
                     Endereços
                 </div>
+
                 <div class="space"></div>
                 <div class="enderecos grid" style="--cols: 3">
-                <div class="enderecos-card">
-                    <span><b>Casa</b></span>
-                    <div class="space" style="height: 10px"></div>
-                    <div>Rua Evilácio de Nóbrega</div>
-                    <div>Itaquaquera</div>
-                    <div>557</div>            
-                    <div>Apartamento</div>
-                </div>
-                <div class="enderecos-card">
-                    <span><b>Emprego</b></span>
-                    <div class="space" style="height: 10px"></div>
-                    <div>Rua Evilácio de Nóbrega</div>
-                    <div>Itaquaquera</div>
-                    <div>557</div>            
-                    <div>Apartamento</div>
-                </div>
-                <div class="enderecos-card">
-                    <span><b>Casa Avó</b></span>
-                    <div class="space" style="height: 10px"></div>
-                    <div>Rua Evilácio de Nóbrega</div>
-                    <div>Itaquaquera</div>
-                    <div>557</div>            
-                    <div>Apartamento</div>
-                </div>
+                    <?php foreach($client["address"] as $address):  ?>
+                    <div class="enderecos-card">
+                        <span><b><?= $address["name"] ?></b></span>
+                        <div class="space" style="height: 10px"></div>
+                        <div><?= $address["name"] ?></div>
+                        <div><?= $address["city"] ?></div>
+                        <div><?= $address["number"] ?></div>            
+                        <div><?= $address["complement"] ?></div>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
