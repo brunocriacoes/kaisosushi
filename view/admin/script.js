@@ -16,3 +16,15 @@ ancora_menu.forEach(a => {
         a.classList.add('cor')
     }
 });
+
+function remover(a){
+    window.location.href = a.getAttribute("data-href")
+};
+
+
+function aviso() {
+    document.getElementById("alerta_rem").classList.toggle('visivel');
+    setTimeout(function() {
+        document.getElementById("alerta_rem").classList.toggle('visivel');
+    }, 1000)
+}    
