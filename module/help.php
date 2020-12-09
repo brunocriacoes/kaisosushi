@@ -364,12 +364,75 @@ function get_details_client()
     $address = new AddressRepository;
     return [
         "user" => $client->get_by_id($parse_url['id']),
-        "address" => $address->list( $parse_url['id'] )
+        "address" => $address->list($parse_url['id'])
     ];
 }
 function the_name_admin()
 {
     return $_SESSION["ADMIN_NAME"];
+}
+function get_id_cart()
+{
+    if (empty($_SESSION['CART'])) :
+        $ref   = md5(uniqid());
+        $order = new OrderRepository;
+        $order->create($ref);
+        $_SESSION["CART"] = $ref;
+    endif;
+    return $_SESSION["CART"];
+}
+function cart_clear()
+{
+    unset($_SESSION["CART"]);
+}
+function add_prod()
+{
+    $url = get_param('/api/v1/cart/add/:prod_id/:quant');
+    $ref = get_id_cart();
+    $iten = new ItenRepository;
+    $iten->add($ref, $url["prod_id"], $url["quant"]);
+    echo json_encode( cart_calc() );
+}
+function del_prod()
+{
+    $url = get_param('/api/v1/cart/del/:prod_id');
+    $ref = get_id_cart();
+    $iten = new ItenRepository;
+    $iten->delete($ref, $url["prod_id"]);
+    echo json_encode( cart_calc() );
+}
+function cart_calc()
+{
+    $ref = get_id_cart();
+    $producty = new ProductRepository;
+    $iten = new ItenRepository;
+    $os = new OrderRepository;
+    $order = $os->get_by_ref($ref);
+    $prods = $iten->list( $ref );
+    $total = 0;
+    $prods = array_map( function($prod) use ($producty, &$total) {
+        $info = $producty->get_by_id($prod["product_id"]);
+        $subtotal = $info["price_offer"] * $prod["quantity"];
+        $total += $subtotal;
+        return [
+            "id" => $info["id"],
+            "name" => utf8_encode( $info["name"] ),
+            "price" =>  $info["price_offer"] ,
+            "sub_total" => $subtotal,
+            "quantity" => $prod["quantity"],
+            "photo" => dir_template( '/view/upload/product/' ) . utf8_encode( $info["photo"] ),
+        ];
+    }, $prods );
+    $os->update_total($ref, $total);
+    return [
+        "numero" => $order["id"] + 1200,
+        "ref" => $ref,
+        "prods" => $prods,
+        "total" => $total,
+        "coupon" => '',
+        "fee" => [],
+        "address" => ""
+    ];
 }
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

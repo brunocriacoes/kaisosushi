@@ -83,11 +83,11 @@ export default class View {
     }
     show_cart() 
     {
-        let $carrinho = document.querySelector('.cart')
-        let $bt_open = document.querySelector('.btn-addcart')
-        let $bt_close = document.querySelector('.cose-cart')
-        let open_close = () => $carrinho.classList.toggle('active')
-        $bt_open.addEventListener( 'click', open_close )
-        $bt_close.addEventListener( 'click', open_close )
+        // let $carrinho = document.querySelector('.cart')
+        // let $bt_open = document.querySelector('.btn-addcart')
+        // let $bt_close = document.querySelector('.cose-cart')
+        // let open_close = () => $carrinho.classList.toggle('active')
+        // $bt_open.addEventListener( 'click', open_close )
+        // $bt_close.addEventListener( 'click', open_close )
     }
 }

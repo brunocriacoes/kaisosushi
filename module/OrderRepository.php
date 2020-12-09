@@ -1,31 +1,44 @@
 <?php
 class OrderRepository
 {
-    function register( array $params )
+    function create( $ref )
     {
         $date_register = date('Y-m-d');
         $date_update   = date('Y-m-d');
-        query( "INSERT INTO `order` 
-        ( cliente_id, date_register, date_update, status ) 
-        VALUES
-        ( '{$params['cliente_id']}', '$date_register', '$date_update', '{$params['status']}' ) " );
-    }    
-    function update( array $params )
+        $sql = "INSERT INTO `order` ( client_id, date_register, date_update, ref, total, status )  VALUES ( '0', '$date_register', '$date_update', '{$ref}','0.0', 'abandoned' )";
+        query($sql);
+    }
+    function get_status()
+    {
+        return [
+            "abandoned" => "abandonado",
+            "canceled" => "cancelado",
+            "finished" => "finalizado",
+            "waiting" => "aguardando"
+        ];
+    }
+    function update_total($ref, $total)
     {
         $date_update = date('Y-m-d');
-        query( "UPDATE `order` SET cliente_id='{$params['cliente_id']}',  WHERE date_update='$date_update' AND status='{$params['status']}' " );
-    }    
-    function delete( int $id )
+        query("UPDATE `order` SET total={$total}, date_update='{$date_update}'  WHERE ref='{$ref}'");
+    }
+    function delete(int $id)
     {
-        query( "DELETE FROM `order` WHERE id='{$id}'" );
-    }    
-    function list( array $params )
+        query("DELETE FROM `order` WHERE id='{$id}'");
+    }
+    function list(array $params)
     {
         $sql = "SELECT * FROM `order` LIMIT {$params['offset']},{$params['max_result']}";
-        return query( $sql );
-    }  
-    function about( int $order_id )
+        return query($sql);
+    }
+    function about(int $order_id)
     {
-        return query( "SELECT * FROM `order` WHERE id=$order_id" );
+        return query("SELECT * FROM `order` WHERE id=$order_id");
+    }
+    function get_by_ref($ref)
+    {
+        $sql = "SELECT * FROM `order` WHERE ref='{$ref}'";
+        $query = query($sql);
+        return $query[0];
     }
 }
