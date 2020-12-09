@@ -43,7 +43,7 @@
     </div>
     <div class="cart">
         <div class="cart-header">
-            <img src="<?= dir_template( '/view/site/src/ico/close.svg' ) ?>" height="30" alt="" class="cose-cart" > <br>
+            <img onclick="globalThis.cart.open()" src="<?= dir_template( '/view/site/src/ico/close.svg' ) ?>" height="30" alt="" class="cose-cart" > <br>
             <div class="space"></div>
             <strong>Dados da entrega</strong>
             <p>José Mauro de Vasconcelos, 8 - Pirapora do Bom Jesus</p>
@@ -54,24 +54,11 @@
                 <span>Seu pedido</span>
             </strong>
             <span class="space"></span>
-            <div class="grid-iten-pedido">
-                <div>
-                    <b>1</b>
-                    <span>Missoshiro</span>
-                    <b>11,60 €</b>
-                    <span onclick="globalThis.add_to_cart('1')"><img src="<?= dir_template( '/view/site/src/ico/trash.svg' ) ?>" alt="remover"></span>
-                </div>
-                <div>
-                    <b>1</b>
-                    <span>Cebiche de peixe branco</span>
-                    <b>13,90 €</b>
-                    <span onclick="globalThis.add_to_cart('1')"><img src="<?= dir_template( '/view/site/src/ico/trash.svg' ) ?>" alt="remover"></span>
-                </div>
-            </div>
+            <div class="grid-iten-pedido" id="js-prods"> </div>
             <span class="space"></span>
             <strong class="cart-title">
                 <span>TOTAL</span>
-                <span> 25,50 €</span>
+                <span id="js-cart-total"> 25,50 €</span>
             </strong>
             <span class="space"></span>
             <a href="<?= dir_template( '/finalizar' ) ?>" class="btn-cart">Ir para pagamento</a>

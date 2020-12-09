@@ -1,20 +1,24 @@
 <?php
 class ItenRepository
 {
-    function register( array $params )
+    function add( $order_ref, $prod_id, $quant )
     {
-        query( "INSERT INTO iten ( order_id, product_id, quantity ) VALUES ( `{$params['order_id']}`, `{$params['product_id']}`, `{$params['quantity']}` ) " );
+        $sql  = "SELECT * FROM item WHERE order_ref='{$order_ref}' AND product_id='{$prod_id}'";
+        $prod = query( $sql );
+        if ( empty( $prod ) ) :
+            query( "INSERT INTO item ( order_ref, product_id, quantity ) VALUES ( '{$order_ref}', '$prod_id', '{$quant}' )" );
+        else:
+            if(+$quant > 0) :
+                query( "UPDATE item SET quantity='{$quant}'  WHERE order_ref='{$order_ref}' AND product_id='{$prod_id}'" );
+            endif;
+        endif;
+    }   
+    function delete( $order_ref, $prod_id )
+    {
+        query( "DELETE FROM item WHERE order_ref='{$order_ref}' AND product_id='{$prod_id}'" );
     }    
-    function update( array $params )
+    function list( $order_ref )
     {
-        query( "UPDATE iten SET quantity=`{$params['quantity']}`,  WHERE order_id=`{$params['order_id']}` AND product_id=`{$params['product_id']}` " );
-    }    
-    function delete( int $id )
-    {
-        query( "DELETE FROM iten WHERE id=`{$id}`" );
-    }    
-    function list( int $order_id )
-    {
-        return query( "SELECT * FROM iten WHERE order_id=$order_id " );
+        return query( "SELECT * FROM item WHERE order_ref='$order_ref'" );
     }
 }

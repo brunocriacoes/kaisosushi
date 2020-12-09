@@ -16,6 +16,15 @@ class Site
         add_router( '/acerca-kaiso', function() {}, __DIR__ . "/../view/site/termo.php"  );
         add_router( '/alergenios', function() {}, __DIR__ . "/../view/site/termo.php"  );
         add_router( '/404', function() {}, __DIR__ . "/../view/site/404.php"  );
+
+
+
+        add_router( '/api/v1/cart', function() {
+            echo json_encode( cart_calc() );
+        } );
+        add_router( '/api/v1/cart/clear', 'cart_clear' );
+        add_router( '/api/v1/cart/add/:prod_id/:quant', 'add_prod' );
+        add_router( '/api/v1/cart/del/:prod_id', 'del_prod' );
         
     }
 }

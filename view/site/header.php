@@ -37,7 +37,7 @@
                         <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-md">Perfil</a>
                     </div>
                 </div>
-                <div class="btn-addcart"><img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt=""></div>                    
+                <div onclick="globalThis.cart.open()" class="btn-addcart"><img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt=""></div>                    
             </div>
         </div>
     </div>

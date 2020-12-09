@@ -47,18 +47,19 @@ create table coupon (
 
 create table item (
     id int not null auto_increment primary key,
-    order_id int,
+    order_ref varchar(255),
     product_id int,
     quantity int
 );
 
 create table `order` (
     id int not null auto_increment primary key,
+    ref varchar(255),
     client_id int,
-    product_id int,
+    date_register date,
+    date_update date
+    total float,
     status varchar(75),
-    data_register date,
-    data_update date
 );
 
 create table address (
@@ -67,7 +68,7 @@ create table address (
     client_id int,
     address varchar(255),
     number varchar(30),
-    cyte varchar(75),
+    city varchar(75),
     complement varchar(75)
 );
 
