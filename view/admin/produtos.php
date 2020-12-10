@@ -23,7 +23,7 @@
         <?php endforeach; ?>
     </div>
     <div id="alerta_rem">
-            Clique novamente para remover.
+            Clique duas vezes para remover.
     </div>
     
 </div>

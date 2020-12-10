@@ -120,7 +120,8 @@ input[type=submit]:disabled {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100vw;
+    width:calc(100vw - 17px);
+    padding: 0 20px;
     background-color: var(--black);
     color: white;
     font-weight: 500;
@@ -821,7 +822,7 @@ textarea {
         color: white;
         font-weight: 300;
         padding: 10px 10px;
-        min-width: 100%;
+        max-width: 100%;
         margin-bottom: 20px;
     }    
     .logo {
@@ -1039,6 +1040,10 @@ textarea {
     /*-------------------- Pedidos ---------------------*/
     .grid-pedido {
         --cols: 1fr 1fr 1fr 30px;
+    }
+    #alerta_rem {
+        left: 30px;
+        bottom: 65px;
     }
 
     /*-------------------- Clientes --------------------*/
