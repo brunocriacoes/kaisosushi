@@ -20,10 +20,10 @@
                 </div>
                 <?php foreach( get_all_pedido() as $pedido ) : ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
-                        <span><?= $pedido["code"] ?></span>
-                        <span class="mobno"><?= $pedido["client"] ?></span>
-                        <span><?= $pedido["date"] ?></span>
-                        <span class="mobno"><?= $pedido["money"] ?></span>
+                        <span><?= $pedido["id"]*1200 ?></span>
+                        <span class="mobno"><?= $pedido["client_id"] ?></span>
+                        <span><?= $pedido["date_update"] ?></span>
+                        <span class="mobno"><?= $pedido["total"] ?></span>
                         <span><?= $pedido["status"] ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
