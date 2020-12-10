@@ -46,7 +46,7 @@
             <img onclick="globalThis.cart.open()" src="<?= dir_template( '/view/site/src/ico/close.svg' ) ?>" height="30" alt="" class="cose-cart" > <br>
             <div class="space"></div>
             <strong>Dados da entrega</strong>
-            <p>José Mauro de Vasconcelos, 8 - Pirapora do Bom Jesus</p>
+            <p id="js-address" >José Mauro de Vasconcelos, 8 - Pirapora do Bom Jesus</p>
             <b>Hoje</b>
         </div>
         <div class="cart-body">

@@ -1,5 +1,11 @@
 <?php include __DIR__ . "/header.php" ?>
-
+<?php 
+    $cart = is_cart() ? cart_calc() : [];
+    $type_send = !empty($cart["meta"]["TYPE_SEND"]) ? $cart["meta"]["TYPE_SEND"] : 'delivery';
+    $takeway = $type_send == 'takeway' ? 'active' : '';
+    $delivery = $type_send == 'delivery' ? 'active' : '';
+    $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
+?>
     <div class="inner inner-header-category">
         <div>
             <div class="container">
@@ -9,8 +15,8 @@
                         <b>ESCOLHA O TIPO DE ENTREGA</b>
                         <div class="space"></div>
                         <div class="tipo_entrega">
-                            <span class="active">TAKE AWAY</span>
-                            <span>DELIVERY</span>
+                            <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">TAKE AWAY</span>
+                            <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">DELIVERY</span>
                         </div>
                     </div>
                     <div>
@@ -23,8 +29,8 @@
                         <div class="space"></div>
                         <div class="is_delivery">
                             <img src="<?= dir_template( '/view/site/src/ico/map.svg' ) ?>" alt="map">
-                            <span>José Mauro de Vasconcelos,8</span>
-                            <span class="btn-alter">ALTERAR</span>
+                            <span id="js-edite-address" contenteditable><?= $address ?></span>
+                            <span onclick="globalThis.cart.edit_address_send('js-edite-address')" class="btn-alter">ALTERAR</span>
                         </div>
                     </div>
                 </div>

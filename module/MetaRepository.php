@@ -1,18 +1,23 @@
 <?php
 class MetaRepository
 {
-    function register( array $params )
+    function set( $post_id, $relation, $content )
     {
-        query( "INSERT INTO meta ( post_id, relation, content ) VALUES ( `{$params['post_id']}`, `{$params['relation']}`, `{$params['content']}`  )" );
+        $sql = "SELECT * FROM meta WHERE post_id='{$post_id}' AND relation='{$relation}'";
+        $exit = query($sql);
+        if( empty($exit) ):
+            query( "INSERT INTO meta ( post_id, relation, content ) VALUES ( '{$post_id}', '{$relation}', '{$content}' )" );
+        else:
+            query( "UPDATE meta SET content='$content' WHERE post_id='{$post_id}' AND relation='{$relation}'" );
+        endif;
     }
-    
-    function update( array $params )
-    {
-        query( "UPDATE meta SET content=`{$params['content']}` WHERE post_id=`{$params['post_id']}` AND relation=`{$params['relation']}`" );
-    }
-    
     function list( $post_id )
     {
-        return query( "SELECT relation, content FROM meta WHERE post_id= $post_id" );
+        $list = query( "SELECT relation, content FROM meta WHERE post_id='{$post_id}'" );
+        $render = [];
+        foreach( $list as $meta ):
+            $render[$meta['relation']] = $meta['content'];
+        endforeach;
+        return $render;
     }
 }

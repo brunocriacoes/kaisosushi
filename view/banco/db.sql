@@ -1,7 +1,6 @@
-
 create table meta (
     id int not null auto_increment primary key,
-    post_id int,
+    post_id varchar(255),
     relation varchar(75),
     content varchar(255)
 );
@@ -91,4 +90,3 @@ create table admin (
     password varchar(64),
     photo varchar(75)
 );
-

@@ -1,4 +1,11 @@
 <?php include __DIR__ . "/header.php" ?>
+<?php 
+    $cart = is_cart() ? cart_calc() : [];
+    $type_send = !empty($cart["meta"]["TYPE_SEND"]) ? $cart["meta"]["TYPE_SEND"] : 'delivery';
+    $takeway = $type_send == 'takeway' ? 'active' : '';
+    $delivery = $type_send == 'delivery' ? 'active' : '';
+    $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
+?>
 
     <div class="inner inner-slider">
         <div class="inner inner-shadow inner-shadow-splide">
@@ -9,11 +16,11 @@
                 </h2>
                 <div class="perquisa-box">
                     <div class="perquisa-title">
-                        <span class="active">DELIVERY</span>
-                        <span>TAKEWAY</span>
+                        <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">DELIVERY</span>
+                        <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">TAKEWAY</span>
                     </div>
-                    <form action="javascript:void(0)" class="search">
-                        <input type="text" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
+                    <form action="javascript:void(0)" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
+                        <input type="text" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
                         <button type="submit"> <img src="<?= dir_template( '/view/site/src/ico/search.svg' ) ?>" alt=""> </button>
                     </form>
                 </div>

@@ -17,6 +17,13 @@ class OrderRepository
             "waiting" => "aguardando"
         ];
     }
+    function get_metas()
+    {
+        return [
+            "TYPE_SEND",
+            "ADDRESS_SEND"
+        ];
+    }
     function update_total($ref, $total)
     {
         $date_update = date('Y-m-d');

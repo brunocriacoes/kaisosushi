@@ -385,6 +385,10 @@ function cart_clear()
 {
     unset($_SESSION["CART"]);
 }
+function is_cart()
+{
+    return !empty( $_SESSION["CART"] );
+}
 function add_prod()
 {
     $url = get_param('/api/v1/cart/add/:prod_id/:quant');
@@ -418,21 +422,56 @@ function cart_calc()
             "id" => $info["id"],
             "name" => utf8_encode( $info["name"] ),
             "price" =>  $info["price_offer"] ,
+            "price_html" => number_format(+$info["price_offer"], 2, ',', '.'),
             "sub_total" => $subtotal,
+            "sub_total_html" => number_format(+$subtotal, 2, ',', '.'),
             "quantity" => $prod["quantity"],
             "photo" => dir_template( '/view/upload/product/' ) . utf8_encode( $info["photo"] ),
         ];
     }, $prods );
+    $metas = get_meta($order["id"]);
     $os->update_total($ref, $total);
     return [
+        "id" => $order["id"],
         "numero" => $order["id"] + 1200,
         "ref" => $ref,
         "prods" => $prods,
         "total" => $total,
+        "total_html" => number_format(+$total, 2, ',', '.'),
         "coupon" => '',
+        "meta" => $metas,
         "fee" => [],
         "address" => ""
     ];
 }
+function get_meta( $post_id )
+{
+    $meta = new MetaRepository;
+    return $meta->list( $post_id );
+}
+function set_meta($post_id, $relation, $content)
+{
+    $meta = new MetaRepository;
+    $meta->set($post_id, $relation, $content);
+}
+function set_cart_method()
+{
+    $ref = get_id_cart();
+    $os = new OrderRepository;
+    $order = $os->get_by_ref($ref);
+    $content = $_REQUEST['text'];
+    set_meta( $order["id"], 'TYPE_SEND', $content );
+    echo json_encode( cart_calc() );
+}
+function set_cart_address()
+{
+    $ref = get_id_cart();
+    $os = new OrderRepository;
+    $order = $os->get_by_ref($ref);
+    $content = $_REQUEST['text'];
+    set_meta( $order["id"], 'ADDRESS_SEND', $content );
+    echo json_encode( cart_calc() );
+}
+
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
