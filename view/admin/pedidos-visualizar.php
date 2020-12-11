@@ -2,6 +2,9 @@
         <!------------ Começo do Corpo-->
         <div class="corpo grid1 mob-fix">
             <div class="left">
+            <?php $parametro = get_param('/admin/pedidos-visualizar/:id');
+            $os = cart_calc($parametro['id']);
+            ?>
                 <h4>Alterar status</h4>
                 <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
                     <select name="status" id="status" require >
@@ -57,40 +60,19 @@
                     <span>Quantidade</span>
                     <span>Valor</span>
                     </div>
-                    
+                    <?php foreach ($os["prods"] as $prod) : ?>
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
                     <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
-                    <span>item 1</span>
+                    <span><?= $prod["name"] ?><!-- item --></span>
                         <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
                             <button class="botao-mais-menos">-</button>
-                            <input type="number">
+                            <input type="text" value="<?= $prod['quantity']?>">
                             <button class="botao-mais-menos">+</button>
                             <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
                         </span>                    
-                    <span>€53,33</span>
+                    <span>€<?= $prod["sub_total_html"] ?></span>
                     </div>
-                    <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
-                    <span>item 1</span>
-                    <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
-                            <button class="botao-mais-menos">-</button>
-                            <input type="number">
-                            <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
-                    </span>                    
-                    <span>€53,33</span>
-                    </div>
-                    <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
-                    <span>item 1</span>
-                        <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
-                            <button class="botao-mais-menos">-</button>
-                            <input type="number">
-                            <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
-                        </span>                    
-                    <span>€53,33</span>
-                    </div>
+                      <?php  endforeach; ?>
                 </form>
                 
                 
@@ -172,7 +154,7 @@
                     <p>Desconto: </p><b>-€1,00</b>
                     <p>Frete: </p><b>€3,00</b>
                     <p>Cupom: </p><b>-€5,00</b>
-                    <p>Total: </p><b>€99,99</b>
+                    <p>Total: </p><b>€<?= $os['total_html']?></b>
                 </div>             
                 
             </div>

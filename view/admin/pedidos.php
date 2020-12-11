@@ -25,7 +25,7 @@
                         <span><?= $pedido["date_update"] ?></span>
                         <span class="mobno"><?= $pedido["total"] ?></span>
                         <span><?= $pedido["status"] ?></span>
-                        <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
+                        <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>
                     </div>
