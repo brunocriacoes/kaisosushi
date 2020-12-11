@@ -1,14 +1,14 @@
 <?php
 class ClientRepository
 {
-    function register( array $params )
+    function register( $name, $email, $pass )
     {
         $data_register = date( 'Y-m-d' );
-        $password = md5( $params['password'] );
+        $password = md5( $pass );
         query( "INSERT INTO client 
-        ( name, last_name, email, phone, whatsapp, password, photo, status, data_register ) 
+        ( name, email, password, data_register ) 
         VALUES 
-        ( '{$params['name']}', '{$params['last_name']}', '{$params['email']}', '{$params['phone']}', '{$params['whatsapp']}', '{$password}', '{$params['photo']}', 1, '{$data_register}' ) " );
+        ( '{$name}', '{$email}', '{$password}', '{$data_register}' ) " );
     }    
     function update( array $params )
     {
@@ -58,5 +58,11 @@ class ClientRepository
         $sql = "SELECT * FROM client WHERE id={$id}";
         $query = query($sql);
         return $query[0] ?? null;
+    }
+    function email_exist( $email )
+    {
+        $sql = "SELECT * FROM client WHERE email='{$email}'";
+        $query = query($sql);
+        return $query;
     }
 }

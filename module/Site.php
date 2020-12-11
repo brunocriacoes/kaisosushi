@@ -7,7 +7,7 @@ class Site
         add_router( '/', function() {}, __DIR__ . "/../view/site/index.php"  );
         add_router( '/menu/:slug_cat', function() {}, __DIR__ . "/../view/site/menu.php"  );
         add_router( '/produto/:slug_prod', function() {}, __DIR__ . "/../view/site/produto.php"  );
-        add_router( '/me-registrar', function() {}, __DIR__ . "/../view/site/me-registrar.php"  );
+        add_router( '/me-registrar', 'me_registar', __DIR__ . "/../view/site/me-registrar.php"  );
         add_router( '/finalizar', function() {}, __DIR__ . "/../view/site/finalizar.php"  );
         add_router( '/perfil', 'client_perfil', __DIR__ . "/../view/site/perfil.php"  );
         add_router( '/termos-e-consicoes', function() {}, __DIR__ . "/../view/site/termo.php"  );
@@ -18,6 +18,7 @@ class Site
         add_router( '/logout', 'client_logout'  );
         add_router( '/perfil/alterar-senha', 'client_alter_pass', __DIR__ . "/../view/site/alter-pass.php"  );
         add_router( '/perfil/moradas', 'client_moradas', __DIR__ . "/../view/site/moradas.php"  );
+        add_router( '/perfil/pedidos', 'client_pedidos', __DIR__ . "/../view/site/pedidos.php"  );
         add_router( '/404', function() {}, __DIR__ . "/../view/site/404.php"  );
         
 

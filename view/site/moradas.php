@@ -52,7 +52,7 @@
             <div class="box-add-morada">    
                 <h2 class="title-pages">Adicionar Nova</h2>
                 <form action="" method="POST" class="form grid-morada">
-                    <input type="text" name="client_id" value="<?= $morada['client_id'] ?>" hidden>
+                    <input type="text" name="client_id" value="<?= $_SESSION["CLIENT"] ?>" hidden>
                     <div>
                         <small>Nome</small>
                         <input type="text" name="name" required>
