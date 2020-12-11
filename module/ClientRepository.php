@@ -13,7 +13,7 @@ class ClientRepository
     function update( array $params )
     {
         query( "UPDATE client SET
-        name='{$params['name']}', last_name='{$params['last_name']}', email='{$params['email']}', phone='{$params['phone']}', whatsapp='{$params['whatsapp']}', photo='{$params['photo']}'
+        name='{$params['name']}', last_name='{$params['last_name']}', phone='{$params['phone']}', whatsapp='{$params['whatsapp']}'
         WHERE id='{$params['id']}' " );
     }    
     function suspend( int $client_id )
@@ -24,10 +24,10 @@ class ClientRepository
     {
         query( "UPDATE client SET status=1 WHERE id='{$client_id}'" );
     }
-    function alterPassword( array $param )
+    function alterPassword( $id, $pass )
     {
-        $password = md5( $params['password'] );
-        query( "UPDATE client SET password='{$password}' WHERE id='{$param['id']}'" );
+        $password = md5( $pass );
+        query( "UPDATE client SET password='{$password}' WHERE id='{$id}'" );
     }
     function recoverPassword( int $client_id )
     {
@@ -57,6 +57,6 @@ class ClientRepository
     {
         $sql = "SELECT * FROM client WHERE id={$id}";
         $query = query($sql);
-        return $query[0];
+        return $query[0] ?? null;
     }
 }

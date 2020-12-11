@@ -1,37 +1,40 @@
-
 <?php include __DIR__ . "/header.php" ?>
-
-    <div class="inner inner-title" style="background-image: url('<?= dir_template( '/view/site/src/bg/4.jpg' ) ?>');">
+    <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/sobre.jpg') ?>');">
         <h1>Área do cliente</h1>
     </div>
     <div class="space"></div>
+    <div class="tabs-perfil">
+        <a href="<?= dir_template( '/perfil' ) ?>" class="active">Meus Dados</a>
+        <a href="<?= dir_template( '/perfil/pedidos' ) ?>">Pedidos</a>
+        <a href="<?= dir_template( '/perfil/moradas' ) ?>">Moradas</a>
+        <a href="<?= dir_template( '/perfil/alterar-senha' ) ?>">Alterar Senha</a>
+        <a href="<?= dir_template( '/logout' ) ?>">Sair</a>
+    </div>
+    <div class="space"></div>
     <div class="container">
-        <div class="grid-2">
-            <form action="javascript:void(0)" class="form">
+        <div class="box-center">
+            <form action="" method="POST" class="form">
                 <label for="to-upload-gravatar" class="gravatar gravatar-center" style="--size:100px">
-                    <img src="<?= dir_template( '/view/site/src/image/user.png' ) ?>" alt="user">
-                    <img src="<?= dir_template( '/view/site/src/ico/photo.svg' ) ?>" alt="photo">
+                    <img src="<?= gravatar( $_GET['email'] ) ?>" alt="user">
+                    <!-- <img src="<?= dir_template( '/view/site/src/image/user.png' ) ?>" alt="user"> -->
+                    <!-- <img src="<?= dir_template( '/view/site/src/ico/photo.svg' ) ?>" alt="photo"> -->
                 </label>
+                <a href="https://br.gravatar.com" target="_blank" class="gravatar-link">Registre seu Gravatar</a>
                 <input type="file" id="to-upload-gravatar" hidden>
                 <div class="space"></div>
-                <input type="text" placeholder="Nome" required>
-                <input type="text" placeholder="Sobre Nome">
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Telemóve">
-                <input type="text" placeholder="WhatsApp">
+                <small>Nome</small>
+                <input type="text" name="name" placeholder="Nome" value="<?= $_GET['name'] ?>" required>
+                <small>Sobre Nome</small>
+                <input type="text" name="last_name" placeholder="Sobre Nome" value="<?= $_GET['last_name'] ?>">
+                <small>Email</small>
+                <input type="email" placeholder="Email" value="<?= $_GET['email'] ?>" disabled required>
+                <small>Telefone</small>
+                <input type="text" name="phone" placeholder="Telemóve" value="<?= $_GET['phone'] ?>">
+                <small>WhatsApp</small>
+                <input type="text" name="whatsapp" placeholder="WhatsApp" value="<?= $_GET['whatsapp'] ?>">
                 <button type="submit" class="btn-center">Alterar</button>
             </form>
-            <div>
-                <div class="menu-perfil">
-                    <span class="active">Minha conta</span>
-                    <span>Pedidos</span>
-                    <span>Moradas</span>
-                    <span>Alterar Senha</span>
-                </div>
-
-            </div>
         </div>
     </div>
     <div class="space"></div>
-
 <?php include __DIR__ . "/footer.php" ?>

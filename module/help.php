@@ -432,6 +432,7 @@ function cart_calc( $id = null )
     $metas = get_meta($order["id"]);
     $os->update_total($ref, $total);
     return [
+        "client_id" => $order["client_id"],
         "id" => $order["id"],
         "numero" => $order["id"] + 1200,
         "ref" => $ref,
@@ -490,7 +491,7 @@ function client_login()
         $client = new ClientRepository;
         $is_client = $client->login($email, $pass);
         if (!empty($is_client)) :
-            $_SESSION["CLIENT"] = true;
+            $_SESSION["CLIENT"] = $is_client[0]["id"];
             redirect(dir_template('/perfil'));
         else :
             $GLOBALS['error'] = "Usuário ou senha esta errado";
@@ -515,9 +516,69 @@ function client_private()
 }
 function client_logout()
 {
-    $_SESSION["CLIENT"] = false;
+    session_destroy();
     redirect(dir_template('/login'));
 }
+function get_client($id = false)
+{
+    $client_id = $id ? $id : client_is_logged();    
+    $client = new ClientRepository;
+    return $client->get_by_id($client_id);
+
+}
+function client_perfil() 
+{
+    if( !empty($_POST) ):
+        $client = get_client();
+        $cl = new ClientRepository;
+        $cl->update( [
+            "name" => $_POST["name"],
+            "last_name" => $_POST["last_name"],
+            "phone" => $_POST["phone"],
+            "whatsapp" => $_POST["whatsapp"],
+            "id" => $client['id'],
+        ] );
+    endif;
+    $client = get_client();
+    $_GET = $client;
+}
+function client_alter_pass()
+{
+    if( !empty($_POST) ):
+        if( $_POST["pass"] == $_POST["confirm_pass"] ):
+            $client = get_client();
+            $cl = new ClientRepository;
+            $cl->alterPassword( $client['id'], $_POST["pass"] );
+            redirect(dir_template('/perfil'));
+        else:
+            $GLOBALS['error'] = true;
+        endif;
+    endif;
+}
+function client_moradas()
+{
+    if( !empty( $_POST ) ) :
+        $address =  new AddressRepository;
+        if( !empty( $_POST["id"] ) ) :
+            $address->update($_POST);
+        else:
+            $address->register($_POST);
+        endif;
+    endif;
+}
+function gravatar( $email )
+{
+   $hash =  md5( strtolower( trim( $email ) ) );
+   return "https://www.gravatar.com/avatar/{$hash}?s=200";
+}
+
+function get_moradas( $id = false )
+{
+    $client_id = $id ? $id : client_is_logged();
+    $address =  new AddressRepository;
+    return $address->list($client_id);
+}
+
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
