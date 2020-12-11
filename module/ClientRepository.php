@@ -1,19 +1,19 @@
 <?php
 class ClientRepository
 {
-    function register( array $params )
+    function register( $name, $email, $pass )
     {
         $data_register = date( 'Y-m-d' );
-        $password = md5( $params['password'] );
+        $password = md5( $pass );
         query( "INSERT INTO client 
-        ( name, last_name, email, phone, whatsapp, password, photo, status, data_register ) 
+        ( name, email, password, data_register ) 
         VALUES 
-        ( '{$params['name']}', '{$params['last_name']}', '{$params['email']}', '{$params['phone']}', '{$params['whatsapp']}', '{$password}', '{$params['photo']}', 1, '{$data_register}' ) " );
+        ( '{$name}', '{$email}', '{$password}', '{$data_register}' ) " );
     }    
     function update( array $params )
     {
         query( "UPDATE client SET
-        name='{$params['name']}', last_name='{$params['last_name']}', email='{$params['email']}', phone='{$params['phone']}', whatsapp='{$params['whatsapp']}', photo='{$params['photo']}'
+        name='{$params['name']}', last_name='{$params['last_name']}', phone='{$params['phone']}', whatsapp='{$params['whatsapp']}'
         WHERE id='{$params['id']}' " );
     }    
     function suspend( int $client_id )
@@ -24,10 +24,10 @@ class ClientRepository
     {
         query( "UPDATE client SET status=1 WHERE id='{$client_id}'" );
     }
-    function alterPassword( array $param )
+    function alterPassword( $id, $pass )
     {
-        $password = md5( $params['password'] );
-        query( "UPDATE client SET password='{$password}' WHERE id='{$param['id']}'" );
+        $password = md5( $pass );
+        query( "UPDATE client SET password='{$password}' WHERE id='{$id}'" );
     }
     function recoverPassword( int $client_id )
     {
@@ -57,6 +57,12 @@ class ClientRepository
     {
         $sql = "SELECT * FROM client WHERE id={$id}";
         $query = query($sql);
-        return $query[0];
+        return $query[0] ?? null;
+    }
+    function email_exist( $email )
+    {
+        $sql = "SELECT * FROM client WHERE email='{$email}'";
+        $query = query($sql);
+        return $query;
     }
 }

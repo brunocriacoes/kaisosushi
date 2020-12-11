@@ -29,6 +29,11 @@ class OrderRepository
         $date_update = date('Y-m-d');
         query("UPDATE `order` SET total={$total}, date_update='{$date_update}'  WHERE ref='{$ref}'");
     }
+    function update_user($ref, $client_id)
+    {
+        $date_update = date('Y-m-d');
+        query("UPDATE `order` SET client_id={$client_id}, date_update='{$date_update}'  WHERE ref='{$ref}'");
+    }
     function delete(int $id)
     {
         query("DELETE FROM `order` WHERE id='{$id}'");
@@ -47,5 +52,20 @@ class OrderRepository
         $sql = "SELECT * FROM `order` WHERE ref='{$ref}'";
         $query = query($sql);
         return $query[0];
+    }
+    function get_by_client_id($id)
+    {
+        $sql = "SELECT * FROM `order` WHERE client_id={$id}";
+        $query = query($sql);
+        $query = array_map( function( $os ) {
+            return [
+                "id" =>$os['id'],
+                "number" => $os['id'] * 1200,
+                "ref" => $os['ref'],
+                "total" => number_format( $os['total'], 2, ',', '.' ),
+                "status" => $os['status'],
+            ];
+        }, $query );
+        return $query;
     }
 }

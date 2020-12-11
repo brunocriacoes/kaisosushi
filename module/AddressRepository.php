@@ -4,13 +4,13 @@ class AddressRepository
     function register( array $params )
     {
         query( "INSERT INTO address 
-        ( cliente_id, address, number, cyte, post_code, complement ) 
+        ( client_id, name, address, number, city, post_code, complement ) 
         VALUES
-        ( '{$params['cliente_id']}', '{$params['address']}', '{$params['number']}', '{$params['cyte']}', '{$params['post_code']}', '{$params['complement']}' ) " );
+        ( {$params['client_id']}, '{$params['name']}', '{$params['address']}', '{$params['number']}', '{$params['city']}', '{$params['post_code']}', '{$params['complement']}' ) " );
     }    
     function update( array $params )
     {
-        query( "UPDATE address SET address='{$params['address']}', number='{$params['number']}', cyte='{$params['cyte']}', post_code='{$params['post_code']}', complement='{$params['complement']}'  WHERE id={$params['id']}" );
+        query( "UPDATE address SET name='{$params['name']}', address='{$params['address']}', number='{$params['number']}', city='{$params['city']}', post_code='{$params['post_code']}', complement='{$params['complement']}'  WHERE id={$params['id']}" );
     }    
     function delete( int $id )
     {

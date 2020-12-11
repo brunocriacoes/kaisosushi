@@ -391,10 +391,15 @@ function is_cart()
 }
 function add_prod()
 {
+    $corruent_client = client_is_logged();
     $url = get_param('/api/v1/cart/add/:prod_id/:quant');
     $ref = get_id_cart();
     $iten = new ItenRepository;
     $iten->add($ref, $url["prod_id"], $url["quant"]);
+    if( $corruent_client ) {
+        $os = new OrderRepository;
+        $os->update_user($ref, $corruent_client);
+    }
     echo json_encode( cart_calc() );
 }
 function del_prod()
@@ -432,6 +437,7 @@ function cart_calc( $id = null )
     $metas = get_meta($order["id"]);
     $os->update_total($ref, $total);
     return [
+        "client_id" => $order["client_id"],
         "id" => $order["id"],
         "numero" => $order["id"] + 1200,
         "ref" => $ref,
@@ -472,15 +478,6 @@ function set_cart_address()
     set_meta( $order["id"], 'ADDRESS_SEND', $content );
     echo json_encode( cart_calc() );
 }
-
-
-
-
-
-
-
-
-
 function client_login()
 {
     client_public();
@@ -490,7 +487,7 @@ function client_login()
         $client = new ClientRepository;
         $is_client = $client->login($email, $pass);
         if (!empty($is_client)) :
-            $_SESSION["CLIENT"] = true;
+            $_SESSION["CLIENT"] = $is_client[0]["id"];
             redirect(dir_template('/perfil'));
         else :
             $GLOBALS['error'] = "Usuário ou senha esta errado";
@@ -515,8 +512,90 @@ function client_private()
 }
 function client_logout()
 {
-    $_SESSION["CLIENT"] = false;
+    session_destroy();
     redirect(dir_template('/login'));
+}
+function get_client($id = false)
+{
+    $client_id = $id ? $id : client_is_logged();    
+    $client = new ClientRepository;
+    return $client->get_by_id($client_id);
+}
+function client_perfil() 
+{
+    if( !empty($_POST) ):
+        $client = get_client();
+        $cl = new ClientRepository;
+        $cl->update( [
+            "name" => $_POST["name"],
+            "last_name" => $_POST["last_name"],
+            "phone" => $_POST["phone"],
+            "whatsapp" => $_POST["whatsapp"],
+            "id" => $client['id'],
+        ] );
+    endif;
+    $client = get_client();
+    $_GET = $client;
+}
+function client_alter_pass()
+{
+    if( !empty($_POST) ):
+        if( $_POST["pass"] == $_POST["confirm_pass"] ):
+            $client = get_client();
+            $cl = new ClientRepository;
+            $cl->alterPassword( $client['id'], $_POST["pass"] );
+            redirect(dir_template('/perfil'));
+        else:
+            $GLOBALS['error'] = true;
+        endif;
+    endif;
+}
+function client_moradas()
+{
+    if( !empty( $_POST ) ) :
+        $address =  new AddressRepository;
+        if( !empty( $_POST["id"] ) ) :
+            $address->update($_POST);
+        else:
+            $address->register($_POST);
+        endif;
+    endif;
+}
+function gravatar( $email )
+{
+   $hash =  md5( strtolower( trim( $email ) ) );
+   return "https://www.gravatar.com/avatar/{$hash}?s=200";
+}
+function get_moradas( $id = false )
+{
+    $client_id = $id ? $id : client_is_logged();
+    $address =  new AddressRepository;
+    return $address->list($client_id);
+}
+function get_may_os()
+{
+    $os = new OrderRepository;
+    $client_id = client_is_logged();
+    return $os->get_by_client_id($client_id);
+}
+function me_registar()
+{
+    if( !empty($_POST) ):
+        if( $_POST["pass"] == $_POST["confirm_pass"] ):
+            $client = new ClientRepository;
+            $exist  = $client->email_exist($_POST["email"]);
+            if( empty( $exist ) ) :
+                $client->register( $_POST["name"], $_POST["email"], $_POST["pass"]);
+                $new_user = $client->email_exist($_POST["email"]);
+                $_SESSION["CLIENT"] = $new_user[0]["id"];
+                redirect(dir_template('/perfil'));
+            else:
+                $GLOBALS['error'] = 'Email já cadastrado';
+            endif;
+        else:
+            $GLOBALS['error'] = 'As senhas tem que ser igual';
+        endif;
+    endif;    
 }
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/

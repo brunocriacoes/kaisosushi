@@ -66,6 +66,7 @@ create table address (
     name varchar(75),
     client_id int,
     address varchar(255),
+    post_code varchar(255),
     number varchar(30),
     city varchar(75),
     complement varchar(75)

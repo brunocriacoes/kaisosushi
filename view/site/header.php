@@ -24,18 +24,22 @@
                     <div> <img src="<?= dir_template( '/view/site/src/ico/close.svg' ) ?>" alt=""> <span class="hidden-md">MENU</span> </div>                     
                 </div>
                 <div class="link-user user loged"> 
-                    <div>
-                        <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
-                        <a href="<?= dir_template( '/login' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
-                        <a href="<?= dir_template( '/login' ) ?>" class="hidden-md">LOGIN</a> <span class="hidden-md"> | </span>
-                        <a href="<?= dir_template( '/me-registrar' ) ?>" class="hidden-md">REGISTRAR</a>
-                    </div>
-                    <div>
-                        <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
-                        <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
-                        <span class="hidden-md">Olá <b>Bruno</b></span> <span class="hidden-md"> | </span>
-                        <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-md">Perfil</a>
-                    </div>
+                    <?php if(client_is_logged()):?>
+                        <?php  $client = get_client(); ?>
+                        <div>
+                            <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
+                            <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
+                            <span class="hidden-md">Olá <b><?= $client['name'] ?></b></span> <span class="hidden-md"> | </span>
+                            <a href="<?= dir_template( '/perfil' ) ?>" class="hidden-md">Perfil</a>
+                        </div>
+                    <?php else:?>
+                        <div>
+                            <a href="<?= get_fidelidade() ?>" class="hidden-md" target="_blank"> Fidelidade </a>
+                            <a href="<?= dir_template( '/login' ) ?>" class="hidden-log ico-user"> <img src="<?= dir_template( '/view/site/src/ico/user.svg' ) ?>" alt="user"> </a>                   
+                            <a href="<?= dir_template( '/login' ) ?>" class="hidden-md">LOGIN</a> <span class="hidden-md"> | </span>
+                            <a href="<?= dir_template( '/me-registrar' ) ?>" class="hidden-md">REGISTRAR</a>
+                        </div>
+                    <?php endif;?>
                 </div>
                 <div onclick="globalThis.cart.open()" class="btn-addcart"><img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt=""></div>                    
             </div>
