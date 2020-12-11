@@ -405,9 +405,9 @@ function del_prod()
     $iten->delete($ref, $url["prod_id"]);
     echo json_encode( cart_calc() );
 }
-function cart_calc()
+function cart_calc( $id = null )
 {
-    $ref = get_id_cart();
+    $ref = $id ? $id : get_id_cart();
     $producty = new ProductRepository;
     $iten = new ItenRepository;
     $os = new OrderRepository;
@@ -471,6 +471,52 @@ function set_cart_address()
     $content = $_REQUEST['text'];
     set_meta( $order["id"], 'ADDRESS_SEND', $content );
     echo json_encode( cart_calc() );
+}
+
+
+
+
+
+
+
+
+
+function client_login()
+{
+    client_public();
+    if (!empty($_REQUEST)) :
+        $email = $_REQUEST["email"] ?? '';
+        $pass = $_REQUEST["pass"] ?? '';
+        $client = new ClientRepository;
+        $is_client = $client->login($email, $pass);
+        if (!empty($is_client)) :
+            $_SESSION["CLIENT"] = true;
+            redirect(dir_template('/perfil'));
+        else :
+            $GLOBALS['error'] = "Usuário ou senha esta errado";
+        endif;
+    endif;
+}
+function client_is_logged()
+{
+    return $_SESSION["CLIENT"] ?? false;
+}
+function client_public()
+{
+    if (admin_is_logged()) :
+        redirect(dir_template('/perfil'));
+    endif;
+}
+function client_private()
+{
+    if (!admin_is_logged()) :
+        redirect(dir_template('/login'));
+    endif;
+}
+function client_logout()
+{
+    $_SESSION["CLIENT"] = false;
+    redirect(dir_template('/login'));
 }
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
