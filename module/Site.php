@@ -31,6 +31,7 @@ class Site
         add_router( '/api/v1/cart/del/:prod_id', 'del_prod' );
         add_router( '/api/v1/cart/frete/method', 'set_cart_method' );
         add_router( '/api/v1/cart/frete/address', 'set_cart_address' );
+        add_router( '/api/v1/cart/coupon/:code', 'set_coupon' );
         
     }
 }

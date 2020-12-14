@@ -21,4 +21,10 @@ class CouponRepository
     {
         return query( "SELECT * FROM coupon WHERE code='{$code}'" );
     }
+    function get_by_code($code)
+    {
+        $sql = "SELECT * FROM coupon WHERE code={$code}";
+        $query = query($sql);
+        return $query[0] ?? [];
+    }
 }

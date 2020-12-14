@@ -1160,3 +1160,15 @@ button:hover {
     font-size: 11px;
     border: none;
 }
+.btn-morada-finalizar {
+    display: block;
+    padding: 7px 0px;
+    text-align: center;
+    text-decoration: none;
+    color: #DDD;
+    background-color: #f4213a;
+    border-radius: 5px;
+}
+.btn-morada-finalizar:hover {
+    filter: brightness(1.2);
+}

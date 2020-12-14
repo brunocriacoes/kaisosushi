@@ -24,8 +24,6 @@ export default {
         })
     },
     render(cart) {
-        
-
         document.querySelector("#js-prods").innerHTML = cart.prods.map(prod => `
             <div>
                 <b> 
@@ -79,5 +77,16 @@ export default {
     edit_address_send( selector ) {
         let $address = document.querySelector(`#${selector}`);
         this.get(`/frete/address?text=${$address.innerHTML}`, res => {} );
+    },
+    set_coupon( selector )
+    {
+       let input = document.querySelector(`#${selector}`)
+       this.get( `/coupon/${input?.value}`, res => {}  )
+    },
+    set_method_payment( $el, selector )
+    {
+        let list = Array.from( document.querySelectorAll( `.${selector}` ) )
+        list.forEach( $option => { $option.classList.remove( 'active' ) } )
+        $el.classList.add( 'active' )
     }
 }

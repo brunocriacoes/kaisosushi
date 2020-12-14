@@ -387,7 +387,7 @@ function cart_clear()
 }
 function is_cart()
 {
-    return !empty( $_SESSION["CART"] );
+    return !empty($_SESSION["CART"]);
 }
 function add_prod()
 {
@@ -396,11 +396,11 @@ function add_prod()
     $ref = get_id_cart();
     $iten = new ItenRepository;
     $iten->add($ref, $url["prod_id"], $url["quant"]);
-    if( $corruent_client ) {
+    if ($corruent_client) {
         $os = new OrderRepository;
         $os->update_user($ref, $corruent_client);
     }
-    echo json_encode( cart_calc() );
+    echo json_encode(cart_calc());
 }
 function del_prod()
 {
@@ -408,33 +408,47 @@ function del_prod()
     $ref = get_id_cart();
     $iten = new ItenRepository;
     $iten->delete($ref, $url["prod_id"]);
-    echo json_encode( cart_calc() );
+    echo json_encode(cart_calc());
 }
-function cart_calc( $id = null )
+function cart_calc($id = null)
 {
     $ref = $id ? $id : get_id_cart();
     $producty = new ProductRepository;
     $iten = new ItenRepository;
     $os = new OrderRepository;
     $order = $os->get_by_ref($ref);
-    $prods = $iten->list( $ref );
+    $prods = $iten->list($ref);
     $total = 0;
-    $prods = array_map( function($prod) use ($producty, &$total) {
+    $prods = array_map(function ($prod) use ($producty, &$total) {
         $info = $producty->get_by_id($prod["product_id"]);
         $subtotal = $info["price_offer"] * $prod["quantity"];
         $total += $subtotal;
         return [
             "id" => $info["id"],
-            "name" => utf8_encode( $info["name"] ),
-            "price" =>  $info["price_offer"] ,
+            "name" => utf8_encode($info["name"]),
+            "price" =>  $info["price_offer"],
             "price_html" => number_format(+$info["price_offer"], 2, ',', '.'),
             "sub_total" => $subtotal,
             "sub_total_html" => number_format(+$subtotal, 2, ',', '.'),
             "quantity" => $prod["quantity"],
-            "photo" => dir_template( '/view/upload/product/' ) . utf8_encode( $info["photo"] ),
+            "photo" => dir_template('/view/upload/product/') . utf8_encode($info["photo"]),
         ];
-    }, $prods );
+    }, $prods);
     $metas = get_meta($order["id"]);
+    $metas_meta = get_meta($ref);
+    $fee = [];
+    $total_fee = 0;
+    if( !empty( $metas_meta["COUPON"] ) ):
+        $coupon = new CouponRepository; 
+        $desconto = $coupon->get_by_code($metas_meta["COUPON"]);
+        $money = $desconto["money"];
+        $percentage = empty( $desconto["percentage"] ) ? 0 : $desconto["percentage"] ;
+        $cal_percent = $total * $percentage / 100;
+        $total_fee = ($money + $cal_percent ) - $total_fee;
+        $fee['coupon'] = -($money + $cal_percent );
+        $fee['coupon_html'] = number_format(-$money, 2, ',', '.');
+        $fee['coupon_porcentage_html'] = $cal_percent;
+    endif;
     $os->update_total($ref, $total);
     return [
         "client_id" => $order["client_id"],
@@ -443,17 +457,18 @@ function cart_calc( $id = null )
         "ref" => $ref,
         "prods" => $prods,
         "total" => $total,
+        "total_fee" => $total - $total_fee,
         "total_html" => number_format(+$total, 2, ',', '.'),
-        "coupon" => '',
-        "meta" => $metas,
-        "fee" => [],
+        "total_fee_html" => number_format($total - $total_fee, 2, ',', '.'),
+        "meta" => array_merge( $metas, $metas_meta ),
+        "fee" => $fee,
         "address" => ""
     ];
 }
-function get_meta( $post_id )
+function get_meta($post_id)
 {
     $meta = new MetaRepository;
-    return $meta->list( $post_id );
+    return $meta->list($post_id);
 }
 function set_meta($post_id, $relation, $content)
 {
@@ -466,8 +481,8 @@ function set_cart_method()
     $os = new OrderRepository;
     $order = $os->get_by_ref($ref);
     $content = $_REQUEST['text'];
-    set_meta( $order["id"], 'TYPE_SEND', $content );
-    echo json_encode( cart_calc() );
+    set_meta($order["id"], 'TYPE_SEND', $content);
+    echo json_encode(cart_calc());
 }
 function set_cart_address()
 {
@@ -475,8 +490,8 @@ function set_cart_address()
     $os = new OrderRepository;
     $order = $os->get_by_ref($ref);
     $content = $_REQUEST['text'];
-    set_meta( $order["id"], 'ADDRESS_SEND', $content );
-    echo json_encode( cart_calc() );
+    set_meta($order["id"], 'ADDRESS_SEND', $content);
+    echo json_encode(cart_calc());
 }
 function client_login()
 {
@@ -517,56 +532,56 @@ function client_logout()
 }
 function get_client($id = false)
 {
-    $client_id = $id ? $id : client_is_logged();    
+    $client_id = $id ? $id : client_is_logged();
     $client = new ClientRepository;
     return $client->get_by_id($client_id);
 }
-function client_perfil() 
+function client_perfil()
 {
-    if( !empty($_POST) ):
+    if (!empty($_POST)) :
         $client = get_client();
         $cl = new ClientRepository;
-        $cl->update( [
+        $cl->update([
             "name" => $_POST["name"],
             "last_name" => $_POST["last_name"],
             "phone" => $_POST["phone"],
             "whatsapp" => $_POST["whatsapp"],
             "id" => $client['id'],
-        ] );
+        ]);
     endif;
     $client = get_client();
     $_GET = $client;
 }
 function client_alter_pass()
 {
-    if( !empty($_POST) ):
-        if( $_POST["pass"] == $_POST["confirm_pass"] ):
+    if (!empty($_POST)) :
+        if ($_POST["pass"] == $_POST["confirm_pass"]) :
             $client = get_client();
             $cl = new ClientRepository;
-            $cl->alterPassword( $client['id'], $_POST["pass"] );
+            $cl->alterPassword($client['id'], $_POST["pass"]);
             redirect(dir_template('/perfil'));
-        else:
+        else :
             $GLOBALS['error'] = true;
         endif;
     endif;
 }
 function client_moradas()
 {
-    if( !empty( $_POST ) ) :
+    if (!empty($_POST)) :
         $address =  new AddressRepository;
-        if( !empty( $_POST["id"] ) ) :
+        if (!empty($_POST["id"])) :
             $address->update($_POST);
-        else:
+        else :
             $address->register($_POST);
         endif;
     endif;
 }
-function gravatar( $email )
+function gravatar($email)
 {
-   $hash =  md5( strtolower( trim( $email ) ) );
-   return "https://www.gravatar.com/avatar/{$hash}?s=200";
+    $hash =  md5(strtolower(trim($email)));
+    return "https://www.gravatar.com/avatar/{$hash}?s=200";
 }
-function get_moradas( $id = false )
+function get_moradas($id = false)
 {
     $client_id = $id ? $id : client_is_logged();
     $address =  new AddressRepository;
@@ -580,22 +595,34 @@ function get_may_os()
 }
 function me_registar()
 {
-    if( !empty($_POST) ):
-        if( $_POST["pass"] == $_POST["confirm_pass"] ):
+    if (!empty($_POST)) :
+        if ($_POST["pass"] == $_POST["confirm_pass"]) :
             $client = new ClientRepository;
             $exist  = $client->email_exist($_POST["email"]);
-            if( empty( $exist ) ) :
-                $client->register( $_POST["name"], $_POST["email"], $_POST["pass"]);
+            if (empty($exist)) :
+                $client->register($_POST["name"], $_POST["email"], $_POST["pass"]);
                 $new_user = $client->email_exist($_POST["email"]);
                 $_SESSION["CLIENT"] = $new_user[0]["id"];
                 redirect(dir_template('/perfil'));
-            else:
+            else :
                 $GLOBALS['error'] = 'Email já cadastrado';
             endif;
-        else:
+        else :
             $GLOBALS['error'] = 'As senhas tem que ser igual';
         endif;
-    endif;    
+    endif;
+}
+function set_coupon()
+{
+    $coupon = new CouponRepository;
+    $url = get_param('/api/v1/cart/coupon/:code');
+    $code = $url["code"];
+    $order_ref = get_id_cart();
+    $is_coupon = $coupon->get_by_code($code);
+    if (!empty($is_coupon)):
+        set_meta( $order_ref, 'COUPON', $code );
+    endif;
+    echo json_encode(cart_calc());
 }
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
