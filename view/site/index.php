@@ -19,7 +19,7 @@
                         <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">DELIVERY</span>
                         <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">TAKEWAY</span>
                     </div>
-                    <form action="javascript:void(0)" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
+                    <form action="<?= dir_template( '/menu/menu' ) ?>" method="POST" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
                         <input type="text" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
                         <button type="submit"> <img src="<?= dir_template( '/view/site/src/ico/search.svg' ) ?>" alt=""> </button>
                     </form>

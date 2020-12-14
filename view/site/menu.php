@@ -53,7 +53,7 @@
                    </div>
                    <div class="hidden-log">
                        <form action="javascript:void(0)" class="form">
-                           <select name="" id="">
+                           <select onchange="globalThis.linkMenu( this )">
                                 <?php foreach( get_all_category() as $cat ) : ?>
                                     <option value="<?= $cat["link"] ?>"><?= $cat["title"] ?></option>
                                 <?php endforeach; ?>
