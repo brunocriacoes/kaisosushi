@@ -2,17 +2,18 @@
         <!------------ Começo do Corpo-->
         <div class="corpo grid1 mob-fix">
             <div class="left">
-            <?php $parametro = get_param('/admin/pedidos-visualizar/:id');
-            $os = cart_calc($parametro['id']);
-            ?>
+                <?php $parametro = get_param('/admin/pedidos-visualizar/:id');
+                $os = cart_calc($parametro['id']);
+                ?>
                 <h4>Alterar status</h4>
                 <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
                     <select name="status" id="status" require >
-                        <option value="entregue">Entregue</option>
-                        <option value="cancelado">Cancelado</option>
-                        <option value="a-caminho">À caminho</option>
+                        <option value="abandoned">Abandonado</option>
+                        <option value="canceled">Cancelado</option>
+                        <option value="finished">Finalizado</option>
+                        <option value="waiting">Aguardando</option>
                     </select>
-                    <button class="">Atualizar</button>
+                    <input type="submit" value="Atualizar">
                 </form>
 
                 <div class="space"></div>
@@ -62,17 +63,21 @@
                     </div>
                     <?php foreach ($os["prods"] as $prod) : ?>
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <span><img src="<?php echo dir_template( '/view/admin/img/delete.svg' ); ?>" alt="" class="ico ico-lixeira"></span>
+                    <form action="" method="POST">
+                        <input type="submit" class="lixo" value="">
+                    </form>                        
                     <span><?= $prod["name"] ?><!-- item --></span>
+                    <form action="" method="POST">
                         <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
                             <button class="botao-mais-menos">-</button>
                             <input type="text" value="<?= $prod['quantity']?>">
                             <button class="botao-mais-menos">+</button>
-                            <button class="detalhes-pedido-refresh-container"><img class="detalhes-pedido-refresh"src="<?php echo dir_template( '/view/admin/img/refresh.svg' ); ?>" alt=""></button>
-                        </span>                    
+                            <input type="submit" class="detalhes-pedido-refresh-container detalhes-pedido-refresh" value="">
+                        </span>     
+                    </form>               
                     <span>€<?= $prod["sub_total_html"] ?></span>
                     </div>
-                      <?php  endforeach; ?>
+                <?php  endforeach; ?>
                 </form>
                 
                 
@@ -81,7 +86,7 @@
 
                 
                 <br>
-                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                <form class="detalhes-formularios grid-detalhes-formularios" action="" method="POST">
                     <div>
                         <label for="produto">Produto</label>
                         <select name="" id="produto">
@@ -90,6 +95,7 @@
                         <option value="">Yakisoba</option>
                         </select>
                     </div>
+                
                     <div>
                         <label for="quantidade">Quantidade</label>
                         <input type="number" name="" id="quantidade" require>
@@ -101,12 +107,12 @@
                 </form>
 
                 
-                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                <form class="detalhes-formularios grid-detalhes-formularios" action="" method="POST">
                     <div>
                     <label for="escolha">Entrega</label>    
                         <select name="" id="escolha">
                                 <option value="">Delivery</option>
-                                <option value="">Retirar no Estabelescimento</option>
+                                <option value="">Retirada</option>
                             </select>
                     </div>
                     <div>   
@@ -120,7 +126,7 @@
                 </form>
                 
                 
-                <form class="detalhes-formularios grid-detalhes-formularios" action="">
+                <form class="detalhes-formularios grid-detalhes-formularios" action="" method="POST">
                     <div>
                         <label for="">Desconto %</label>
                         <input type="number" name="" id="porcentagem">
