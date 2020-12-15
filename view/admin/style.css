@@ -387,7 +387,7 @@ select {
 }
 .lixo {
     background-color: var(--gray);
-    background-image: url("./img/delete.svg");
+    background-image: url("./img/delete.svg") !important;
     background-position: center center;
     background-size: contain;
     background-repeat: no-repeat;

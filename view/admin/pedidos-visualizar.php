@@ -4,7 +4,10 @@
             <div class="left">
                 <?php $parametro = get_param('/admin/pedidos-visualizar/:id');
                 $os = cart_calc($parametro['id']);
+                $client_id = $os["client_id"];
+                $client = get_client($client_id);
                 ?>
+                <?php var_dump($client)?>
                 <h4>Alterar status</h4>
                 <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
                     <select name="status" id="status" require >
@@ -63,19 +66,17 @@
                     </div>
                     <?php foreach ($os["prods"] as $prod) : ?>
                     <div class="grid-custom" style="--cols: 40px 1fr 100px 70px">
-                    <form action="" method="POST">
-                        <input type="submit" class="lixo" value="">
-                    </form>                        
-                    <span><?= $prod["name"] ?><!-- item --></span>
-                    <form action="" method="POST">
-                        <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
-                            <button class="botao-mais-menos">-</button>
-                            <input type="text" value="<?= $prod['quantity']?>">
-                            <button class="botao-mais-menos">+</button>
-                            <input type="submit" class="detalhes-pedido-refresh-container detalhes-pedido-refresh" value="">
-                        </span>     
-                    </form>               
-                    <span>€<?= $prod["sub_total_html"] ?></span>
+                        <input type="submit" value="" id="lixo" class="lixo">
+                        <span><?= $prod["name"] ?></span>
+                        <form action="" method="POST">
+                            <span class="grid-custom" style="--cols: 25px 30px 20px 30px; gap: 0px; height: 20px;">
+                                <button class="botao-mais-menos">-</button>
+                                <input type="text" value="<?= $prod['quantity']?>">
+                                <button class="botao-mais-menos">+</button>
+                                <input type="submit" class="detalhes-pedido-refresh-container detalhes-pedido-refresh" value="">
+                            </span>     
+                        </form>               
+                        <span>€<?= $prod["sub_total_html"] ?></span>
                     </div>
                 <?php  endforeach; ?>
                 </form>
@@ -105,7 +106,6 @@
                         <input type="submit" value="Adicionar">
                     </div>
                 </form>
-
                 
                 <form class="detalhes-formularios grid-detalhes-formularios" action="" method="POST">
                     <div>
@@ -160,7 +160,7 @@
                     <p>Desconto: </p><b>-€1,00</b>
                     <p>Frete: </p><b>€3,00</b>
                     <p>Cupom: </p><b>-€5,00</b>
-                    <p>Total: </p><b>€<?= $os['total_html']?></b>
+                    <p>Total: </p><b>€<?= $os['total_fee_html']?></b>
                 </div>             
                 
             </div>

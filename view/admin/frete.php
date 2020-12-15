@@ -6,15 +6,13 @@
             <div style="height: 10px"></div>
         </div>
         <div class="bef produtos-lista">
-            <div class="corL grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                <span class="mobno">Entrega</span>
-                <span>Loc.</span>
+            <div class="corL grid-custom grid-frete-mob" style="--cols: 1fr 50px 70px">
+                <span>Km</span>
                 <span>Taxa</span>
                 <span></span>
             </div>
             <?php foreach( get_all_frete() as $frete ) : ?>
                 <div class="grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                    <span class="mobno"><?= $frete["type"] ?></span>
                     <span><?= $frete["address"] ?></span>
                     <span><?= $frete["money"] ?></span>
                     <div class="grid produtos-icones" style="--cols: 2">

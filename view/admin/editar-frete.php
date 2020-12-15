@@ -4,15 +4,9 @@
             <h4>Editar Frete</h4>
            <form class="editor-frete bef" action="" method="POST">
                <div class="corL">
-               <div>
-                    <label for="type">Entrega</label>
-                    <select name="type"  id="type">
-                        <option value="takeway">Takeway</option>
-                        <option value="delivery">Delivery</option>
-                    </select>
-                </div>
+               <input type="text" name="type" hidden>
                 <div>
-                    <label for="localizacao">Localização</label>
+                    <label for="localizacao">KM</label>
                     <input type="text" name="address" value="<?= $_REQUEST["address"] ?? '' ?>" id="localizacao">
                 </div>
                 <div>
