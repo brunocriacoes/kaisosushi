@@ -25,12 +25,7 @@ class Admin
             admin_private();
         }, __DIR__ . "/../view/admin/pedidos.php"  );
         #----------- PEDIDOS VISUALIZAR ------------
-        add_router( '/admin/pedidos-visualizar', function() {
-            admin_private();
-        }, __DIR__ . "/../view/admin/pedidos-visualizar.php"  );
-        add_router( '/admin/pedidos-visualizar/:id', function() {
-            admin_private();
-        }, __DIR__ . "/../view/admin/pedidos-visualizar.php"  );
+        add_router( '/admin/pedidos-visualizar/:id', 'editar_detalhes_pedidos', __DIR__ . "/../view/admin/pedidos-visualizar.php"  );
 
 
         #------------- CLIENTES -------------------

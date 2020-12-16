@@ -35,6 +35,11 @@ function remove_accent($string)
     $char = array(' & ', 'ª ', '  (', ') ', '(', ')', ' - ', ' / ', ' /', '/ ', '/', ' | ', ' |', '| ', ' | ', '|', '_', ' ');
     return strtolower(str_replace($char, '-', $string));
 }
+function cliear_string($string)
+{
+    $string =  preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/", "/(ç)/", "/(Ç)/"), explode(" ", "a A e E i I o O u U n N c C"), $string);
+    return strtolower($string);
+}
 function maker_slug($string)
 {
     $string = remove_accent($string);
@@ -624,6 +629,127 @@ function set_coupon()
     endif;
     echo json_encode(cart_calc());
 }
+function get_address_kaiso()
+{
+    return [
+        "logadouro" => "R. Carlos Reis",
+        "post_code" => "1600-216",
+        "city" => "Lisboa",
+        "lat" => 38.743638,
+        "long" => -9.156017
+    ];
+}
+function get_distance($origem_lat, $origen_long, $destino_lat, $destino_long)
+{
+    $origem_lat = deg2rad($origem_lat);
+    $origen_long = deg2rad($origen_long);
+    $destino_lat = deg2rad($destino_lat);
+    $destino_long = deg2rad($destino_long);
 
+    $latitude = $origem_lat - $destino_lat;
+    $longitude = $origen_long - $destino_long;
+
+    $distancia_km = 2 * asin(sqrt(pow(sin($latitude / 2), 2) +
+    cos($destino_lat) * cos($origem_lat) * pow(sin($longitude / 2), 2)));
+    $distancia_km = $distancia_km * 6371;
+    return floatval( number_format($distancia_km, 2, '.', '') );
+
+}
+function get_distance_kaiso( $lat, $long )
+{
+    $kayso = get_address_kaiso();
+    return get_distance( $kayso['lat'], $kayso["long"], $lat, $long );
+}
+function get_address( ) {
+    $address = file( __DIR__ . "/../view/banco/pt_postal_codes.csv" );
+    $address = array_map( function( $local ) {
+        $local = explode( ',', $local );
+        return [
+            "logadouro" =>  utf8_encode( $local[1] ) . " " . $local[0],
+            "post_code" => $local[0],
+            "city" => $local[2],
+            "distance" => get_distance_kaiso( floatval($local[5]), floatval($local[6]) ) ,        
+        ];
+    }, $address );
+    return $address;
+}
+function get_address_search( )
+{
+    $search = empty($_REQUEST["search"]) ? false :  $_REQUEST["search"];
+    if($search) :
+        $address = get_address();
+        $address = array_filter( $address, function( $local ) use ( $search ) {
+            return stripos( $local["logadouro"],  $search ) !== false ;
+        } );
+        echo json_encode( array_values( $address ) );
+        return null;
+    endif;
+    echo json_encode( [] );
+}
+function render_post_code()
+{
+    // var_dump(get_address());
+    // 'logadouro' => string 'Place Name Postal Code' (length=22)
+    //   'post_code' => string 'Postal Code' (length=11)
+    //   'city' => string 'State' (length=5)
+    //   'distance' => float 4408.28
+    $address = '';
+    foreach( get_address() as $local ) {
+        $logadouro = utf8_decode($local['logadouro']);
+        $address .= "{$logadouro } {$local['city']} {$local['distance']};"; 
+    }
+    $address = trim( $address );
+    $address = cliear_string( $address );
+    $address = str_replace('-', '', $address );
+    echo $address ;
+    // file_put_contents( __DIR__ . "/../view/banco/postcode-2.txt", $address );
+}
+function set_log( $message )
+{
+    file_put_contents( __DIR__ . "/../.log", date( "d-m-Y H:i" ) . " $message \n", FILE_APPEND);
+}
+
+function eu_pago()
+{
+    $eupago = new EuPago;
+    $eupago->PayMBW();
+}
+function editar_detalhes_pedidos()
+{
+    admin_private();
+    $url = "/admin/pedidos-visualizar/:id";
+    $params = get_param($url);
+    $pedido_ref = $params["id"];
+    if( isset( $_REQUEST["status"] ) ) :
+        $status = $_REQUEST["status"];
+        $os = new OrderRepository;
+        $os->update_status($pedido_ref, $status );
+    endif;
+    if( isset( $_REQUEST["del"] ) ) :
+        $prod_id = $_REQUEST["del"];
+        $iten = new ItenRepository;
+        $iten->delete( $pedido_ref, $prod_id );
+    endif;
+    if( isset( $_REQUEST["quantity"] ) ) :
+        $quantity = $_REQUEST["quantity"];
+        $prod_id = $_REQUEST["prod_id"];
+        $item = new ItenRepository;
+        $item->add($pedido_ref, $prod_id, $quantity);
+    endif;
+    if( isset( $_REQUEST["add_prod_id"] ) ) :
+        $quantity = $_REQUEST["quant"];
+        $prod_id = $_REQUEST["add_prod_id"];
+        $item = new ItenRepository;
+        $item->add($pedido_ref, $prod_id, $quantity);
+    endif;
+    if( isset( $_REQUEST["coupon"] ) ) :
+        $code = $_REQUEST["coupon"];
+        $coupon = new CouponRepository;
+        $is_coupon = $coupon->get_by_code($code);
+        if (!empty($is_coupon)):
+            set_meta( $pedido_ref, 'COUPON', $code );
+        endif;
+    endif;
+}
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

@@ -88,11 +88,11 @@
                 <div class="grid-cupom">
                     <div>
                         <small>Codigo do cupom</small>
-                        <input type="text" value="<?= $metas['COUPON'] ?? '' ?>">
+                        <input type="text" id="js-coupon" value="<?= $metas['COUPON'] ?? '' ?>">
                     </div>
                     <div>
                         <small> </small>
-                        <a href="javascript:void(0)" class="btn-morada-finalizar">Aplicar Cupom</a>
+                        <a href="javascript:void(globalThis.cart.apply_coupon('js-coupon'))" class="btn-morada-finalizar">Aplicar Cupom</a>
                     </div>
                 </div>
                 <div class="space"></div>
@@ -106,11 +106,11 @@
                 <div class="itens-detalhes">
                     <?php foreach( $cart["prods"] as $prod ) : ?>
                         <div>
-                            <span class="btn-more btn-remove">X</span>
+                            <span class="btn-more btn-remove" onclick="globalThis.cart.remove('<?= $prod['id'] ?>')">X</span>
                             <span><?= $prod["name"] ?></span>
-                            <span class="btn-more">-</span>
-                            <b class="quantity-more"><?= $prod["quantity"] ?></b>
-                            <span class="btn-more">+</span>
+                            <span class="btn-more" onclick="globalThis.cart.minus('<?= $prod['id'] ?>', 'js-end-quant-<?= $prod['id'] ?>')">-</span>
+                            <b class="quantity-more" id="js-end-quant-<?= $prod['id'] ?>"><?= $prod["quantity"] ?></b>
+                            <span class="btn-more" onclick="globalThis.cart.plus('<?= $prod['id'] ?>', 'js-end-quant-<?= $prod['id'] ?>')">+</span>
                             <span>&euro;<span><?= $prod["price_html"] ?></span></span>
                             <b>&euro;<span><?= $prod["sub_total_html"] ?></span></b>
                         </div>

@@ -4,6 +4,7 @@ import Category from './module/Category.js'
 import hel from './module/help.js'
 import Cart from './module/Cart.js'
 
+globalThis.search_postcoded = null
 globalThis.cart = Cart
 
 globalThis

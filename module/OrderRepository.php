@@ -29,6 +29,11 @@ class OrderRepository
         $date_update = date('Y-m-d');
         query("UPDATE `order` SET total={$total}, date_update='{$date_update}'  WHERE ref='{$ref}'");
     }
+    function update_status($ref, $status)
+    {
+        $date_update = date('Y-m-d');
+        query("UPDATE `order` SET status='{$status}', date_update='{$date_update}'  WHERE ref='{$ref}'");
+    }
     function update_user($ref, $client_id)
     {
         $date_update = date('Y-m-d');

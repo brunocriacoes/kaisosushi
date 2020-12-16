@@ -1,0 +1,8 @@
+16-12-2020 12:39 POST https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW PARANS {"valor":3.5,"chave":"be7d-e267-6f99-131b-6a85","id":"5fd9ffe7e5ed9","admin_callback":"http:\/\/dev.kaisosushi.con\/webhook","campos_extra":{"id":0,"valor":"string"},"alias":"string","descricao":"compra pelo site"} 
+16-12-2020 12:39 RESPONSE https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW BODY null 
+16-12-2020 12:39 POST https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW PARANS {"valor":3.5,"chave":"be7d-e267-6f99-131b-6a85","id":"5fda0014d62c8","admin_callback":"http:\/\/dev.kaisosushi.con\/webhook","campos_extra":{"id":0,"valor":"string"},"alias":"string","descricao":"compra pelo site"} 
+16-12-2020 12:39 RESPONSE https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW BODY null 
+16-12-2020 12:40 POST https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW PARANS {"valor":3.5,"chave":"be7d-e267-6f99-131b-6a85","id":"5fda002cd5f59","admin_callback":"http:\/\/dev.kaisosushi.con\/webhook","campos_extra":{"id":0,"valor":"string"},"alias":"string","descricao":"compra pelo site"} 
+16-12-2020 12:40 RESPONSE https://seguro.eupago.pt/api/v2/EuPago-SOAP-API/pedidoMBW BODY null 
+16-12-2020 12:41 POST https://seguro.eupago.pt/api/v2/4741247f40244b04aef01ef66f704602/pedidoMBW PARANS {"valor":3.5,"chave":"be7d-e267-6f99-131b-6a85","id":"5fda00744e28e","admin_callback":"http:\/\/dev.kaisosushi.con\/webhook","campos_extra":{"id":0,"valor":"string"},"alias":"string","descricao":"compra pelo site"} 
+16-12-2020 12:41 RESPONSE https://seguro.eupago.pt/api/v2/4741247f40244b04aef01ef66f704602/pedidoMBW BODY null 

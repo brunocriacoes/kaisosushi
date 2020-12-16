@@ -88,5 +88,27 @@ export default {
         let list = Array.from( document.querySelectorAll( `.${selector}` ) )
         list.forEach( $option => { $option.classList.remove( 'active' ) } )
         $el.classList.add( 'active' )
+    },
+    postcode( selector, selector_data_list )
+    {
+        let $input = document.querySelector(`#${selector}`)
+        clearTimeout(globalThis.search_postcoded)
+        if( $input.value.length > 3  )
+        {
+            let $data_list = document.querySelector(`#${selector_data_list}`)
+            globalThis.search_postcoded = setTimeout( () => {
+                fetch( `${this.serve}/postcode?search=${$input.value}` )
+                ?.then( res => res.json() )
+                ?.then( res => {
+                    $input.focus()
+                    $data_list.innerHTML = res.map( local => `<option value="${local.logadouro}">` )
+                } )
+            }, 1500 )
+        }        
+    },
+    apply_coupon( selector )
+    {
+        let $input = document.querySelector(`#${selector}`)
+        fetch( `${this.serve}/api/v1/cart/coupon/${$input?.value}` )
     }
 }
