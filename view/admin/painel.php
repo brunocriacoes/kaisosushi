@@ -3,13 +3,14 @@
     <div class="corpo">
         <div class="space mobye"></div>
         <h4>Intervalor de data</h4>
-        <select name="" id="" class="bef">
-            <option value="">Últimos 30 dias</option>
-            <option value="">Últimos 60 dias</option>
-            <option value="">Últimos 90 dias</option>
+        <form action="javascript:void(0)">
+        <select onchange="globalThis.linkMenu( this )" name="" id="" class="bef">
+            <option value="http://dev.kaisosushi.con/admin/painel?filter=30">Últimos 30 dias</option>
+            <option value="http://dev.kaisosushi.con/admin/painel?filter=60">Últimos 60 dias</option>
+            <option value="http://dev.kaisosushi.con/admin/painel?filter=90">Últimos 90 dias</option>
         </select>
         <div class="space"></div>
-
+        </form>
         <h4>Performance</h4>
         <div class="perfbox">
             <ul class="bef perf">
@@ -44,11 +45,11 @@
                         <span><?= $pedido["date_update"] ?></span>
                         <span class="mobno"><?= $pedido["total"] ?></span>
                         <span><?= $pedido["status"] ?></span>
-                        <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar' ); ?>">
+                        <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>
                     </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
         </div>
     </div>    
 </div>

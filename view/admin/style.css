@@ -385,6 +385,16 @@ select {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
 }
+.lixo {
+    background-color: var(--gray);
+    background-image: url("./img/delete.svg") !important;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: 20px;
+    cursor: pointer;
+}
 .botao-mais-menos {
     width: 20px;
     border-radius: 0px;
@@ -398,14 +408,17 @@ select {
     background-color: var(--black);
     width: 20px;
     height: 20px;
-    padding: 3px;
+    padding: 5px;
     align-items: center;
     cursor: pointer;
     margin-left: 5px;
+    border: none;
+    border-radius: 5px;
 }
 .detalhes-pedido-refresh {
-    filter: invert(1);
     display: block;
+    background-image: url("./img/refresh.svg");
+    background-size: contain;
     
 }
 .grid-detalhes-formularios {
