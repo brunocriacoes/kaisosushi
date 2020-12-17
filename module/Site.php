@@ -23,6 +23,8 @@ class Site
         add_router( '/postcode', 'get_address_search'  );
         add_router( '/postcode/render', 'render_post_code'  );
         add_router( '/eupago', 'eu_pago'  );
+        
+        add_router( '/teste', 'calc_frete'  );
 
         add_router( '/api/v1/cart', function() {
             echo json_encode( cart_calc() );

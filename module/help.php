@@ -415,6 +415,26 @@ function del_prod()
     $iten->delete($ref, $url["prod_id"]);
     echo json_encode(cart_calc());
 }
+function calc_frete( $distance = 0 )
+{
+    $fretes = new DeliveryRepository;
+    $list_calc_frete = [];
+    $lista = $fretes->list( [
+        "offset" => 0,
+        "max_result" => 1000
+    ] );    
+    foreach( $lista as $address):
+        $range_max = $address["address"];
+        if( $distance <= $range_max  ) :
+            $list_calc_frete[] = floatval($address["money"] );
+        endif;
+    endforeach;
+    $min = 0;
+    if( count($list_calc_frete) > 0 ):
+        $min = min( $list_calc_frete );
+    endif;
+    return $min;    
+}
 function cart_calc($id = null)
 {
     $ref = $id ? $id : get_id_cart();
@@ -455,6 +475,20 @@ function cart_calc($id = null)
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
     $os->update_total($ref, $total);
+    $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
+    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"]);
+    $is_adrress = end( $is_adrress );
+    $price_frete = calc_frete( floatval($is_adrress) );
+    if( $price_frete > 0 ) {
+        set_meta($order["id"], 'FEE_FRETE', $price_frete);
+        set_meta($order["id"], 'FEE_FRETE_HTML',number_format($price_frete, 2, ',', '.'));
+        set_meta($order["id"], 'TYPE_SEND', 'delivery');
+        $total_fee += $price_frete;
+    }else {
+        set_meta($order["id"], 'FEE_FRETE', 0);
+        set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
+        set_meta($order["id"], 'TYPE_SEND', 'takeway');        
+    }
     return [
         "client_id" => $order["client_id"],
         "id" => $order["id"],
@@ -673,14 +707,24 @@ function get_address( ) {
     }, $address );
     return $address;
 }
+function search_address( $term )
+{
+    $term = trim($term);
+    $term = str_replace('-', '', $term);
+    $term = cliear_string($term);
+    $address = file_get_contents( __DIR__ . "/../view/banco/postcode.txt" );
+    $address = utf8_encode( $address );
+    $address = explode(";", $address);
+    $address = array_filter( $address, function( $local ) use ( $term ) {
+        return stripos(  $local,  $term ) !== false ;
+    } );
+    return $address;
+}
 function get_address_search( )
 {
     $search = empty($_REQUEST["search"]) ? false :  $_REQUEST["search"];
     if($search) :
-        $address = get_address();
-        $address = array_filter( $address, function( $local ) use ( $search ) {
-            return stripos( $local["logadouro"],  $search ) !== false ;
-        } );
+        $address = search_address($search);
         echo json_encode( array_values( $address ) );
         return null;
     endif;
@@ -711,8 +755,17 @@ function set_log( $message )
 
 function eu_pago()
 {
-    $eupago = new EuPago;
-    $eupago->PayMBW();
+    $eupago = new EuPagoRest;
+    $res = $eupago->multibanco_create( [
+        "valor" => 122.5,
+        "id" => "Exemplo-em-JSON",
+        "data_inicio" => "2020-12-01",
+        "data_fim" => "2021-01-15",
+        "valor_minimo" => "122.5",
+        "valor_maximo" => "122.5",
+        "per_dup" => "0"
+    ] );
+    var_dump( $res );
 }
 function editar_detalhes_pedidos()
 {

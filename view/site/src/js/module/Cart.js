@@ -101,7 +101,7 @@ export default {
                 ?.then( res => res.json() )
                 ?.then( res => {
                     $input.focus()
-                    $data_list.innerHTML = res.map( local => `<option value="${local.logadouro}">` )
+                    $data_list.innerHTML = res.map( local => `<option value="${local}">` ).join('')
                 } )
             }, 1500 )
         }        

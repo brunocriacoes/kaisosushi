@@ -124,8 +124,8 @@
                         <span>&euro;<span><?= $cart["total_html"] ?></span></span>
                     </div>
                     <div>
-                        <span>Frete</span>
-                        <span>&euro;5,00</span>
+                        <span>Frete</span> 
+                        <span>&euro;<?= $cart['meta']['FEE_FRETE_HTML'] ?></span>
                     </div>
                     <div>
                         <span>Cupon</span>
