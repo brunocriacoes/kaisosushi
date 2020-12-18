@@ -1,12 +1,14 @@
 <?php
 class EuPagoRest
 {
+    // const KEY_API = "be7d-e267-6f99-131b-6a85";
+    // const PROD_URI = 'https://clientes.eupago.pt/clientes/rest_api';
+
+    const KEY_API = 'demo-71b4-b43b-f789-c9f';
+    const PROD_URI = 'https://sandbox.eupago.pt/clientes/rest_api';
+
     const CLIENT_ID = "4741247f40244b04aef01ef66f704602";
-    const KEY_API = "be7d-e267-6f99-131b-6a85";
-    const KEY_API_DEV = 'xxxx-xxxx-xxxx-xxxx-xxxx';
     const SECRET = "4abaeca304e0415c82f82026e5bd8827";
-    const SAND_BOX = 'https://sandbox.eupago.pt/clientes/rest_api';
-    const PROD_URI = 'https://clientes.eupago.pt/clientes/rest_api';
     const REQUEST_TIMEOUT = 3;
     function web_hook()
     {
@@ -42,13 +44,13 @@ class EuPagoRest
     {
         return $this->post( '/multibanco/create', [
             "chave" => self::KEY_API,
-            "valor" => floatval($params['valor']) ,
+            "valor" => floatval($params['total']) ,
             "id" => (string) $params['id'],
-            "data_inicio" => (string) $params['data_inicio'],
-            "data_fim" => (string) $params['data_fim'],
-            "valor_maximo" => floatval($params['valor_maximo']) ,
-            "valor_minimo" => floatval($params['valor_minimo']) ,
-            "per_dup" => (boolean) $params['per_dup'],
+            "data_inicio" => (string) date('Y-m-d'),
+            "data_fim" => (string) date('Y-m-d'),
+            "valor_maximo" => floatval($params['total']) ,
+            "valor_minimo" => floatval($params['total']) ,
+            "per_dup" => 0,
         ] );
     }
     function multibanco_info( $params )
@@ -63,7 +65,7 @@ class EuPagoRest
     {
         return $this->post( '/cc/purchase_tds', [
             "chave" => self::KEY_API,
-            "valor" => floatval($params['referencia']),
+            "valor" => floatval($params['total']),
             "id" => (string) $params['id'],
             "numero" => (string) $params['numero'],
             "cripto" => (string) $params['cripto'],
@@ -75,17 +77,17 @@ class EuPagoRest
     {
         return $this->post( '/mbway/create', [
             "chave" => self::KEY_API,
-            "valor" => floatval($params['referencia']),
+            "valor" => floatval($params['total']),
             "id" => (string) $params['id'],
-            "alias" => (int) $params['alias'], //9 digitos
-            "descricao" => (string) $params['descricao'],
+            "alias" => (int) $params['paymento_value'], //9 digitos
+            "descricao" => 'Compra pelo site',
         ] );        
     }
     function payshop_create( $params )
     {
         return $this->post( '/payshop/create', [
             "chave" => self::KEY_API,
-            "valor" => floatval($params['referencia']),
+            "valor" => floatval($params['total']),
             "id" => (string) $params['id'],
         ] );
     }
@@ -93,9 +95,15 @@ class EuPagoRest
     {
         return $this->post( '/paysafecard/create', [
             "chave" => self::KEY_API,
-            "valor" => floatval($params['referencia']),
+            "valor" => floatval($params['total']),
             "id" => (string) $params['id'],
             "url_retorno" => $this->web_hook(),
         ] );
+    }
+    function money( $params )
+    {
+        return (object) [
+            "sucesso" => true
+        ];
     }
 }
