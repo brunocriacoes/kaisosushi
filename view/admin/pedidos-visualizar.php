@@ -5,7 +5,6 @@
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id); 
-        var_dump($client);
         ?>
 
             <h4>Alterar status</h4>
@@ -14,7 +13,7 @@
                     <option value="abandoned">Abandonado</option>
                     <option value="canceled">Cancelado</option>
                     <option value="finished">Finalizado</option>
-                    <option value="waiting">Aguardando</option>
+                    <option selected value="waiting">Aguardando</option>
                 </select>
                 <input type="submit" value="Atualizar">
             </form>
@@ -79,9 +78,12 @@
                                 <section><?= $prod["name"]?></section>
                             </form>
                             <form class="pedidos-botoes-container" action="" method="POST">
-                                <button class="botao-mais-menos">-</button>
-                                <input type="text" name="quantity" id="" value="<?= $prod["quantity"]?>">
-                                <button class="botao-mais-menos">+</button>
+
+                                <button id="sub" class="botao-mais-menos">-</button>
+                                <input type="text" name="quantity" id="input" value="<?= $prod["quantity"]?>">
+                                <button id="add" class="botao-mais-menos">+</button>
+
+
                                 <button class="refresh" type="submit"></button>
                                 <input type="text" name="prod_id" value="<?= $prod["id"] ?>" hidden>
                             </form>

@@ -7,7 +7,6 @@ function show() {
 function fechar() {
     document.getElementById('alerta').classList.toggle('sumir');
 }
-
 var ancora_menu = document.querySelectorAll("#menu div a");
 ancora_menu = Object.values(ancora_menu);
 
@@ -32,3 +31,15 @@ function aviso() {
 globalThis.linkMenu = link => {
     window.location.href =  link.value
 }
+
+var sub = document.querySelector('#sub');
+var add = document.querySelector('#add');
+var input = document.querySelector('#input');
+
+add.addEventListener('click', () =>{
+    input.value = parseInt(input.value) + 1;
+})
+
+sub.addEventListener('click', () =>{
+    input.value = parseInt(input.value) - 1;
+})

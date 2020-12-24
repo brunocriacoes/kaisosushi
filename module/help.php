@@ -492,6 +492,7 @@ function cart_calc($id = null)
     return [
         "client_id" => $order["client_id"],
         "id" => $order["id"],
+        "status" => $order["status"],
         "numero" => $order["id"] + 1200,
         "ref" => $ref,
         "prods" => $prods,

@@ -1,4 +1,5 @@
 <?php include __DIR__ . "/header.php" ?>
+
         <!------------ Começo do Corpo-->
         <div class="corpo">
             <h4>Filtre por status</h4>
@@ -19,11 +20,15 @@
                     <span></span>
                 </div>
                 <?php foreach( get_all_pedido() as $pedido ) : ?>
+                <?php
+                    $client_id = $pedido["client_id"] == 0 ? 2 : $pedido["client_id"] ; 
+                    $client = get_client($client_id); 
+                    ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]*1200 ?></span>
-                        <span class="mobno"><?= $pedido["client_id"] ?></span>
+                        <span class="mobno"><?= $client["name"] ?? 'Não-definido' ?></span>
                         <span><?= $pedido["date_update"] ?></span>
-                        <span class="mobno"><?= $pedido["total"] ?></span>
+                        <span class="mobno">€<?= $pedido["total"] ?></span>
                         <span><?= $pedido["status"] ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
