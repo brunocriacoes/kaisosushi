@@ -8,6 +8,7 @@ export default {
             .then(res => {
                 fnc(res)
                 this.render(res)
+                this.render_finalizar( res )
             })
     },
     open() {
@@ -105,6 +106,28 @@ export default {
                 } )
             }, 1500 )
         }        
+    },
+    render_finalizar( res )
+    {
+        let $is_page_finalizar = document.querySelector("#js-is-finalizar")
+        if($is_page_finalizar)
+        {
+            document.querySelector('#js-end-total-html').innerHTML = res.total_html
+            document.querySelector('#js-end-fee-frete-html').innerHTML = res.meta.FEE_FRETE_HTML
+            document.querySelector('#js-end-coupon-html').innerHTML = res.fee.coupon_html
+            document.querySelector('#js-end-total-fee-html').innerHTML = res.total_fee_html
+            document.querySelector("#js-end-list-iten").innerHTML = res.prods.map( item => `
+                <div>
+                    <span class="btn-more btn-remove" onclick="globalThis.cart.remove('${item.id}')">X</span>
+                    <span>${item.name}</span>
+                    <span class="btn-more" onclick="globalThis.cart.minus('${item.id}', 'js-end-quant-${item.id}')">-</span>
+                    <b class="quantity-more" id="js-end-quant-${item.id}">${item.quantity}</b>
+                    <span class="btn-more" onclick="globalThis.cart.plus('${item.id}', 'js-end-quant-${item.id}')">+</span>
+                    <span>&euro;<span>${item.price_html}</span></span>
+                    <b>&euro;<span>${item.sub_total_html}</span></b>
+                </div>
+            ` ).join('')
+        }
     },
     apply_coupon( selector )
     {

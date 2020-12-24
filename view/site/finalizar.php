@@ -7,12 +7,18 @@
     $takeway_check = $type_send == 'takeway' ? 'checked' : '';
     $delivery_check = $type_send == 'delivery' ? 'checked' : '';
     $metas = get_meta(get_id_cart());
+    $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
 ?>
+<span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
     <h1>Finalizar Pedido</h1>
 </div>
 <div class="space" style="--line:50px"></div>
 <div class="container">
+    <?php if (!empty(the_error())) : ?>
+        <span class="alert"> <?= $GLOBALS['error'] ?> </span>
+        <div class="space"></div>
+    <?php endif; ?>
     <form action="" method="POST" class="form">
         <div class="grid-finalizar">
             <div>
@@ -21,6 +27,7 @@
                     <label for="html-takeway" class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">Takeway</label>
                 </div>
                 <div class="space"></div>
+                <input type="text" disabled value="<?= $address ?>">
                 <div>
                     <input type="radio" name="type_send" <?= $delivery_check ?> mix-box hidden  id="html-delivery">
                     <div>
@@ -42,21 +49,21 @@
                         <div class="grid-2">
                             <div>
                                 <small>Código postal</small>
-                                <input type="" name="post_code" value="" required>
+                                <input type="" name="post_code" value="">
                             </div>
                             <div>
                                 <small>Nome</small>
-                                <input type="text" name="name" value="" required>
+                                <input type="text" name="name" value="">
                             </div>
                         </div>
                         <div class="grid-2">
                             <div>
                                 <small>Endereço</small>
-                                <input type="text" name="address" value="" required>
+                                <input type="text" name="address" value="">
                             </div>
                             <div>
                                 <small>Número</small>
-                                <input type="" name="number" value="" required>
+                                <input type="" name="number" value="">
                             </div>
                         </div>
                         <div class="grid-2">
@@ -66,7 +73,7 @@
                             </div>
                             <div>
                                 <small>Distrito</small>
-                                <input type="" name="city" value="" required>
+                                <input type="" name="city" value="">
                             </div>
                         </div>
                     </div>
@@ -103,7 +110,7 @@
                 </div>
             </div>
             <div>
-                <div class="itens-detalhes">
+                <div class="itens-detalhes" id="js-end-list-iten">
                     <?php foreach( $cart["prods"] as $prod ) : ?>
                         <div>
                             <span class="btn-more btn-remove" onclick="globalThis.cart.remove('<?= $prod['id'] ?>')">X</span>
@@ -121,19 +128,19 @@
                 <div class="sub_totais">
                     <div>
                         <span>Sub total</span>
-                        <span>&euro;<span><?= $cart["total_html"] ?></span></span>
+                        <span>&euro;<span id="js-end-total-html"><?= $cart["total_html"] ?></span></span>
                     </div>
                     <div>
                         <span>Frete</span> 
-                        <span>&euro;<?= $cart['meta']['FEE_FRETE_HTML'] ?></span>
+                        <span>&euro;<span id="js-end-fee-frete-html"><?= $cart['meta']['FEE_FRETE_HTML'] ?></span></span>
                     </div>
                     <div>
                         <span>Cupon</span>
-                        <span>&euro;<span><?= $cart['fee']['coupon_html'] ?></span></span>
+                        <span>&euro;<span id="js-end-coupon-html"><?= $cart['fee']['coupon_html'] ?></span></span>
                     </div>
                     <div>
                         <span>Total</span>
-                        <span>&euro;<span><?= $cart["total_fee_html"] ?></span></span>
+                        <span>&euro;<span id="js-end-total-fee-html"><?= $cart["total_fee_html"] ?></span></span>
                     </div>
                 </div>   
                 <div class="space"></div>
@@ -151,13 +158,13 @@
                         </div>
                     </div>
                     <div>
-                        <input type="radio" name="type_payment" mix-box hidden id="mult_bank" value="mult_bank">
+                        <input type="radio" name="type_payment" mix-box hidden id="mult_bank" value="mbway_create">
                         <div>                        
                             <small>PAGAMENTO DE SERVIÇOS NO MULTIBANCO</small>
                         </div>
                     </div>                    
                     <div>
-                        <input type="radio" name="type_payment" mix-box hidden id="mb_way" value="mb_way">
+                        <input type="radio" name="type_payment" mix-box hidden id="mb_way" value="mbway_create">
                         <div>
                             <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
                         </div>
@@ -165,7 +172,7 @@
                     <input type="text" name="paymento_value">
                 </div>
                 <div class="space"></div>
-                <input type="submit" class="btn-finalizar" value="Finalizar">
+                <input type="submit" class="btn-finalizar" value="Finalizar ok">
             </div>
         </div>
     </form>

@@ -415,25 +415,25 @@ function del_prod()
     $iten->delete($ref, $url["prod_id"]);
     echo json_encode(cart_calc());
 }
-function calc_frete( $distance = 0 )
+function calc_frete($distance = 0)
 {
     $fretes = new DeliveryRepository;
     $list_calc_frete = [];
-    $lista = $fretes->list( [
+    $lista = $fretes->list([
         "offset" => 0,
         "max_result" => 1000
-    ] );    
-    foreach( $lista as $address):
+    ]);
+    foreach ($lista as $address) :
         $range_max = $address["address"];
-        if( $distance <= $range_max  ) :
-            $list_calc_frete[] = floatval($address["money"] );
+        if ($distance <= $range_max) :
+            $list_calc_frete[] = floatval($address["money"]);
         endif;
     endforeach;
     $min = 0;
-    if( count($list_calc_frete) > 0 ):
-        $min = min( $list_calc_frete );
+    if (count($list_calc_frete) > 0) :
+        $min = min($list_calc_frete);
     endif;
-    return $min;    
+    return $min;
 }
 function cart_calc($id = null)
 {
@@ -463,31 +463,31 @@ function cart_calc($id = null)
     $metas_meta = get_meta($ref);
     $fee = [];
     $total_fee = 0;
-    if( !empty( $metas_meta["COUPON"] ) ):
-        $coupon = new CouponRepository; 
+    if (!empty($metas_meta["COUPON"])) :
+        $coupon = new CouponRepository;
         $desconto = $coupon->get_by_code($metas_meta["COUPON"]);
         $money = $desconto["money"];
-        $percentage = empty( $desconto["percentage"] ) ? 0 : $desconto["percentage"] ;
+        $percentage = empty($desconto["percentage"]) ? 0 : $desconto["percentage"];
         $cal_percent = $total * $percentage / 100;
-        $total_fee = ($money + $cal_percent ) - $total_fee;
-        $fee['coupon'] = -($money + $cal_percent );
+        $total_fee = ($money + $cal_percent) - $total_fee;
+        $fee['coupon'] = - ($money + $cal_percent);
         $fee['coupon_html'] = number_format(-$money, 2, ',', '.');
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
     $os->update_total($ref, $total);
     $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
     $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"]);
-    $is_adrress = end( $is_adrress );
-    $price_frete = calc_frete( floatval($is_adrress) );
-    if( $price_frete > 0 ) {
+    $is_adrress = end($is_adrress);
+    $price_frete = calc_frete(floatval($is_adrress));
+    if ($price_frete > 0) {
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
-        set_meta($order["id"], 'FEE_FRETE_HTML',number_format($price_frete, 2, ',', '.'));
+        set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
         set_meta($order["id"], 'TYPE_SEND', 'delivery');
         $total_fee += $price_frete;
-    }else {
+    } else {
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
-        set_meta($order["id"], 'TYPE_SEND', 'takeway');        
+        set_meta($order["id"], 'TYPE_SEND', 'takeway');
     }
     return [
         "client_id" => $order["client_id"],
@@ -500,7 +500,7 @@ function cart_calc($id = null)
         "total_fee" => $total - $total_fee,
         "total_html" => number_format(+$total, 2, ',', '.'),
         "total_fee_html" => number_format($total - $total_fee, 2, ',', '.'),
-        "meta" => array_merge( $metas, $metas_meta ),
+        "meta" => array_merge($metas, $metas_meta),
         "fee" => $fee,
         "address" => ""
     ];
@@ -659,8 +659,8 @@ function set_coupon()
     $code = $url["code"];
     $order_ref = get_id_cart();
     $is_coupon = $coupon->get_by_code($code);
-    if (!empty($is_coupon)):
-        set_meta( $order_ref, 'COUPON', $code );
+    if (!empty($is_coupon)) :
+        set_meta($order_ref, 'COUPON', $code);
     endif;
     echo json_encode(cart_calc());
 }
@@ -685,51 +685,51 @@ function get_distance($origem_lat, $origen_long, $destino_lat, $destino_long)
     $longitude = $origen_long - $destino_long;
 
     $distancia_km = 2 * asin(sqrt(pow(sin($latitude / 2), 2) +
-    cos($destino_lat) * cos($origem_lat) * pow(sin($longitude / 2), 2)));
+        cos($destino_lat) * cos($origem_lat) * pow(sin($longitude / 2), 2)));
     $distancia_km = $distancia_km * 6371;
-    return floatval( number_format($distancia_km, 2, '.', '') );
-
+    return floatval(number_format($distancia_km, 2, '.', ''));
 }
-function get_distance_kaiso( $lat, $long )
+function get_distance_kaiso($lat, $long)
 {
     $kayso = get_address_kaiso();
-    return get_distance( $kayso['lat'], $kayso["long"], $lat, $long );
+    return get_distance($kayso['lat'], $kayso["long"], $lat, $long);
 }
-function get_address( ) {
-    $address = file( __DIR__ . "/../view/banco/pt_postal_codes.csv" );
-    $address = array_map( function( $local ) {
-        $local = explode( ',', $local );
+function get_address()
+{
+    $address = file(__DIR__ . "/../view/banco/pt_postal_codes.csv");
+    $address = array_map(function ($local) {
+        $local = explode(',', $local);
         return [
-            "logadouro" =>  utf8_encode( $local[1] ) . " " . $local[0],
+            "logadouro" =>  utf8_encode($local[1]) . " " . $local[0],
             "post_code" => $local[0],
             "city" => $local[2],
-            "distance" => get_distance_kaiso( floatval($local[5]), floatval($local[6]) ) ,        
+            "distance" => get_distance_kaiso(floatval($local[5]), floatval($local[6])),
         ];
-    }, $address );
+    }, $address);
     return $address;
 }
-function search_address( $term )
+function search_address($term)
 {
     $term = trim($term);
     $term = str_replace('-', '', $term);
     $term = cliear_string($term);
-    $address = file_get_contents( __DIR__ . "/../view/banco/postcode.txt" );
-    $address = utf8_encode( $address );
+    $address = file_get_contents(__DIR__ . "/../view/banco/postcode.txt");
+    $address = utf8_encode($address);
     $address = explode(";", $address);
-    $address = array_filter( $address, function( $local ) use ( $term ) {
-        return stripos(  $local,  $term ) !== false ;
-    } );
+    $address = array_filter($address, function ($local) use ($term) {
+        return stripos($local,  $term) !== false;
+    });
     return $address;
 }
-function get_address_search( )
+function get_address_search()
 {
     $search = empty($_REQUEST["search"]) ? false :  $_REQUEST["search"];
-    if($search) :
+    if ($search) :
         $address = search_address($search);
-        echo json_encode( array_values( $address ) );
+        echo json_encode(array_values($address));
         return null;
     endif;
-    echo json_encode( [] );
+    echo json_encode([]);
 }
 function render_post_code()
 {
@@ -739,25 +739,25 @@ function render_post_code()
     //   'city' => string 'State' (length=5)
     //   'distance' => float 4408.28
     $address = '';
-    foreach( get_address() as $local ) {
+    foreach (get_address() as $local) {
         $logadouro = utf8_decode($local['logadouro']);
-        $address .= "{$logadouro } {$local['city']} {$local['distance']};"; 
+        $address .= "{$logadouro} {$local['city']} {$local['distance']};";
     }
-    $address = trim( $address );
-    $address = cliear_string( $address );
-    $address = str_replace('-', '', $address );
-    echo $address ;
+    $address = trim($address);
+    $address = cliear_string($address);
+    $address = str_replace('-', '', $address);
+    echo $address;
     // file_put_contents( __DIR__ . "/../view/banco/postcode-2.txt", $address );
 }
-function set_log( $message )
+function set_log($message)
 {
-    file_put_contents( __DIR__ . "/../.log", date( "d-m-Y H:i" ) . " $message \n", FILE_APPEND);
+    file_put_contents(__DIR__ . "/../.log", date("d-m-Y H:i") . " $message \n", FILE_APPEND);
 }
 
 function eu_pago()
 {
     $eupago = new EuPagoRest;
-    $res = $eupago->multibanco_create( [
+    $res = $eupago->multibanco_create([
         "valor" => 122.5,
         "id" => "Exemplo-em-JSON",
         "data_inicio" => "2020-12-01",
@@ -765,8 +765,8 @@ function eu_pago()
         "valor_minimo" => "122.5",
         "valor_maximo" => "122.5",
         "per_dup" => "0"
-    ] );
-    var_dump( $res );
+    ]);
+    var_dump($res);
 }
 function editar_detalhes_pedidos()
 {
@@ -774,34 +774,47 @@ function editar_detalhes_pedidos()
     $url = "/admin/pedidos-visualizar/:id";
     $params = get_param($url);
     $pedido_ref = $params["id"];
-    if( isset( $_REQUEST["status"] ) ) :
+    if (isset($_REQUEST["status"])) :
         $status = $_REQUEST["status"];
         $os = new OrderRepository;
-        $os->update_status($pedido_ref, $status );
+        $os->update_status($pedido_ref, $status);
     endif;
-    if( isset( $_REQUEST["del"] ) ) :
+    if (isset($_REQUEST["del"])) :
         $prod_id = $_REQUEST["del"];
         $iten = new ItenRepository;
-        $iten->delete( $pedido_ref, $prod_id );
+        $iten->delete($pedido_ref, $prod_id);
     endif;
-    if( isset( $_REQUEST["quantity"] ) ) :
+    if (isset($_REQUEST["quantity"])) :
         $quantity = $_REQUEST["quantity"];
         $prod_id = $_REQUEST["prod_id"];
         $item = new ItenRepository;
         $item->add($pedido_ref, $prod_id, $quantity);
     endif;
-    if( isset( $_REQUEST["add_prod_id"] ) ) :
+    if (isset($_REQUEST["add_prod_id"])) :
         $quantity = $_REQUEST["quant"];
         $prod_id = $_REQUEST["add_prod_id"];
         $item = new ItenRepository;
         $item->add($pedido_ref, $prod_id, $quantity);
     endif;
-    if( isset( $_REQUEST["coupon"] ) ) :
+    if (isset($_REQUEST["coupon"])) :
         $code = $_REQUEST["coupon"];
         $coupon = new CouponRepository;
         $is_coupon = $coupon->get_by_code($code);
-        if (!empty($is_coupon)):
-            set_meta( $pedido_ref, 'COUPON', $code );
+        if (!empty($is_coupon)) :
+            set_meta($pedido_ref, 'COUPON', $code);
+        endif;
+    endif;
+}
+function finalizar()
+{
+    if (!empty($_POST)) :
+        $eupago = new EuPagoRest;
+        $os = cart_calc();
+        $_POST['id'] = $os['id'];
+        $_POST['total'] = $os['total_fee'];
+        $res = $eupago->{$_POST["type_payment"]}($_POST);
+        if( !$res->sucesso ):
+            $GLOBALS['error'] = $res->resposta;
         endif;
     endif;
 }
