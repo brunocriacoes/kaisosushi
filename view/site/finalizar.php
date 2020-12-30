@@ -8,6 +8,7 @@
     $delivery_check = $type_send == 'delivery' ? 'checked' : '';
     $metas = get_meta(get_id_cart());
     $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
+    $postcode = preg_replace( '/(.*)(\d{7})(.*)/', "$2", $address );
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
@@ -32,48 +33,45 @@
                     <input type="radio" name="type_send" <?= $delivery_check ?> mix-box hidden  id="html-delivery">
                     <div>
                         <div class="grid-locais">
-                            <span>
-                                <b>Casa</b>
-                                <h3>00000-000</h3>
-                                <p>Rua das capivaras Nº 42 - SP</p>
-                                <p>Lisboa - Portugal</p>
-                            </span>
-                            <span>
-                                <b>Casa 2</b>
-                                <h3>00000-000</h3>
-                                <p>Rua das capivaras Nº 42 - SP</p>
-                                <p>Lisboa - Portugal</p>
-                            </span>
+                            <?php foreach( get_moradas() as $morada ): ?>
+                                <?php $is_addrress = is_postcode( $morada['post_code'], $postcode ) ? $morada : []; ?>
+                                <span class="<?= conmpare_postcode( $morada['post_code'], $postcode ) ?>">
+                                    <b><?= $morada['name'] ?></b>
+                                    <h3><?= $morada['post_code'] ?></h3>
+                                    <p><?= $morada['address'] ?> Nº <?= $morada['number'] ?></p>
+                                    <p><?= $morada['city'] ?></p>
+                                </span>
+                            <?php endforeach; ?>
                         </div>
                         <div class="space"></div>
                         <div class="grid-2">
                             <div>
                                 <small>Código postal</small>
-                                <input type="" name="post_code" value="">
+                                <input type="" name="post_code" value="<?= $is_addrress['post_code'] ?? '' ?>">
                             </div>
                             <div>
                                 <small>Nome</small>
-                                <input type="text" name="name" value="">
+                                <input type="text" name="name" value="<?= $is_addrress['name'] ?? '' ?>">
                             </div>
                         </div>
                         <div class="grid-2">
                             <div>
                                 <small>Endereço</small>
-                                <input type="text" name="address" value="">
+                                <input type="text" name="address" value="<?= $is_addrress['address'] ?? '' ?>">
                             </div>
                             <div>
                                 <small>Número</small>
-                                <input type="" name="number" value="">
+                                <input type="" name="number" value="<?= $is_addrress['number'] ?? '' ?>">
                             </div>
                         </div>
                         <div class="grid-2">
                             <div>
                                 <small>Complemento</small>
-                                <input type="" name="complement" value="">
+                                <input type="" name="complement" value="<?= $is_addrress['complement'] ?? '' ?>">
                             </div>
                             <div>
                                 <small>Distrito</small>
-                                <input type="" name="city" value="">
+                                <input type="" name="city" value="<?= $is_addrress['city'] ?? '' ?>">
                             </div>
                         </div>
                     </div>
@@ -105,7 +103,7 @@
                 <div class="space"></div>
                 <div>
                     <small>Instruções para entrega</small>
-                    <textarea name="obs" rows="7"></textarea>
+                    <textarea name="obs" rows="7"><?= $metas['OS_OBS'] ?? '' ?></textarea>
 
                 </div>
             </div>
@@ -121,8 +119,7 @@
                             <span>&euro;<span><?= $prod["price_html"] ?></span></span>
                             <b>&euro;<span><?= $prod["sub_total_html"] ?></span></b>
                         </div>
-                    <?php endforeach; ?>
-                   
+                    <?php endforeach; ?>                   
                 </div>
                 <div class="space"></div>
                 <div class="sub_totais">
@@ -169,7 +166,7 @@
                             <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
                         </div>
                     </div>
-                    <input type="text" name="paymento_value">
+                    <input type="text" name="paymento_value" value="<?= $metas['PAY_VALUE'] ?? '' ?>">
                 </div>
                 <div class="space"></div>
                 <input type="submit" class="btn-finalizar" value="Finalizar ok">

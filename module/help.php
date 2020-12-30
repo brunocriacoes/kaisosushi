@@ -816,7 +816,19 @@ function finalizar()
         if( !$res->sucesso ):
             $GLOBALS['error'] = $res->resposta;
         endif;
+        set_meta( $os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value'] );
+        set_meta( $os['ref'], 'OS_OBS', $_REQUEST['obs'] );
     endif;
+}
+function conmpare_postcode( $post_code_1, $post_code_2 ) {
+    $post_code_1 = str_replace('-','', $post_code_1 );
+    $post_code_2 = str_replace('-','', $post_code_2 );
+    return $post_code_1 == $post_code_2 ? 'active' : '';
+}
+function is_postcode( $post_code_1, $post_code_2 ) {
+    $post_code_1 = str_replace('-','', $post_code_1 );
+    $post_code_2 = str_replace('-','', $post_code_2 );
+    return $post_code_1 == $post_code_2;
 }
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

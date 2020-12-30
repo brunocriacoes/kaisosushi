@@ -1066,6 +1066,14 @@ button:hover {
     padding: 20px;
     border-radius: 5px;
     color: #DDD;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+.grid-locais > span:hover {
+    filter: brightness(1.2);
+}
+.grid-locais > span.active {
+    border: 3px solid var(--vermelho);
 }
 .grid-cep {
     display: grid;
