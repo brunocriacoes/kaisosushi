@@ -22,7 +22,8 @@ class Site
         add_router( '/404', function() {}, __DIR__ . "/../view/site/404.php"  );
         add_router( '/postcode', 'get_address_search'  );
         add_router( '/postcode/render', 'render_post_code'  );
-        add_router( '/eupago', 'eu_pago'  );
+        add_router( '/eupago', 'eu_pago' );
+        add_router( '/obrigado', function() {}, __DIR__ . "/../view/site/obrigado.php" );
         
         add_router( '/teste', 'calc_frete'  );
 

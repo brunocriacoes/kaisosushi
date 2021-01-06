@@ -9,6 +9,7 @@
     $metas = get_meta(get_id_cart());
     $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
     $postcode = preg_replace( '/(.*)(\d{7})(.*)/', "$2", $address );
+    $pay_type = $metas['PAY_TYPE'] ?? 'money';
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
@@ -149,19 +150,19 @@
                     </div>
                     <div class="space"></div>
                     <div>
-                        <input type="radio" name="type_payment" checked mix-box hidden id="money" value="money">
+                        <input type="radio" <?= $pay_type == 'money' ? 'checked' : '' ?> name="type_payment"  mix-box hidden id="money" value="money">
                         <div>
                             <small>Valor para facilitar troco</small>
                         </div>
                     </div>
                     <div>
-                        <input type="radio" name="type_payment" mix-box hidden id="mult_bank" value="mbway_create">
+                        <input type="radio" name="type_payment" mix-box hidden id="mult_bank" <?= $pay_type == 'mbway_create' ? 'checked' : '' ?> value="mbway_create">
                         <div>                        
                             <small>PAGAMENTO DE SERVIÇOS NO MULTIBANCO</small>
                         </div>
                     </div>                    
                     <div>
-                        <input type="radio" name="type_payment" mix-box hidden id="mb_way" value="mbway_create">
+                        <input type="radio" name="type_payment" mix-box hidden id="mb_way" <?= $pay_type == 'multibanco_create' ? 'checked' : '' ?> value="multibanco_create">
                         <div>
                             <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
                         </div>
@@ -169,7 +170,7 @@
                     <input type="text" name="paymento_value" value="<?= $metas['PAY_VALUE'] ?? '' ?>">
                 </div>
                 <div class="space"></div>
-                <input type="submit" class="btn-finalizar" value="Finalizar ok">
+                <input type="submit" class="btn-finalizar" value="Finalizar">
             </div>
         </div>
     </form>

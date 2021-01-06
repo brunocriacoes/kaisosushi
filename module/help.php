@@ -476,7 +476,7 @@ function cart_calc($id = null)
     endif;
     $os->update_total($ref, $total);
     $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
-    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"]);
+    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"] ?? '' );
     $is_adrress = end($is_adrress);
     $price_frete = calc_frete(floatval($is_adrress));
     if ($price_frete > 0) {
@@ -813,11 +813,15 @@ function finalizar()
         $_POST['id'] = $os['id'];
         $_POST['total'] = $os['total_fee'];
         $res = $eupago->{$_POST["type_payment"]}($_POST);
-        if( !$res->sucesso ):
-            $GLOBALS['error'] = $res->resposta;
-        endif;
         set_meta( $os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value'] );
         set_meta( $os['ref'], 'OS_OBS', $_REQUEST['obs'] );
+        set_meta( $os['ref'], 'PAY_TYPE', $_REQUEST['type_payment'] );
+        if( !$res->sucesso ):
+            $GLOBALS['error'] = $res->resposta;
+        else:
+            cart_clear();
+            redirect(dir_template('/obrigado'));
+        endif;
     endif;
 }
 function conmpare_postcode( $post_code_1, $post_code_2 ) {
@@ -830,5 +834,6 @@ function is_postcode( $post_code_1, $post_code_2 ) {
     $post_code_2 = str_replace('-','', $post_code_2 );
     return $post_code_1 == $post_code_2;
 }
+
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
