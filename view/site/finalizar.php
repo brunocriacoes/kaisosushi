@@ -134,7 +134,7 @@
                     </div>
                     <div>
                         <span>Cupon</span>
-                        <span>&euro;<span id="js-end-coupon-html"><?= $cart['fee']['coupon_html'] ?></span></span>
+                        <span>&euro;<span id="js-end-coupon-html"><?= $cart['fee']['coupon_html'] ?? '0,00' ?></span></span>
                     </div>
                     <div>
                         <span>Total</span>

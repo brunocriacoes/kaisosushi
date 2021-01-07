@@ -819,6 +819,8 @@ function finalizar()
         if( !$res->sucesso ):
             $GLOBALS['error'] = $res->resposta;
         else:
+            $order = new OrderRepository;
+            $order->update_status($os['ref'], 'waiting' );
             cart_clear();
             redirect(dir_template('/obrigado'));
         endif;
