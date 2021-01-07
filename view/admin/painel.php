@@ -1,4 +1,21 @@
 <?php include __DIR__ . "/header.php" ?>
+<?php
+    $pedidos = get_all_pedido();
+    $total = count($pedidos);
+    $total_finished = array_reduce( $pedidos, function( $acc, $os ) {
+        if($os['status'] == "finished") {
+            $acc += $os['total'];
+        }
+        return $acc;
+    }, 0 );
+    $total_finished = number_format( $total_finished, 2, ',', '.' );
+    $total_encomendas = array_reduce( $pedidos, function( $acc, $os ) {
+        if($os['status'] == "finished") {
+            $acc += 1;
+        }
+        return $acc;
+    }, 0 );
+?>
     <!------------ Começo do Corpo-->
     <div class="corpo">
         <div class="space mobye"></div>
@@ -15,15 +32,15 @@
         <div class="perfbox">
             <ul class="bef perf">
                 <li class="corL">Total de vendas</li>
-                <li><h3><span class="perfNum">100</span></h3></li>
+                <li><h3><span class="perfNum"><?= $total_encomendas ?></span></h3></li>
             </ul>
             <ul class="bef perf vendas">
                 <li>Vendas</li>
-                <li><h3><span class="perfNum">€ 100,00</span></h3></li>
+                <li><h3><span class="perfNum">€ <?= $total_finished ?></span></h3></li>
             </ul>
             <ul class="bef perf">
                 <li class="corL">Total de encomendas</li>
-                <li><h3><span class="perfNum">100</span></h3></li>
+                <li><h3><span class="perfNum"><?= $total ?></span></h3></li>
             </ul>
         </div>
 
@@ -38,7 +55,7 @@
                 <span>Status</span>
                 <span></span>
             </div>
-            <?php foreach( get_all_pedido() as $pedido ) : ?>
+            <?php foreach( $pedidos as $pedido ) : ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]*1200 ?></span>
                         <span class="mobno"><?= $pedido["client_id"] ?></span>
