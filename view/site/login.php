@@ -5,6 +5,11 @@
 </div>
 <div class="space"></div>
 <form action="" method="POST" class="form box-login">
+    <?php if (!empty($_REQUEST['error'])) : ?>
+        <span class="alert"> Para continuar você precisa está logado </span>
+        <div class="space"></div>
+        <input type="text" value="1" name="goback_cart" hidden>
+    <?php endif; ?>
     <?php if (!empty(the_error())) : ?>
         <span class="alert"> Usuário ou senha está errado </span>
         <div class="space"></div>
@@ -12,6 +17,7 @@
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="pass" placeholder="Senha" required>
     <button type="submit" class="btn-center">Entrar</button>
+    <a href="<?= dir_template( '/me-registrar' ) ?>" class="link--login">Me Registrar</a>
 </form>
 <div class="space"></div>
 

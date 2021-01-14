@@ -75,6 +75,20 @@ body {
     align-items: center;
     grid-gap: 20px;
 }
+@media (max-width:761px) {
+    .grid-menu {
+        grid-template-columns: 70px 40px 1fr 70px !important;
+        grid-gap: 5px;
+    }
+}
+.link--login {
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #EEE;
+}
 .link-menu > div {
     display: none;
     grid-template-columns: 30px 1fr;
@@ -99,6 +113,12 @@ body {
 }
 .link-user > div:nth-child(1) {
     display: block;
+}
+@media (max-width: 761px) {
+    .link-user > div:nth-child(1) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 .link-user > div > a {
     display: inline-block;

@@ -26,6 +26,10 @@ class Site
         add_router( '/obrigado', function() {}, __DIR__ . "/../view/site/obrigado.php" );
         
         add_router( '/teste', 'calc_frete'  );
+        add_router( '/webhook', function() {
+            $json = json_encode( $_REQUEST );
+            set_log( 'RESPONSE EUPAGO ' . $json );
+        }  );
 
         add_router( '/api/v1/cart', function() {
             echo json_encode( cart_calc() );

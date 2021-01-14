@@ -536,14 +536,21 @@ function set_cart_address()
 function client_login()
 {
     client_public();
-    if (!empty($_REQUEST)) :
-        $email = $_REQUEST["email"] ?? '';
-        $pass = $_REQUEST["pass"] ?? '';
+    if (!empty($_POST)) :
+        $email = $_POST["email"] ?? '';
+        $pass = $_POST["pass"] ?? '';
         $client = new ClientRepository;
         $is_client = $client->login($email, $pass);
         if (!empty($is_client)) :
             $_SESSION["CLIENT"] = $is_client[0]["id"];
-            redirect(dir_template('/perfil'));
+            if( isset( $_POST["goback_cart"] ) ) {
+                $os = new OrderRepository;
+                $cart = cart_calc();
+                $os->update_user($cart['ref'], $is_client[0]["id"]);
+                redirect(dir_template('/finalizar'));
+            } else {
+                redirect(dir_template('/perfil'));
+            }
         else :
             $GLOBALS['error'] = "Usuário ou senha esta errado";
         endif;

@@ -1,6 +1,9 @@
 <?php include __DIR__ . "/header.php" ?>
 <?php
     $cart = is_cart() ? cart_calc() : [];
+    if( $cart['client_id'] == '0' ) {
+        redirect( '/login?error=401' );
+    }
     $type_send = !empty($cart["meta"]["TYPE_SEND"]) ? $cart["meta"]["TYPE_SEND"] : 'delivery';
     $takeway = $type_send == 'takeway' ? 'active' : '';
     $delivery = $type_send == 'delivery' ? 'active' : '';
