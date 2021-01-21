@@ -36,10 +36,10 @@ var sub = document.querySelector('#sub');
 var add = document.querySelector('#add');
 var input = document.querySelector('#input');
 
-add.addEventListener('click', () =>{
+add?.addEventListener('click', () =>{
     input.value = parseInt(input.value) + 1;
 })
 
-sub.addEventListener('click', () =>{
+sub?.addEventListener('click', () =>{
     input.value = parseInt(input.value) - 1;
 })
