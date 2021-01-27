@@ -1062,7 +1062,7 @@ textarea {
     
     /*-------------------- Pedidos ---------------------*/
     .grid-pedido {
-        --cols: 1fr 1fr 1fr 30px;
+        --cols: 1fr 1fr 1fr 30px !important;
     }
     #alerta_rem {
         left: 30px;
