@@ -1200,3 +1200,9 @@ button:hover {
 .btn-morada-finalizar:hover {
     filter: brightness(1.2);
 }
+.text-white {
+    color: #EEE;
+}
+.text-white small {
+    color: #DDD;
+}
