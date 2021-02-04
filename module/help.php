@@ -728,12 +728,35 @@ function search_address($term)
     });
     return $address;
 }
+function clear_address( $array ) {
+    return array_values( array_filter( $array, function($e) {
+        return strlen( $e ) > 2;
+    }) );
+}
+function search_mutation( $list ) {
+    return array_map( function($address) {
+        // 3750011 
+        $address_text =  preg_replace( "/(\d)/", "", $address );
+        $zip_code = preg_replace( "/(.*)(\d{7,7})(.*)/", "$2", $address );
+        $distance = preg_replace( "/(.*)(\d{2}\.\d{1})(.*)/", "$2", $address );
+        $address_text = clear_address( explode(' ', $address_text) );
+        $cyte = end($address_text);
+        array_pop($address_text);
+        $logadouro = $address_text;
+        return [
+            "logadouro" => implode( ' ', $logadouro),
+            "cyte" => $cyte,
+            "zip_code" => $zip_code,
+            "distance" => $distance,
+        ];
+    }, $list );
+}
 function get_address_search()
 {
     $search = empty($_REQUEST["search"]) ? false :  $_REQUEST["search"];
     if ($search) :
         $address = search_address($search);
-        echo json_encode(array_values($address));
+        echo json_encode(search_mutation(array_values($address)));
         return null;
     endif;
     echo json_encode([]);

@@ -19,8 +19,8 @@
                         <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">DELIVERY</span>
                         <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">TAKEWAY</span>
                     </div>
-                    <form action="<?= dir_template( '/menu/menu' ) ?>" method="POST" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
-                        <input list="js-address-box" onkeyup="globalThis.cart.postcode('js-address-send', 'js-address-box')" type="search" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
+                    <form  action="javascript:void(0)" method="POST" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
+                        <input onchange="globalThis.cart.set_data_list()"  list="js-address-box" onkeyup="globalThis.cart.postcode('js-address-send', 'js-address-box')" type="search" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
                         <button type="submit"> <img src="<?= dir_template( '/view/site/src/ico/search.svg' ) ?>" alt=""> </button>
                         <datalist id="js-address-box"></datalist>
                     </form>

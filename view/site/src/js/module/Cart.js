@@ -93,19 +93,20 @@ export default {
     postcode( selector, selector_data_list )
     {
         let $input = document.querySelector(`#${selector}`)
-        clearTimeout(globalThis.search_postcoded)
-        if( $input.value.length > 3  )
+        if( $input.value.length == 4  )
         {
+            $input.setAttribute( 'disabled', 'disabled' )
             let $data_list = document.querySelector(`#${selector_data_list}`)
-            globalThis.search_postcoded = setTimeout( () => {
-                fetch( `${this.serve}/postcode?search=${$input.value}` )
-                ?.then( res => res.json() )
-                ?.then( res => {
-                    $input.focus()
-                    $data_list.innerHTML = res.map( local => `<option value="${local}">` ).join('')
-                } )
-            }, 1500 )
+            this.get(`/postcode?search=${$input.value}`, res => {
+                $data_list.innerHTML = res.map( local => `<option value="${local.logadouro} - ${local.cyte} - ${local.zip_code} ">` ).join('')
+                $input.removeAttribute( 'disabled' )
+                $input.focus()
+            } );
+          
         }        
+    },
+    set_data_list() {
+        console.log( 'set data list' )
     },
     render_finalizar( res )
     {

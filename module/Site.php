@@ -20,7 +20,7 @@ class Site
         add_router( '/perfil/moradas', 'client_moradas', __DIR__ . "/../view/site/moradas.php"  );
         add_router( '/perfil/pedidos', 'client_pedidos', __DIR__ . "/../view/site/pedidos.php"  );
         add_router( '/404', function() {}, __DIR__ . "/../view/site/404.php"  );
-        add_router( '/postcode', 'get_address_search'  );
+        add_router( '/api/v1/cart/postcode', 'get_address_search'  );
         add_router( '/postcode/render', 'render_post_code'  );
         add_router( '/eupago', 'eu_pago' );
         add_router( '/obrigado', function() {}, __DIR__ . "/../view/site/obrigado.php" );
