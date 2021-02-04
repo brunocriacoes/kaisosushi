@@ -10,11 +10,26 @@ function fechar() {
 var ancora_menu = document.querySelectorAll("#menu div a");
 ancora_menu = Object.values(ancora_menu);
 
+
 ancora_menu.forEach(a => {
     if( window.location.href == a.href){
         a.classList.add('cor')
     }
 });
+
+
+var opt = document.querySelectorAll("select > option");
+var option = Array.from(opt);
+
+option.forEach(function(e) {
+    console.log(e.value)
+    if(window.location.href == e.value) {
+        e.setAttribute("selected", "selected")
+    }
+} )
+
+
+var traducao = document.querySelectorAll(".traducao");
 
 function remover(a){
     window.location.href = a.getAttribute("data-href")

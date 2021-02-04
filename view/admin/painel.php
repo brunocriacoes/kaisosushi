@@ -16,12 +16,12 @@
         return $acc;
     }, 0 );
 ?>
-    <!------------ Começo do Corpo-->
-    <div class="corpo">
+    <!------------ Começo do Corpo ----------->
+    <div class="corpo painel">
         <div class="space mobye"></div>
         <h4>Intervalor de data</h4>
         <form action="javascript:void(0)">
-        <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef">
+        <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef alvo">
             <option value="http://dev.kaisosushi.con/admin/painel?filter=30">Últimos 30 dias</option>
             <option value="http://dev.kaisosushi.con/admin/painel?filter=60">Últimos 60 dias</option>
             <option value="http://dev.kaisosushi.con/admin/painel?filter=90">Últimos 90 dias</option>
@@ -42,7 +42,7 @@
                 <li class="corL">Total de encomendas</li>
                 <li><h3><span class="perfNum"><?= $total ?></span></h3></li>
             </ul>
-        </div>
+    </div>
 
         <div class="space"></div>
         <h4>Pedidos em aberto (Hoje)</h4>
@@ -55,14 +55,17 @@
                 <span>Status</span>
                 <span></span>
             </div>
-            <?php foreach( $pedidos as $pedido ) :
-            //var_dump($pedido);?>
+            <?php foreach($pedidos as $pedido ) : 
+            $client_id = $pedido["client_id"] == 0 ? 2 : $pedido["client_id"] ;
+            //var_dump($pedido);
+                $client = get_client($client_id);
+                    ?>
                     <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]+1200 ?></span>
-                        <span class="mobno"><?= $pedido["client_id"] ?></span>
-                        <span><?= $pedido["total"] ?></span>
-                        <span class="mobno"><?= $pedido["total"] ?></span>
-                        <span><?= $pedido["status"] ?></span>
+                        <span class="mobno"><?= $client["name"] ?? 'Não-definido' ?></span>
+                        <span>€<?= corretorNum($pedido["total"]) ?></span>
+                        <span class="mobno"><?= ucfirst(estadoPedido($pedido["id"]));?></span>
+                        <span><?= teste($pedido["status"]) ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>
