@@ -16,7 +16,7 @@
         <div class="zebrado-os">
             <?php foreach( get_may_os() as $os ): ?>
                 <?php $meta = get_meta($os["id"]); ?>
-                <div class="grid-os">
+                <div class="grid-os text-white">
                     <div>
                         <small>Numero</small>
                         <b><?= $os["number"] ?? '' ?></b>

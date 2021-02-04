@@ -118,6 +118,8 @@ body {
     .link-user > div:nth-child(1) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        min-height: 70px;
     }
 }
 .link-user > div > a {
@@ -1199,4 +1201,16 @@ button:hover {
 }
 .btn-morada-finalizar:hover {
     filter: brightness(1.2);
+}
+.text-white {
+    color: #EEE;
+}
+.text-white small {
+    color: #DDD;
+}
+.ico--discount {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin-bottom: -18px;
 }

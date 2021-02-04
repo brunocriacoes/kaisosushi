@@ -8,6 +8,7 @@
         <div class="space" style="--line:70px"></div>
         <h2>Pedido Finalizado com sucesso</h2>
         <p>Seu pedido ja esta sendo processado</p>
+        <p>para acompanhar o status do seu pedido entre em seu perfil e acesse a aba pedidos</p>
         <div class="space" style="--line:70px"></div>
     </div>
 </div>
