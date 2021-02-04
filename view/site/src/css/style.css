@@ -28,6 +28,14 @@ body, img {
 body {
     background-color: var(--color-bg);    
 }
+.loading {
+    display: block;
+    background-image: url('../image/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px;
+    min-height: 40px;
+}
 .load {
     display: flex;
     width: 100%;
@@ -397,9 +405,10 @@ body {
     margin: 0 auto;
     border-radius: 12px;
     box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, .2);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .search {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 40px;
     grid-gap: 15px;
@@ -417,6 +426,28 @@ body {
     border: 0;
     padding: 10px;
     cursor: pointer;
+}
+.search__option {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    left: 0;
+    z-index: 999;
+}
+.search__option span {
+    display: block;
+    background-color: #EEE;
+    color: #333;
+    width: 100%;
+    text-align: left;
+    line-height: 34px;
+    border-bottom: 1px solid #CCC;
+    padding: 0 7px;
+    cursor: pointer;
+}
+.search__option span:hover {
+    background-color: #DDD;
 }
 .perquisa-title {
     display: grid;
@@ -897,6 +928,7 @@ button:hover {
     border-radius: 5px;
     margin-top: 0px;
     align-items: center;
+    position: relative;
 }
 .is_delivery img {
     display: block;
@@ -1213,4 +1245,25 @@ button:hover {
     width: 70px;
     height: 70px;
     margin-bottom: -18px;
+}
+.alert--delivery {
+    display: block;
+    width: 400px;
+    background-color: #C00;
+    color: #EEE;
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: 7px 14px;
+    border-radius: 8px;
+    margin-top: 7px;
+}
+.edit-adreess {
+    background-color: transparent;
+    border: none;
+    color: #EEEE;
+}
+.to-takeway {
+    display: block;
+    text-align: center;
+    color: #EEE;
 }

@@ -25,7 +25,7 @@ export default {
         })
     },
     render(cart) {
-        document.querySelector("#js-prods").innerHTML = cart.prods.map(prod => `
+        document.querySelector("#js-prods").innerHTML = cart.prods?.map(prod => `
             <div>
                 <b> 
                     <i onclick="globalThis.cart.minus('${prod.id}', 'js-cart-quant-${prod.id}')">-</i> 
@@ -38,7 +38,7 @@ export default {
             </div>
         ` ).join('')
         document.querySelector("#js-cart-total").innerHTML = `€${cart.total_html}`
-        document.querySelector("#js-address").innerHTML = `${cart.meta.ADDRESS_SEND}`
+        document.querySelector("#js-address").innerHTML = `${cart.meta?.ADDRESS_SEND}`
     },
     remove(id) {
         this.get(`/del/${id}`, res => { })
@@ -77,7 +77,7 @@ export default {
     },
     edit_address_send( selector ) {
         let $address = document.querySelector(`#${selector}`);
-        this.get(`/frete/address?text=${$address.innerHTML}`, res => {} );
+        this.get(`/frete/address?text=${$address.value}`, res => {} );
     },
     set_coupon( selector )
     {
@@ -93,20 +93,30 @@ export default {
     postcode( selector, selector_data_list )
     {
         let $input = document.querySelector(`#${selector}`)
-        if( $input.value.length == 4  )
-        {
-            $input.setAttribute( 'disabled', 'disabled' )
-            let $data_list = document.querySelector(`#${selector_data_list}`)
+        clearTimeout( globalThis.debounce_search )
+        let $data_list = document.querySelector(`#${selector_data_list}`)
+        $data_list.innerHTML = '<span class="loading"></span>'
+        globalThis.debounce_search = setTimeout( () => {
             this.get(`/postcode?search=${$input.value}`, res => {
-                $data_list.innerHTML = res.map( local => `<option value="${local.logadouro} - ${local.cyte} - ${local.zip_code} ">` ).join('')
-                $input.removeAttribute( 'disabled' )
-                $input.focus()
+                let address_print = local => `${local.logadouro} - ${local.cyte} - ${local.zip_code}`
+                let address_data = local => JSON.stringify(local)
+                $data_list.innerHTML = res.map( local => `<span onclick='globalThis.cart.set_data_list(${address_data(local)}, "${selector}", "${selector_data_list}")'> ${address_print(local)} </span>` ).join('')
             } );
-          
-        }        
+        }, 1000 )      
     },
-    set_data_list() {
-        console.log( 'set data list' )
+    set_data_list( $data, selector, selector_data_list ) {
+        let $input = document.querySelector(`#${selector}`)
+        let $data_list = document.querySelector(`#${selector_data_list}`)
+        let address_print = local => `${local.logadouro} - ${local.cyte} - ${local.zip_code}`
+        $input.value = address_print($data)
+        this.get(`/data_address?json=${JSON.stringify($data)}`, res => {})
+        $data_list.innerHTML = ''
+        if( globalThis.max_km < $data.distance ) {
+            document.querySelector('.alert--delivery').removeAttribute('hidden')
+        }else {
+            document.querySelector('.alert--delivery').setAttribute('hidden','')
+        }
+        console.log($data)
     },
     render_finalizar( res )
     {

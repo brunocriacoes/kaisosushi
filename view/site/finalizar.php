@@ -9,10 +9,12 @@
     $delivery = $type_send == 'delivery' ? 'active' : '';
     $takeway_check = $type_send == 'takeway' ? 'checked' : '';
     $delivery_check = $type_send == 'delivery' ? 'checked' : '';
+    $type_frete = $type_send == 'delivery' ? 'hidden' : '';
     $metas = get_meta(get_id_cart());
     $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
     $postcode = preg_replace( '/(.*)(\d{7})(.*)/', "$2", $address );
     $pay_type = $metas['PAY_TYPE'] ?? 'money';
+    $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true );
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
@@ -31,68 +33,44 @@
                     <label for="html-delivery" class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">Delivery</label>
                     <label for="html-takeway" class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">Takeway</label>
                 </div>
-                <div class="space"></div>
-                <input type="text" disabled value="<?= $address ?>">
-                <div>
-                    <input type="radio" name="type_send" <?= $delivery_check ?> mix-box hidden  id="html-delivery">
-                    <div>
-                        <div class="grid-locais">
-                            <?php foreach( get_moradas() as $morada ): ?>
-                                <?php $is_addrress = is_postcode( $morada['post_code'], $postcode ) ? $morada : []; ?>
-                                <span class="<?= conmpare_postcode( $morada['post_code'], $postcode ) ?>">
-                                    <b><?= $morada['name'] ?></b>
-                                    <h3><?= $morada['post_code'] ?></h3>
-                                    <p><?= $morada['address'] ?> Nº <?= $morada['number'] ?></p>
-                                    <p><?= $morada['city'] ?></p>
-                                </span>
-                            <?php endforeach; ?>
+                <div>              
+                    <div class="space"></div>
+                    <div class="grid-2">
+                        <div>
+                            <small>Código postal</small>
+                            <input type="" name="zip_code" value="<?= $local['zip_code'] ?? '' ?>">
                         </div>
-                        <div class="space"></div>
-                        <div class="grid-2">
-                            <div>
-                                <small>Código postal</small>
-                                <input type="" name="post_code" value="<?= $is_addrress['post_code'] ?? '' ?>">
-                            </div>
-                            <div>
-                                <small>Nome</small>
-                                <input type="text" name="name" value="<?= $is_addrress['name'] ?? '' ?>">
-                            </div>
+                        <div>
+                            <small>Nome</small>
+                            <input type="text" name="name" value="<?= $local['name'] ?? '' ?>">
                         </div>
-                        <div class="grid-2">
-                            <div>
-                                <small>Endereço</small>
-                                <input type="text" name="address" value="<?= $is_addrress['address'] ?? '' ?>">
-                            </div>
-                            <div>
-                                <small>Número</small>
-                                <input type="" name="number" value="<?= $is_addrress['number'] ?? '' ?>">
-                            </div>
+                    </div>
+                    <div class="grid-2">
+                        <div>
+                            <small>Endereço</small>
+                            <input type="text" name="logadouro" value="<?= $local['logadouro'] ?? '' ?>">
                         </div>
-                        <div class="grid-2">
-                            <div>
-                                <small>Complemento</small>
-                                <input type="" name="complement" value="<?= $is_addrress['complement'] ?? '' ?>">
-                            </div>
-                            <div>
-                                <small>Distrito</small>
-                                <input type="" name="city" value="<?= $is_addrress['city'] ?? '' ?>">
-                            </div>
+                        <div>
+                            <small>Número</small>
+                            <input type="text" name="number" value="<?= $local['number'] ?? '' ?>">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div>
+                            <small>Complemento</small>
+                            <input type="text" name="complement" value="<?= $local['complement'] ?? '' ?>">
+                        </div>
+                        <div>
+                            <small>Distrito</small>
+                            <input type="text" name="cyte" value="<?= $local['cyte'] ?? '' ?>">
                         </div>
                     </div>
                 </div>
-                <div>
-                    <input type="radio" name="type_send" <?= $takeway_check ?> mix-box hidden id="html-takeway">
-                    <div>
-                        <div class="grid-locais">
-                            <span>
-                                <b>Retirada</b>
-                                <h3>ONDE NOS ENCONTRAR</h3>
-                                <p>Rua Carlos Reis, 43</p>
-                                <p>Lisboa - Portugal</p>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                
+                <span class="alert--delivery" <?= $type_frete ?> >
+                    A opção de <b>Delivery</b> esta desabilitada para você, Entregamos até <?= get_max_km() ?>km de distância.
+                </span>
+                <p class="to-takeway" <?= $type_frete ?> > <b>Retirada</b> Rua Carlos Reis, 43 - Lisboa / <b>1600-032</b> </p>
                 <div class="space"></div>
                 <div class="grid-cupom">
                     <div>
@@ -107,7 +85,7 @@
                 <div class="space"></div>
                 <div>
                     <small>Instruções para entrega</small>
-                    <textarea name="obs" rows="7"><?= $metas['OS_OBS'] ?? '' ?></textarea>
+                    <textarea name="obs" rows="4"><?= $metas['OS_OBS'] ?? '' ?></textarea>
 
                 </div>
             </div>
@@ -172,7 +150,9 @@
                     </div>
                     <input type="text" name="paymento_value" value="<?= $metas['PAY_VALUE'] ?? '' ?>">
                 </div>
+                
                 <div class="space"></div>
+
                 <input type="submit" class="btn-finalizar" value="Finalizar">
             </div>
         </div>
