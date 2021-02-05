@@ -27,6 +27,12 @@ option.forEach(function(e) {
         e.setAttribute("selected", "selected")
     }
 } )
+option.forEach(function(e) {
+    console.log(e.value)
+    if(window.location.href == e.value) {
+        e.setAttribute("selected", "selected")
+    }
+} )
 
 
 var traducao = document.querySelectorAll(".traducao");

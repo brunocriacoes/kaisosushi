@@ -3,9 +3,16 @@
         <!------------ Começo do Corpo-->
         <div class="corpo">
             <h4>Filtre por status</h4>
-            <select name="" id="" class="bef">
-                <option value="processo">Processando</option>
-            </select>
+            <form action="javascript:void(0)">
+                <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef">
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=all">Todos</option>
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=cancelled">Cancelado</option>
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=delivery">Entrega</option>
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=waiting">Esperando</option>
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=finished">Finalizado</option>
+                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=takeway">Retirada</option>
+                </select>
+            </form>
             <div class="space"></div>
             <div class="space"></div>
             <h4>Pedidos</h4>
@@ -26,7 +33,7 @@
                     ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]+1200 ?></span>
-                        <span class="mobno"><?= $client["name"] ?? 'Não-definido' ?></span>
+                        <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span><?= date("d/m/y", strtotime($pedido["date_update"])) ?></span>
                         <span class="mobno">€<?= corretorNum($pedido["total"]) ?></span>
                         <span><?= ucfirst(estadoPedido($pedido["id"]));?></span>

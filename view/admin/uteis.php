@@ -7,8 +7,8 @@ function teste($a){
     elseif($a == "waiting"){
         $a = "Esperando";
     }
-    elseif($a == "finshed"){
-        $a = "Concluído";
+    elseif($a == "finished"){
+        $a = "Finalizado";
     }
     elseif($a == "canceled") {
         $a = "Cancelado";
