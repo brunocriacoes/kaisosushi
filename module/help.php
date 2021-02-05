@@ -8,9 +8,21 @@ function get_email()
 {
     return $_ENV['EMAIL'];
 }
+function get_phone()
+{
+    return $_ENV['PHONE'];
+}
+function get_phone_link()
+{
+    return str_replace(' ', '', $_ENV['PHONE']);
+}
 function get_title_site()
 {
     return $_ENV['TITLE_SITE'];
+}
+function get_max_km()
+{
+    return $_ENV['MAX_KM'];
 }
 function get_facebook()
 {
@@ -474,7 +486,7 @@ function cart_calc($id = null)
         $fee['coupon_html'] = number_format(-$money, 2, ',', '.');
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
-    $os->update_total($ref, $total);
+    
     $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
     $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"] ?? '' );
     $is_adrress = end($is_adrress);
@@ -483,12 +495,13 @@ function cart_calc($id = null)
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
         set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
         set_meta($order["id"], 'TYPE_SEND', 'delivery');
-        $total_fee += $price_frete;
+        $total += $price_frete;
     } else {
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
         set_meta($order["id"], 'TYPE_SEND', 'takeway');
     }
+    $os->update_total($ref, $total);
     return [
         "client_id" => $order["client_id"],
         "id" => $order["id"],
@@ -726,6 +739,8 @@ function search_address($term)
     $address = array_filter($address, function ($local) use ($term) {
         return stripos($local,  $term) !== false;
     });
+    $address = array_values( $address );
+    $address = array_slice( $address, 0, 6 );
     return $address;
 }
 function clear_address( $array ) {
@@ -747,7 +762,7 @@ function search_mutation( $list ) {
             "logadouro" => implode( ' ', $logadouro),
             "cyte" => $cyte,
             "zip_code" => $zip_code,
-            "distance" => $distance,
+            "distance" => floatval( $distance ),
         ];
     }, $list );
 }
@@ -760,6 +775,15 @@ function get_address_search()
         return null;
     endif;
     echo json_encode([]);
+}
+function set_data_address() {
+    $data = [
+        "cart" => get_id_cart(),
+        "data" => $_REQUEST['json']
+    ];
+    set_meta( get_id_cart(), 'ADDRESS_DATA', $_REQUEST['json'] );
+    echo json_encode($data);
+
 }
 function render_post_code()
 {
@@ -846,6 +870,14 @@ function finalizar()
         set_meta( $os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value'] );
         set_meta( $os['ref'], 'OS_OBS', $_REQUEST['obs'] );
         set_meta( $os['ref'], 'PAY_TYPE', $_REQUEST['type_payment'] );
+        set_meta( $os['ref'], 'ADDRESS_DATA', json_encode( [
+            "zip_code" => $_POST['zip_code'],
+            "name" => $_POST['name'],
+            "logadouro" => $_POST['logadouro'],
+            "number" => $_POST['number'],
+            "complement" => $_POST['complement'],
+            "cyte" => $_POST['cyte'],
+        ]) );
         if( !$res->sucesso ):
             $GLOBALS['error'] = $res->resposta;
         else:

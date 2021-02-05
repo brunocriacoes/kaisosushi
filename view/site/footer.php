@@ -32,11 +32,19 @@
                         <img src="<?= dir_template( '/view/site/src/ico/email.svg' ) ?>" alt="">
                         Precisa de ajuda?
                     </a>
+                    <div class="space"></div>
+                    <a href="tel:<?= get_phone_link() ?>" class="btn-to-email">
+                        <img src="<?= dir_template( '/view/site/src/ico/phone.svg' ) ?>" alt="">
+                        <?= get_phone() ?>
+                    </a>
                 </div>
                 <div>
                     <h3>NOSSAS REDES SOCIAIS</h3>
                     <a href="<?= get_facebook() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/facebook.svg' ) ?>" alt=""> </a>
                     <a href="<?= get_instagram() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/instagram.svg' ) ?>" alt=""> </a>
+                    <p>Rua Carlos Reis, 43 Lisboa - Portugal / <b>1600-032</b> </p>
+                    <p>horário de funcionamento De terça a domingo das <b>10:00</b> as <b>23:00</b> </p>
+                    
                 </div>
             </div>
         </div>
@@ -66,6 +74,7 @@
     </div>
     <script>
         <?php do_action('js_footer')?>
+        globalThis.max_km = <?= get_max_km() ?>
     </script>
     <script src="<?= dir_template( '/view/site/src/js/index.js' ) ?>" type="module"></script>
 </body>

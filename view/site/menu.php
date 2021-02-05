@@ -29,9 +29,13 @@
                         <div class="space"></div>
                         <div class="is_delivery">
                             <img src="<?= dir_template( '/view/site/src/ico/map.svg' ) ?>" alt="map">
-                            <span id="js-edite-address" contenteditable><?= $address ?></span>
-                            <span onclick="globalThis.cart.edit_address_send('js-edite-address')" class="btn-alter">ALTERAR</span>
+                            <input class="edit-adreess" autocomplete="off" onkeyup="globalThis.cart.postcode('js-address-send', 'js-address-box')" type="text" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">
+                            <span onclick="globalThis.cart.edit_address_send('js-address-send')" class="btn-alter">ALTERAR</span>
+                            <div id="js-address-box" class="search__option"></div>
                         </div>
+                        <span class="alert--delivery" hidden>
+                            A opção de <strong>Delivery</strong> esta desabilitada para você, Entregamos até <?= get_max_km() ?>km de distância.
+                        </span>
                     </div>
                 </div>
                 <div class="space"></div>
