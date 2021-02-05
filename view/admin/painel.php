@@ -62,7 +62,7 @@
                     ?>
                     <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]+1200 ?></span>
-                        <span class="mobno"><?= $client["name"] ?? 'Não-definido' ?></span>
+                        <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span>€<?= corretorNum($pedido["total"]) ?></span>
                         <span class="mobno"><?= ucfirst(estadoPedido($pedido["id"]));?></span>
                         <span><?= teste($pedido["status"]) ?></span>

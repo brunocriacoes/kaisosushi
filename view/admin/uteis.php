@@ -21,5 +21,5 @@ function corretorNum($a){
 }
 
 function estadoPedido($a){$result = get_meta($a);
-    return $result["TYPE_SEND"] ?? "não definido";
+    return $result["TYPE_SEND"] ?? "Não definido";
 }

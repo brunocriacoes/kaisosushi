@@ -16,8 +16,8 @@
                 <?php foreach( get_all_coupon() as $coupon ) : ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 70px">
                         <span><?= $coupon["code"] ?></span>
-                        <span><?= $coupon["percentage"] ?></span>
-                        <span><?= $coupon["money"] ?></span>
+                        <span><?= $coupon["percentage"] ?>%</span>
+                        <span>€<?= corretorNum($coupon["money"]) ?></span>
                         <a class="bin-bg" href="<?= dir_template( '/admin/cupom/deletar' ) ?>/<?= $coupon["id"] ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>"></a>
                     </div>
                 <?php endforeach; ?>

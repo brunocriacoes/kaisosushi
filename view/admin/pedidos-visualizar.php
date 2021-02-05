@@ -23,7 +23,7 @@
             <div class="bef">
                 <form action="" method="POST" class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
                     <select name="client_id" disabled>
-                        <option value=""><?= $client["name"] ?? "Não-definido"?></option>
+                        <option value=""><?= $client["name"] ?? "Não definido"?></option>
                     </select>
                     <input type="submit" value="Alterar" disabled>
                 </form>

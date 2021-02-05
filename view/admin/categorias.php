@@ -12,7 +12,7 @@
         </div>
         <?php foreach (get_all_category() as $cat) : ?>
             <div class="grid-custom" style="--cols:1fr 80px">
-                <span><?= utf8_decode( $cat["title"] ) ?></span>
+                <span><?= $cat["title"] ?></span>
                 <div class="grid-custom produtos-icones" style="--cols: 40px 40px">
                     <a class="pencil-bg" href="<?= dir_template('/admin/editar-categorias') ?>/<?= $cat["id"] ?>"><img src="<?= dir_template('/view/admin/img/pencil.svg') ?>"></a>
                     <a class="bin-bg" href="<?= dir_template('/admin/categoria/del') ?>/<?= $cat["id"] ?>"><img src="<?= dir_template('/view/admin/img/bin.svg') ?>"></a>

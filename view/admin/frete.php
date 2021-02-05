@@ -6,15 +6,15 @@
             <div style="height: 10px"></div>
         </div>
         <div class="bef produtos-lista">
-            <div class="corL grid-custom grid-frete-mob" style="--cols: 1fr 50px 70px">
+            <div class="corL grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
                 <span>Km</span>
                 <span>Taxa</span>
                 <span></span>
             </div>
             <?php foreach( get_all_frete() as $frete ) : ?>
                 <div class="grid-custom grid-frete-mob" style="--cols: 1fr 1fr 50px 70px">
-                    <span><?= $frete["address"] ?></span>
-                    <span><?= $frete["money"] ?></span>
+                    <span><?= $frete["address"] ?>km</span>
+                    <span>€<?= corretorNum($frete["money"]) ?></span>
                     <div class="grid produtos-icones" style="--cols: 2">
                         <a class="pencil-bg" href="<?= dir_template( '/admin/editar-frete' ) ?>/<?= $frete["id"] ?>"><img src="<?php echo dir_template( '/view/admin/img/pencil.svg' ); ?>" alt=""></a>
                         <a class="bin-bg" href="<?= dir_template( '/admin/frete/deletar' ) ?>/<?= $frete["id"] ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>" alt=""></a>
