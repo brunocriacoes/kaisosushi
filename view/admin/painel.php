@@ -15,6 +15,15 @@
         }
         return $acc;
     }, 0 );
+    $pedido_filtrado = $pedidos;
+    if ( !empty($_GET['filter']) ) :
+        $day = intval($_GET['filter']);
+        $base_day = strtotime("-{$day} day");
+        $pedido_filtrado  = array_filter( $pedido_filtrado, function( $os ) use ( $base_day ) {
+            $data_publish = strtotime($os['date_register']);
+            return $data_publish > $base_day;
+        } );        
+    endif;
 ?>
     <!------------ Começo do Corpo ----------->
     <div class="corpo painel">
@@ -55,7 +64,7 @@
                 <span>Status</span>
                 <span></span>
             </div>
-            <?php foreach($pedidos as $pedido ) : 
+            <?php foreach($pedido_filtrado as $pedido ) : 
             $client_id = $pedido["client_id"] == 0 ? 2 : $pedido["client_id"] ;
             //var_dump($pedido);
                 $client = get_client($client_id);
