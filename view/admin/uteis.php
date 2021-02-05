@@ -1,6 +1,6 @@
 
 <?php
-function teste($a){
+function tradutorEstados($a){
     if($a == "abandoned"){
         $a = "Abandonado";
     }

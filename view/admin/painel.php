@@ -31,9 +31,9 @@
         <h4>Intervalor de data</h4>
         <form action="javascript:void(0)">
         <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef alvo">
-            <option value="http://dev.kaisosushi.con/admin/painel?filter=30">Últimos 30 dias</option>
-            <option value="http://dev.kaisosushi.con/admin/painel?filter=60">Últimos 60 dias</option>
-            <option value="http://dev.kaisosushi.con/admin/painel?filter=90">Últimos 90 dias</option>
+            <option value="<?php echo dir_template( '/admin/painel?filter=30' ); ?>">Últimos 30 dias</option>
+            <option value="<?php echo dir_template( '/admin/painel?filter=60' ); ?>">Últimos 60 dias</option>
+            <option value="<?php echo dir_template( '/admin/painel?filter=90' ); ?>">Últimos 90 dias</option>
         </select>
         <div class="space"></div>
         </form>
@@ -74,7 +74,7 @@
                         <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span>€<?= corretorNum($pedido["total"]) ?></span>
                         <span class="mobno"><?= ucfirst(estadoPedido($pedido["id"]));?></span>
-                        <span><?= teste($pedido["status"]) ?></span>
+                        <span><?= tradutorEstados($pedido["status"]) ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>

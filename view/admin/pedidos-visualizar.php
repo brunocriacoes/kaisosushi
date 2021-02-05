@@ -27,16 +27,13 @@
                     </select>
                     <input type="submit" value="Alterar" disabled>
                 </form>
-
                 <div class="space"></div>
-
                 <div>
                     <label for="email">E-mail: </label> <span class="email">contato@kaisosushi.pt</span>
                 </div>
                 <div>
                     <label for="telefone">Telefone: </label><span class="telefone">(11)94777-6320</span>
                 </div>
-
                 <div class="space"></div>
                 
                 <form action="" method="POST" class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">

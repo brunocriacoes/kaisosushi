@@ -6,11 +6,10 @@
             <form action="javascript:void(0)">
                 <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef">
                     <option value="http://dev.kaisosushi.con/admin/pedidos?filter=all">Todos</option>
-                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=cancelled">Cancelado</option>
-                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=delivery">Entrega</option>
-                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=waiting">Esperando</option>
-                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=finished">Finalizado</option>
-                    <option value="http://dev.kaisosushi.con/admin/pedidos?filter=takeway">Retirada</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=abandoned' ); ?>">Abandonado</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=waiting' ); ?>">Aguardando</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=canceled' ); ?>">Cancelado</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=finished' ); ?>">Finalizado</option>
                 </select>
             </form>
             <div class="space"></div>
@@ -36,7 +35,7 @@
                         <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span><?= date("d/m/y", strtotime($pedido["date_update"])) ?></span>
                         <span class="mobno">€<?= corretorNum($pedido["total"]) ?></span>
-                        <span><?= ucfirst(estadoPedido($pedido["id"]));?></span>
+                        <span><?= ucfirst(tradutorEstados($pedido["status"]));?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>
