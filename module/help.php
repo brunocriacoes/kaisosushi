@@ -866,12 +866,12 @@ function update_address_user($user_id, $address)
     $db = new AddressRepository;
     $db->register( [
         "client_id" => $user_id,
-        "name" => $address['name'],
-        "address" => $address['logadouro'],
-        "number" => $address['number'],
-        "city" => $address['cyte'],
-        "post_code" => $address['zip_code'],
-        "complement" => $address['complement']
+        "name" => $address['name'] ?? '',
+        "address" => $address['logadouro'] ?? '',
+        "number" => $address['number'] ?? '',
+        "city" => $address['cyte'] ?? '',
+        "post_code" => $address['zip_code'] ?? '',
+        "complement" => $address['complement'] ?? ''
     ] );
 }
 function finalizar()
