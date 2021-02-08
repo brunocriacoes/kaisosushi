@@ -1,3 +1,14 @@
+<?php
+
+$all_os = get_all_pedido();
+if ( !empty( $_GET['filter'] ) && $_GET['filter'] != 'all' ) :
+    $status = $_GET['filter'];
+    $all_os = array_filter( $all_os, function( $os ) use ($status) {
+        return $os['status'] == $status;
+    } );
+endif;
+
+?>
 <?php include __DIR__ . "/header.php" ?>
 
         <!------------ Começo do Corpo-->
@@ -25,7 +36,7 @@
                     <span>Status</span>
                     <span></span>
                 </div>
-                <?php foreach( get_all_pedido() as $pedido ) : ?>
+                <?php foreach( $all_os as $pedido ) : ?>
                 <?php
                     $client_id = $pedido["client_id"] == 0 ? 2 : $pedido["client_id"] ; 
                     $client = get_client($client_id);

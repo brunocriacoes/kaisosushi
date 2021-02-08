@@ -35,7 +35,7 @@
                     </div>
                     <div>
                         <small>Status</small>
-                        <b><?= $os["status"] ?? '' ?></b>
+                        <b><?=  translate_status( $os["status"] ) ?? '' ?></b>
                     </div>
                 </div>
             <?php endforeach; ?>

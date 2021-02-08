@@ -486,9 +486,9 @@ function cart_calc($id = null)
         $fee['coupon_html'] = number_format(-$money, 2, ',', '.');
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
-    
+
     $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
-    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"] ?? '' );
+    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"] ?? '');
     $is_adrress = end($is_adrress);
     $price_frete = calc_frete(floatval($is_adrress));
     if ($price_frete > 0) {
@@ -556,7 +556,7 @@ function client_login()
         $is_client = $client->login($email, $pass);
         if (!empty($is_client)) :
             $_SESSION["CLIENT"] = $is_client[0]["id"];
-            if( isset( $_POST["goback_cart"] ) ) {
+            if (isset($_POST["goback_cart"])) {
                 $os = new OrderRepository;
                 $cart = cart_calc();
                 $os->update_user($cart['ref'], $is_client[0]["id"]);
@@ -739,32 +739,34 @@ function search_address($term)
     $address = array_filter($address, function ($local) use ($term) {
         return stripos($local,  $term) !== false;
     });
-    $address = array_values( $address );
-    $address = array_slice( $address, 0, 6 );
+    $address = array_values($address);
+    $address = array_slice($address, 0, 6);
     return $address;
 }
-function clear_address( $array ) {
-    return array_values( array_filter( $array, function($e) {
-        return strlen( $e ) > 2;
-    }) );
+function clear_address($array)
+{
+    return array_values(array_filter($array, function ($e) {
+        return strlen($e) > 2;
+    }));
 }
-function search_mutation( $list ) {
-    return array_map( function($address) {
+function search_mutation($list)
+{
+    return array_map(function ($address) {
         // 3750011 
-        $address_text =  preg_replace( "/(\d)/", "", $address );
-        $zip_code = preg_replace( "/(.*)(\d{7,7})(.*)/", "$2", $address );
-        $distance = preg_replace( "/(.*)(\d{2}\.\d{1})(.*)/", "$2", $address );
-        $address_text = clear_address( explode(' ', $address_text) );
+        $address_text =  preg_replace("/(\d)/", "", $address);
+        $zip_code = preg_replace("/(.*)(\d{7,7})(.*)/", "$2", $address);
+        $distance = preg_replace("/(.*)(\d{2}\.\d{1})(.*)/", "$2", $address);
+        $address_text = clear_address(explode(' ', $address_text));
         $cyte = end($address_text);
         array_pop($address_text);
         $logadouro = $address_text;
         return [
-            "logadouro" => implode( ' ', $logadouro),
+            "logadouro" => implode(' ', $logadouro),
             "cyte" => $cyte,
             "zip_code" => $zip_code,
-            "distance" => floatval( $distance ),
+            "distance" => floatval($distance),
         ];
-    }, $list );
+    }, $list);
 }
 function get_address_search()
 {
@@ -776,14 +778,14 @@ function get_address_search()
     endif;
     echo json_encode([]);
 }
-function set_data_address() {
+function set_data_address()
+{
     $data = [
         "cart" => get_id_cart(),
         "data" => $_REQUEST['json']
     ];
-    set_meta( get_id_cart(), 'ADDRESS_DATA', $_REQUEST['json'] );
+    set_meta(get_id_cart(), 'ADDRESS_DATA', $_REQUEST['json']);
     echo json_encode($data);
-
 }
 function render_post_code()
 {
@@ -859,6 +861,19 @@ function editar_detalhes_pedidos()
         endif;
     endif;
 }
+function update_address_user($user_id, $address)
+{
+    $db = new AddressRepository;
+    $db->register( [
+        "client_id" => $user_id,
+        "name" => $address['name'],
+        "address" => $address['logadouro'],
+        "number" => $address['number'],
+        "city" => $address['cyte'],
+        "post_code" => $address['zip_code'],
+        "complement" => $address['complement']
+    ] );
+}
 function finalizar()
 {
     if (!empty($_POST)) :
@@ -866,37 +881,50 @@ function finalizar()
         $os = cart_calc();
         $_POST['id'] = $os['id'];
         $_POST['total'] = $os['total_fee'];
+        $metas = get_meta(get_id_cart());
         $res = $eupago->{$_POST["type_payment"]}($_POST);
-        set_meta( $os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value'] );
-        set_meta( $os['ref'], 'OS_OBS', $_REQUEST['obs'] );
-        set_meta( $os['ref'], 'PAY_TYPE', $_REQUEST['type_payment'] );
-        set_meta( $os['ref'], 'ADDRESS_DATA', json_encode( [
+        update_address_user( $os['client_id'], json_decode($metas['ADDRESS_DATA'] ?? '{}', true ) );
+        set_meta($os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value']);
+        set_meta($os['ref'], 'OS_OBS', $_REQUEST['obs']);
+        set_meta($os['ref'], 'PAY_TYPE', $_REQUEST['type_payment']);
+        set_meta($os['ref'], 'ADDRESS_DATA', json_encode([
             "zip_code" => $_POST['zip_code'],
             "name" => $_POST['name'],
             "logadouro" => $_POST['logadouro'],
             "number" => $_POST['number'],
             "complement" => $_POST['complement'],
             "cyte" => $_POST['cyte'],
-        ]) );
-        if( !$res->sucesso ):
+        ]));
+        if (!$res->sucesso) :
             $GLOBALS['error'] = $res->resposta;
-        else:
+        else :
             $order = new OrderRepository;
-            $order->update_status($os['ref'], 'waiting' );
+            $order->update_status($os['ref'], 'waiting');
             cart_clear();
             redirect(dir_template('/obrigado'));
         endif;
     endif;
 }
-function conmpare_postcode( $post_code_1, $post_code_2 ) {
-    $post_code_1 = str_replace('-','', $post_code_1 );
-    $post_code_2 = str_replace('-','', $post_code_2 );
+function conmpare_postcode($post_code_1, $post_code_2)
+{
+    $post_code_1 = str_replace('-', '', $post_code_1);
+    $post_code_2 = str_replace('-', '', $post_code_2);
     return $post_code_1 == $post_code_2 ? 'active' : '';
 }
-function is_postcode( $post_code_1, $post_code_2 ) {
-    $post_code_1 = str_replace('-','', $post_code_1 );
-    $post_code_2 = str_replace('-','', $post_code_2 );
+function is_postcode($post_code_1, $post_code_2)
+{
+    $post_code_1 = str_replace('-', '', $post_code_1);
+    $post_code_2 = str_replace('-', '', $post_code_2);
     return $post_code_1 == $post_code_2;
+}
+function translate_status($termo) {
+    $translate = [
+        "abandoned" => "abandonado",
+        "canceled" => "cancelado",
+        "finished" => "finalizado",
+        "waiting" => "aguardando"
+    ];
+    return $translate[$termo] ?? $termo;
 }
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
