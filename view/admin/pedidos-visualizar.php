@@ -4,7 +4,9 @@
         <?php $parametro = get_param('/admin/pedidos-visualizar/:id'); 
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
-        $client = get_client($client_id); 
+        $client = get_client($client_id);
+        var_dump($client);
+        var_dump(get_meta($parametro['id']));
         ?>
 
             <h4>Alterar status</h4>
@@ -20,6 +22,7 @@
 
             <div class="space"></div>
             <h4>Detalhes do Cliente</h4>
+            
             <div class="bef">
                 <form action="" method="POST" class="detalhes-formularios grid-custom" style="--cols: 1fr 100px" action="">
                     <select name="client_id" disabled>
@@ -29,10 +32,10 @@
                 </form>
                 <div class="space"></div>
                 <div>
-                    <label for="email">E-mail: </label> <span class="email">contato@kaisosushi.pt</span>
+                    <label for="email">E-mail: </label><?= $client["email"] ?></span>
                 </div>
                 <div>
-                    <label for="telefone">Telefone: </label><span class="telefone">(11)94777-6320</span>
+                    <label for="telefone">Telefone: </label><?= $client["phone"] ?></span>
                 </div>
                 <div class="space"></div>
                 
