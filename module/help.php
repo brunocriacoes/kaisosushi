@@ -926,19 +926,29 @@ function translate_status($termo) {
     ];
     return $translate[$termo] ?? $termo;
 }
+function get_script( $name_file ) {
+    $file = __DIR__ . "/../view/upload/scripts/{$name_file}.html";
+    if( file_exists($file) )
+        return file_get_contents( $file );
+    return "";
+}
 function get_header() {
-    return "Yorha";
+    return get_script('header');
 }
 function get_body() {
-    return "2B";
+    return get_script('inicioDoBody');
 }
 function get_end() {
-    return "9S";
+    return get_script('finalDoBody');
 }
 function save_scripts() {
-    // header
-    // inicioDoBody
-    // finalDoBody
+    if( !empty( $_POST['header'] ) )  {
+        $files = ["header", "inicioDoBody", "finalDoBody"];
+        foreach( $files as $name ) {
+            $file = __DIR__ . "/../view/upload/scripts/{$name}.html";
+            file_put_contents( $file, $_POST[$name] );
+        }
+    }
 }
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
