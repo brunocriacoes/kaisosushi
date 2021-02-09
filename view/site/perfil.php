@@ -22,15 +22,15 @@
                 <a href="https://br.gravatar.com" target="_blank" class="gravatar-link">Registre seu Gravatar</a>
                 <input type="file" id="to-upload-gravatar" hidden>
                 <div class="space"></div>
-                <small>Nome</small>
+                <small class="label--finalizar">Nome</small>
                 <input type="text" name="name" placeholder="Nome" value="<?= $_GET['name'] ?>" required>
-                <small>Sobre Nome</small>
+                <small class="label--finalizar">Sobre Nome</small>
                 <input type="text" name="last_name" placeholder="Sobre Nome" value="<?= $_GET['last_name'] ?>">
-                <small>Email</small>
+                <small class="label--finalizar">Email</small>
                 <input type="email" placeholder="Email" value="<?= $_GET['email'] ?>" disabled required>
-                <small>Telefone</small>
+                <small class="label--finalizar">Telefone</small>
                 <input type="text" name="phone" placeholder="Telemóve" value="<?= $_GET['phone'] ?>">
-                <small>WhatsApp</small>
+                <small class="label--finalizar">WhatsApp</small>
                 <input type="text" name="whatsapp" placeholder="WhatsApp" value="<?= $_GET['whatsapp'] ?>">
                 <button type="submit" class="btn-center">Alterar</button>
             </form>

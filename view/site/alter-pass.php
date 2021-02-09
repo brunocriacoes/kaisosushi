@@ -19,9 +19,9 @@
                     <span class="alert"> As senhas tem que ser iguais </span>
                     <div class="space"></div>
                 <?php endif; ?>                       
-                <small>Nova senha</small>
+                <small class="label--finalizar">Nova senha</small>
                 <input type="password" name="pass" required>
-                <small>Confirmar senha</small>
+                <small class="label--finalizar">Confirmar senha</small>
                 <input type="password" name="confirm_pass" required>
                 <button type="submit" class="btn-center">Alterar Senha</button>
             </form>

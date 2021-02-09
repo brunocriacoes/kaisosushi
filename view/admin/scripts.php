@@ -10,6 +10,5 @@
         <textarea class="textarea--post" name="finalDoBody" rows="10"><?= get_end() ?></textarea>
         <button class="btn" type="submit">Salvar</button>
     </form>
-
 </div>
 <?php include __DIR__ . "/footer.php" ?>

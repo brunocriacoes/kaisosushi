@@ -37,31 +37,31 @@
                     <div class="space"></div>
                     <div class="grid-2">
                         <div>
-                            <small>Código postal</small>
+                            <small class="label--finalizar">Código postal</small>
                             <input type="" name="zip_code" value="<?= $local['zip_code'] ?? '' ?>">
                         </div>
                         <div>
-                            <small>Nome</small>
+                            <small class="label--finalizar">Nome</small>
                             <input type="text" name="name" value="<?= $local['name'] ?? '' ?>">
                         </div>
                     </div>
                     <div class="grid-2">
                         <div>
-                            <small>Endereço</small>
+                            <small class="label--finalizar">Endereço</small>
                             <input type="text" name="logadouro" value="<?= $local['logadouro'] ?? '' ?>">
                         </div>
                         <div>
-                            <small>Número</small>
+                            <small class="label--finalizar">Número</small>
                             <input type="text" name="number" value="<?= $local['number'] ?? '' ?>">
                         </div>
                     </div>
                     <div class="grid-2">
                         <div>
-                            <small>Complemento</small>
+                            <small class="label--finalizar">Complemento</small>
                             <input type="text" name="complement" value="<?= $local['complement'] ?? '' ?>">
                         </div>
                         <div>
-                            <small>Distrito</small>
+                            <small class="label--finalizar">Distrito</small>
                             <input type="text" name="cyte" value="<?= $local['cyte'] ?? '' ?>">
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                 <div class="space"></div>
                 <div class="grid-cupom">
                     <div>
-                        <small>Codigo do cupom</small>
+                        <small class="label--finalizar">Codigo do cupom</small>
                         <input type="text" id="js-coupon" value="<?= $metas['COUPON'] ?? '' ?>">
                     </div>
                     <div>

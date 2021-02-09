@@ -38,7 +38,7 @@ export default {
             </div>
         ` ).join('')
         document.querySelector("#js-cart-total").innerHTML = `€${cart.total_html}`
-        document.querySelector("#js-address").innerHTML = `${cart.meta?.ADDRESS_SEND}`
+        document.querySelector("#js-address").innerHTML = `${cart.meta?.ADDRESS_SEND || ''}`
     },
     remove(id) {
         this.get(`/del/${id}`, res => { })
@@ -124,7 +124,7 @@ export default {
         if($is_page_finalizar)
         {
             document.querySelector('#js-end-total-html').innerHTML = res.total_html
-            document.querySelector('#js-end-fee-frete-html').innerHTML = res.meta.FEE_FRETE_HTML
+            document.querySelector('#js-end-fee-frete-html').innerHTML = res.meta.FEE_FRETE_HTML || ''
             document.querySelector('#js-end-coupon-html').innerHTML = res.fee.coupon_html
             document.querySelector('#js-end-total-fee-html').innerHTML = res.total_fee_html
             document.querySelector("#js-end-list-iten").innerHTML = res.prods.map( item => `

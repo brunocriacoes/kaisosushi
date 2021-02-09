@@ -19,27 +19,27 @@
                 <input type="text" name="id" value="<?= $morada['id'] ?>" hidden>
                 <input type="text" name="client_id" value="<?= $morada['client_id'] ?>" hidden>
                 <div>
-                    <small>Nome</small>
+                    <small class="label--finalizar">Nome</small>
                     <input type="text" name="name" value="<?= $morada['name'] ?>" required>
                 </div>
                 <div>
-                    <small>Endereço</small>
+                    <small class="label--finalizar">Endereço</small>
                     <input type="text" name="address" value="<?= $morada['address'] ?>" required>
                 </div>
                 <div>
-                    <small>Número</small>
+                    <small class="label--finalizar">Número</small>
                     <input type="" name="number" value="<?= $morada['number'] ?>" required>
                 </div>
                 <div>
-                    <small>Complemento</small>
+                    <small class="label--finalizar">Complemento</small>
                     <input type="" name="complement" value="<?= $morada['complement'] ?>">
                 </div>
                 <div>
-                    <small>Distrito</small>
+                    <small class="label--finalizar">Distrito</small>
                     <input type="" name="city" value="<?= $morada['city'] ?>" required>
                 </div>
                 <div>
-                    <small>Código postal</small>
+                    <small class="label--finalizar">Código postal</small>
                     <input type="" name="post_code" value="<?= $morada['post_code'] ?>" required>
                 </div>
                 <div>
@@ -54,27 +54,27 @@
                 <form action="" method="POST" class="form grid-morada">
                     <input type="text" name="client_id" value="<?= $_SESSION["CLIENT"] ?>" hidden>
                     <div>
-                        <small>Nome</small>
+                        <small class="label--finalizar">Nome</small>
                         <input type="text" name="name" required>
                     </div>
                     <div>
-                        <small>Endereço</small>
+                        <small class="label--finalizar">Endereço</small>
                         <input type="text" name="address" required>
                     </div>
                     <div>
-                        <small>Número</small>
+                        <small class="label--finalizar">Número</small>
                         <input type="" name="number" required>
                     </div>
                     <div>
-                        <small>Complemento</small>
+                        <small class="label--finalizar">Complemento</small>
                         <input type="" name="complement">
                     </div>
                     <div>
-                        <small>Distrito</small>
+                        <small class="label--finalizar">Distrito</small>
                         <input type="" name="city" required>
                     </div>
                     <div>
-                        <small>Código postal</small>
+                        <small class="label--finalizar">Código postal</small>
                         <input type="" name="post_code" required>
                     </div>
                     <div>

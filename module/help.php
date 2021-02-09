@@ -429,6 +429,7 @@ function del_prod()
 }
 function calc_frete($distance = 0)
 {
+    $distance = $distance == 0 ? 1000000 : $distance;
     $fretes = new DeliveryRepository;
     $list_calc_frete = [];
     $lista = $fretes->list([
@@ -517,7 +518,6 @@ function cart_calc($id = null)
         "fee" => $fee,
         "address" => ""
     ];
-    // var_dump($render);
     return $render;
 }
 function get_meta($post_id)
@@ -558,12 +558,13 @@ function client_login()
         $is_client = $client->login($email, $pass);
         if (!empty($is_client)) :
             $_SESSION["CLIENT"] = $is_client[0]["id"];
+            $os = new OrderRepository;
+            $cart = cart_calc();
             if (isset($_POST["goback_cart"])) {
-                $os = new OrderRepository;
-                $cart = cart_calc();
                 $os->update_user($cart['ref'], $is_client[0]["id"]);
                 redirect(dir_template('/finalizar'));
             } else {
+                $os->update_user($cart['ref'], $is_client[0]["id"]);
                 redirect(dir_template('/perfil'));
             }
         else :

@@ -983,7 +983,7 @@ button:hover {
     display: block;
     text-align: center;
     text-decoration: none;
-    color: #111;
+    color: #CCC;
     font-size: 11px;
     background-color: #333;
     width: 150px;
@@ -1017,6 +1017,14 @@ button:hover {
 {
     .grid-morada {
         grid-template-columns: 1fr;
+        margin-bottom: 30px;
+        grid-gap: 3px;
+        border: 2px solid #111;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .grid-morada input {
+        margin-bottom: 0 !important;
     }
 }
 .btn-morada {
@@ -1266,4 +1274,7 @@ button:hover {
     display: block;
     text-align: center;
     color: #EEE;
+}
+.label--finalizar {
+    color: #CCC;
 }
