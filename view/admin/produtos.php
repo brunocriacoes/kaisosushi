@@ -14,7 +14,7 @@
         <?php foreach (get_last_product(1000) as $prods) : ?>
             <div class="grid-custom " style="--cols: 1fr 70px 70px">
                 <span><?= $prods["title"] ?></span>
-                <span><?= $prods["price"] ?></span>
+                <span> <b><?= $prods["price"] ?></b> </span>
                 <div class="grid produtos-icones" style="--cols: 2">
                     <a class="pencil-bg" href="<?= dir_template('/admin/editar-produto') ?>/<?= $prods["id"] ?>"><img src="<?php echo dir_template('/view/admin/img/pencil.svg'); ?>" alt=""></a>
                     <a onclick="aviso()" ondblclick="remover(this)" class="bin-bg" data-href="<?= dir_template('/admin/produto/del') ?>/<?= $prods["id"] ?>"><img src="<?php echo dir_template('/view/admin/img/bin.svg'); ?>" alt=""></a>

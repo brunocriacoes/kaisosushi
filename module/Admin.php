@@ -72,10 +72,12 @@ class Admin
         add_router( '/admin/editar-produto', function() {
             admin_private();
             add_product();
+            $GLOBALS["is_category"] = false;
         }, __DIR__ . "/../view/admin/editar-produto.php"  );        
         add_router( '/admin/editar-produto/:id', function() {
             admin_private();
             edit_product();
+            $GLOBALS["is_category"] = true;
         }, __DIR__ . "/../view/admin/editar-produto.php"  );
         add_router( '/admin/produto/del/:id', function() {
             admin_private();
