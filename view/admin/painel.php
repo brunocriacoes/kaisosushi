@@ -45,7 +45,7 @@
             </ul>
             <ul class="bef perf vendas">
                 <li>Vendas</li>
-                <li><h3><span class="perfNum">€ <?= $total_finished ?></span></h3></li>
+                <li><h3><span class="perfNum">€<?= $total_finished ?></span></h3></li>
             </ul>
             <ul class="bef perf">
                 <li class="corL">Total de encomendas</li>
@@ -72,7 +72,7 @@
                     <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                         <span><?= $pedido["id"]+1200 ?></span>
                         <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
-                        <span>€<?= corretorNum($pedido["total"]) ?></span>
+                        <span> <b>€<?= corretorNum($pedido["total"]) ?></b> </span>
                         <span class="mobno"><?= ucfirst(estadoPedido($pedido["id"]));?></span>
                         <span><?= tradutorEstados($pedido["status"]) ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">

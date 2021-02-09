@@ -78,7 +78,7 @@ function get_last_product($number = 12)
             $prod["photo"] = dir_template('/view/upload/product/') . utf8_encode($prod['photo']);
         endif;
         $prod["title"] = utf8_encode($prod['name']);
-        $prod["price"] = '&euro; ' . number_format($prod["price"], '2', ',', '.');
+        $prod["price"] = '&euro;' . number_format($prod["price"], '2', ',', '.');
         return $prod;
     }, $list);
     return $list;
@@ -160,6 +160,7 @@ function admin_login()
         if (!empty($is_admin)) :
             $_SESSION["ADMIN"] = true;
             $_SESSION["ADMIN_NAME"] = $is_admin[0]['name'];
+            $_SESSION["ADMIN_EMAIL"] = $email;
             redirect(dir_template('/admin/painel'));
         else :
             $GLOBALS['error'] = "Usuário ou senha esta errado";
@@ -638,6 +639,9 @@ function client_moradas()
             $address->register($_POST);
         endif;
     endif;
+}
+function get_gravatar_corruent_user() {
+    return gravatar($_SESSION['ADMIN_EMAIL']);
 }
 function gravatar($email)
 {

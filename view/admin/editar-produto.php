@@ -61,7 +61,7 @@
             <?php foreach (get_all_category() as $cat) : ?>
                 <div class="grid-custom" style="--cols:1fr 40px">
                     <span><?= $cat["title"] ?></span>
-                    <input type="checkbox" name="" id="">
+                    <input type="checkbox" name="" <?= $GLOBALS["is_category"] ? '' : 'disabled' ?> id="">
                 </div>
             <?php endforeach; ?>
         </div>

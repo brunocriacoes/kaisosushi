@@ -8,13 +8,13 @@
                     <label for="nome">
                         Nome da categoria
                     </label>
-                    <input type="text" name="name" value="<?= $_REQUEST["name"] ?? '' ?>" require id="nome">
+                    <input required type="text" name="name" value="<?= $_REQUEST["name"] ?? '' ?>" require id="nome">
                 </div>
                 <div>
                     <label for="nome">
                         Slug
                     </label>
-                    <input type="text" name="slug" value="<?= $_REQUEST["slug"] ?? '' ?>" require id="nome">
+                    <input required type="text" name="slug" value="<?= $_REQUEST["slug"] ?? '' ?>" require id="nome">
                 </div>
                 <div>
                     <input type="submit" value="Salvar">

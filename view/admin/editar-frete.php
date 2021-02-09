@@ -7,11 +7,11 @@
                <input type="text" name="type" hidden>
                 <div>
                     <label for="localizacao">KM</label>
-                    <input type="text" name="address" value="<?= $_REQUEST["address"] ?? '' ?>" id="localizacao">
+                    <input required type="text" name="address" value="<?= $_REQUEST["address"] ?? '' ?>" id="localizacao">
                 </div>
                 <div>
                     <label for="taxa">Taxa</label>
-                    <input type="text" name="money" value="<?= $_REQUEST["money"] ?? '' ?>" id="money">
+                    <input required type="text" name="money" value="<?= $_REQUEST["money"] ?? '' ?>" id="money">
                 </div>
                 
                 <input type="submit" value="Adicionar">
