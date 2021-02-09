@@ -502,7 +502,7 @@ function cart_calc($id = null)
         set_meta($order["id"], 'TYPE_SEND', 'takeway');
     }
     $os->update_total($ref, $total);
-    return [
+    $render =  [
         "client_id" => $order["client_id"],
         "id" => $order["id"],
         "status" => $order["status"],
@@ -517,6 +517,8 @@ function cart_calc($id = null)
         "fee" => $fee,
         "address" => ""
     ];
+    // var_dump($render);
+    return $render;
 }
 function get_meta($post_id)
 {
