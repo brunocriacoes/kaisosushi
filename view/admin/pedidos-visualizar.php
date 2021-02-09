@@ -5,8 +5,8 @@
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id);
-        $testando =get_meta($parametro['id']);
-        var_dump($testando['ADDRESS_DATA']);
+        $address_array = get_meta($parametro['id']);
+        $client_address= json_decode($address_array['ADDRESS_DATA'], true);
         ?>
 
             <h4>Alterar status</h4>
@@ -14,8 +14,8 @@
                 <select name="status" id="status" required >
                     <option value="abandoned">Abandonado</option>
                     <option value="canceled">Cancelado</option>
-                    <option value="finished">Finalizado</option>
-                    <option selected value="waiting">Aguardando</option>
+                    <option value="finished">Pago</option>
+                    <option selected value="waiting">Aguardando pagamento</option>
                 </select>
                 <input type="submit" value="Atualizar">
             </form>
@@ -51,8 +51,8 @@
                 
                 <div class="space"></div>
                 <div>
-                    <p>0</p>
-                    <p>Rua, numero</p>
+                    <p><?=ucwords($client_address['cyte']) ?>, <?= ucwords($client_address['zip_code']) ?></p>
+                    <p><?=ucwords($client_address['logadouro']) ?>, <?= ucwords($client_address['number']) ?></p>
                 </div>
             </div>
         </div>

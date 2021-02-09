@@ -27,12 +27,11 @@ endif;
             <div class="space"></div>
             <h4>Pedidos</h4>
             <div class="bef lista-de-pedidos">
-                <div class="grid-custom " style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
+                <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
                     <span>Pedido</span>
-                    <span class="mobno">Cliente</span>
+                    <span >Cliente</span>
                     <span>Data</span>
-                    <span class="mobye"></span>
-                    <span class="mobno">Valor</span>
+                    <span class="mobye">Valor</span>
                     <span>Status</span>
                     <span></span>
                 </div>
