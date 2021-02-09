@@ -122,7 +122,11 @@ class Admin
             del_category();
         });
         
-        
+        #-------------- SCRIPTS ----------
+        add_router( '/admin/scripts', function() {
+            save_scripts();
+        }, __DIR__ . "/../view/admin/scripts.php"  );
+
         #------------- lOGOUT ------------
         add_router( '/admin/logout', function() {
             admin_logout();

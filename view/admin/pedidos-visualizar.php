@@ -5,8 +5,8 @@
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id);
-        var_dump($client);
-        var_dump(get_meta($parametro['id']));
+        $testando =get_meta($parametro['id']);
+        var_dump($testando['ADDRESS_DATA']);
         ?>
 
             <h4>Alterar status</h4>
@@ -51,8 +51,8 @@
                 
                 <div class="space"></div>
                 <div>
-                    <p>R. Alberto de Sousa</p>
-                    <p>1600-201 R. Alberto de Sousa</p>
+                    <p>0</p>
+                    <p>Rua, numero</p>
                 </div>
             </div>
         </div>

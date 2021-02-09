@@ -26,6 +26,7 @@
                 <a href="<?php echo dir_template( '/admin/produtos' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/sushi.svg' ); ?>" alt=""><h2>Produtos</h2></a>
                 <a href="<?php echo dir_template( '/admin/frete' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/truck.svg' ); ?>" alt=""><h2>Frete</h2></a>
                 <a href="<?php echo dir_template( '/admin/categorias' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/list.svg' ); ?>" alt=""><h2>Categorias</h2></a>
+                <a href="<?php echo dir_template( '/admin/scripts' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/scrip.svg' ); ?>" alt=""><h2>Scripts</h2></a>
                 <a href="<?php echo dir_template( '/admin/logout' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/logout.svg' ); ?>" alt=""><h2>Sair</h2></a>
             </div>
             <div class="mobMenu">
