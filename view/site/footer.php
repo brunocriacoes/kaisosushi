@@ -77,5 +77,6 @@
         globalThis.max_km = <?= get_max_km() ?>
     </script>
     <script src="<?= dir_template( '/view/site/src/js/index.js' ) ?>" type="module"></script>
+    <?= get_end() ?>
 </body>
 </html>

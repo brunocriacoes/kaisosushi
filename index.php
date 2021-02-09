@@ -145,7 +145,7 @@ function query( $sql )
 
 function send_mail( $to, $subject, $body, $header = [] ) 
 {
-   return mail($to, $subject, $message, implode( "\n", $header ) );
+   return mail($to, $subject, $body, implode( "\n", $header ) );
 }
 
 function api_get( string $path, array $param = [] )

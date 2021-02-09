@@ -7,9 +7,10 @@
     <title><?= get_title_site() ?></title>
     <link rel="shortcut icon" href="<?= dir_template( '/view/site/src/image/ico.png' ) ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= dir_template( '/view/site/src/css/style.css?vsersion=1.0.3' ) ?>">
-
+    <?= get_header() ?>
 </head>
 <body>
+    <?= get_body() ?>
     <div class="load"> <img src="<?= dir_template( '/view/site/src/image/logo.png' ) ?>" alt=""> </div>
     <div class="cargar" hidden> <img src="<?= dir_template( '/view/site/src/image/loading.gif' ) ?>" alt="cargar"> </div>
     <div class="inner inner-menu">
