@@ -926,6 +926,19 @@ function translate_status($termo) {
     ];
     return $translate[$termo] ?? $termo;
 }
-
+function get_header() {
+    return "Yorha";
+}
+function get_body() {
+    return "2B";
+}
+function get_end() {
+    return "9S";
+}
+function save_scripts() {
+    // header
+    // inicioDoBody
+    // finalDoBody
+}
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
