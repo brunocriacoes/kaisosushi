@@ -27,28 +27,11 @@ endif;
             <div class="space"></div>
             <h4>Pedidos</h4>
             <div class="bef lista-de-pedidos">
-<<<<<<< HEAD
                 <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
-||||||| c6fd4d1
-                <div class="grid-custom " style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
-=======
-                <div class="grid-custom grid-list-pedidos" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
->>>>>>> 40bff05463515d0c3074c42589a4f257a6d30238
                     <span>Pedido</span>
-<<<<<<< HEAD
                     <span >Cliente</span>
                     <span>Data</span>
                     <span class="mobye">Valor</span>
-||||||| c6fd4d1
-                    <span class="mobno">Cliente</span>
-                    <span>Data</span>
-                    <span class="mobye"></span>
-                    <span class="mobno">Valor</span>
-=======
-                    <span class="mobno">Cliente</span>
-                    <span class="mobno">Data</span>
-                    <span >Valor</span>
->>>>>>> 40bff05463515d0c3074c42589a4f257a6d30238
                     <span>Status</span>
                     <span></span>
                 </div>

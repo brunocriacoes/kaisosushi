@@ -35,7 +35,9 @@
                     <label for="email">E-mail: </label><?= $client["email"] ?></span>
                 </div>
                 <div>
-                    <label for="telefone">Telefone: </label><?= $client["phone"] ?></span>
+                    <label for="telefone">Telefone: </label><span><?php $length = strlen($client["phone"]); 
+                    echo $length <= 8 ? "Sem número" : $client["phone"];?>
+                    </span>
                 </div>
                 <div class="space"></div>
                 
