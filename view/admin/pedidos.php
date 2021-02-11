@@ -18,9 +18,9 @@ endif;
                 <select onchange="globalThis.linkMenu( this )" name="selecPainel" id="" class="bef">
                     <option value="http://dev.kaisosushi.con/admin/pedidos?filter=all">Todos</option>
                     <option value="<?php echo dir_template( '/admin/pedidos?filter=abandoned' ); ?>">Abandonado</option>
-                    <option value="<?php echo dir_template( '/admin/pedidos?filter=waiting' ); ?>">Aguardando</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=waiting' ); ?>">Aguardando pagamento</option>
                     <option value="<?php echo dir_template( '/admin/pedidos?filter=canceled' ); ?>">Cancelado</option>
-                    <option value="<?php echo dir_template( '/admin/pedidos?filter=finished' ); ?>">Finalizado</option>
+                    <option value="<?php echo dir_template( '/admin/pedidos?filter=finished' ); ?>">Pago</option>
                 </select>
             </form>
             <div class="space"></div>

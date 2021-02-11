@@ -5,17 +5,41 @@
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id);
-        $address_array = get_meta($parametro['id']);
-        $client_address= json_decode($address_array['ADDRESS_DATA'], true);
-        ?>
 
+        $metas = get_meta($parametro['id']);
+        $address = [
+            'cyte' => 'Não definido',
+            'zip_code' => 'Não definido',
+            'logadouro' => 'Não definido',
+            'number' => 'Não definido',
+        ];
+
+        if(!empty($metas['ADDRESS_DATA'])) {
+            $address = json_decode($metas['ADDRESS_DATA'], true);
+        }
+    
+        // if(empty($metas) == true) {
+        //     $city = "Não informado";
+        //     $zip_code = "Não informado";
+        //     $address = "Não informado";
+        //     $number = "Não informado";
+        // }
+        // else {
+        //     $city = $metas['cyte'];
+        //     $zip_code = $metas['zip_code'];
+        //     $address = $metas['logadouro'];
+        //     $number = $metas['number'];
+        // }
+        
+        
+        ?>
             <h4>Alterar status</h4>
             <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
                 <select name="status" id="status" required >
                     <option value="abandoned">Abandonado</option>
-                    <option value="canceled">Cancelado</option>
+                    <option <?= "selected"?> value="canceled">Cancelado</option>
                     <option value="finished">Pago</option>
-                    <option selected value="waiting">Aguardando pagamento</option>
+                    <option value="waiting">Esperando pagamento</option>
                 </select>
                 <input type="submit" value="Atualizar">
             </form>
@@ -30,14 +54,13 @@
                     </select>
                     <input type="submit" value="Alterar" disabled>
                 </form>
+                <?= var_dump($os['status']) ?>
                 <div class="space"></div>
                 <div>
-                    <label for="email">E-mail: </label><?= $client["email"] ?></span>
+                    <label for="email">E-mail: </label><?= $client["email"] ?? "Não definido"?></span>
                 </div>
                 <div>
-                    <label for="telefone">Telefone: </label><span><?php $length = strlen($client["phone"]); 
-                    echo $length <= 8 ? "Sem número" : $client["phone"];?>
-                    </span>
+                    <label for="telefone">Telefone: </label><span></span>
                 </div>
                 <div class="space"></div>
                 
@@ -53,8 +76,8 @@
                 
                 <div class="space"></div>
                 <div>
-                    <p><?=ucwords($client_address['cyte']) ?>, <?= ucwords($client_address['zip_code']) ?></p>
-                    <p><?=ucwords($client_address['logadouro']) ?>, <?= ucwords($client_address['number']) ?></p>
+                    <p><?= $address['cyte'] ?>, <?= $address['zip_code'] ?>,</p>
+                    <p><?= $address['logadouro'] ?>, <?= $address['number'] ?>.</p>
                 </div>
             </div>
         </div>
@@ -139,26 +162,7 @@
                         <label for="">&nbsp;</label>
                         <input disabled type="submit" value="Aplicar">
                     </div>
-                </form>
-                
-                
-                <form class="detalhes-formularios grid-detalhes-formularios" action="" method="POST">
-                    <div>
-                        <label for="">Desconto %</label>
-                        <input disabled type="number" name="" id="porcentagem">
-                    </div>
-
-                    <div>    
-                        <label for="fixo">Desconto €</label>
-                        <input disabled type="number" name="" id="fixo">
-                    </div>
-                    <div>
-                        <label for="">&nbsp;</label>
-                        <input disabled type="submit" value="Aplicar">
-                    </div>
-                </form>
-
-                
+                </form>                
                 <form class="detalhes-formularios grid-custom grid-tres" action="" method="POST">
                     <div>
                         <label for="">Isira o código do cupom</label>

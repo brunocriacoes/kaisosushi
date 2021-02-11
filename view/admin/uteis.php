@@ -5,10 +5,10 @@ function tradutorEstados($a){
         $a = "Abandonado";
     }
     elseif($a == "waiting"){
-        $a = "Esperando";
+        $a = "Esperando pagamento";
     }
     elseif($a == "finished"){
-        $a = "Finalizado";
+        $a = "Pago";
     }
     elseif($a == "canceled") {
         $a = "Cancelado";
