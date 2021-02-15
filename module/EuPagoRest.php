@@ -18,7 +18,7 @@ class EuPagoRest
     {
 
         $full_url = self::PROD_URI .  $path;
-        // set_log( "POST $full_url PARANS ". json_encode( $params ) );
+        set_log( "POST $full_url PARANS ". json_encode( $params ) );
         $params =  http_build_query($params);
         $defaults = [
             CURLOPT_POST           => true,
@@ -37,7 +37,7 @@ class EuPagoRest
         $result = curl_exec($ch);
         curl_close($ch);
         $result = json_decode($result);
-        // set_log( "RESPONSE $full_url BODY " . json_encode($result) );
+        set_log( "RESPONSE $full_url BODY " . json_encode($result) );
         return $result;
     }
     function multibanco_create( $params )
