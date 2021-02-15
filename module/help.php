@@ -908,7 +908,15 @@ function finalizar()
             $order = new OrderRepository;
             $order->update_status($os['ref'], 'waiting');
             cart_clear();
-            redirect(dir_template('/obrigado'));
+            $referencia = '?referencia=';
+            if($_POST["type_payment"] == "multibanco_create"):
+                $referencia .= $res->referencia;
+                $referencia .= "&valor=";
+                $referencia .= $res->valor;
+                $referencia .= "&entidade=";
+                $referencia .= $res->entidade;
+            endif;
+            redirect(dir_template("/obrigado{$referencia}"));
         endif;
     endif;
 }
