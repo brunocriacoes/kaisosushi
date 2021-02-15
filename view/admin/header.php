@@ -32,6 +32,7 @@
                 <a href="<?php echo dir_template( '/admin/frete' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/truck.svg' ); ?>" >Frete</a>
                 <a href="<?php echo dir_template( '/admin/logout' ); ?>"><img class="mIco" src="<?php echo dir_template( '/view/admin/img/logout.svg' ); ?>" >Sair</a>
             </div>
+            
             <div class="mobMenu">
                 <div>
                     <img class="menuArrows" src="<?php echo dir_template( '/view/admin/img/arrows.svg' ); ?>" alt="">
