@@ -8,3 +8,10 @@
 16-12-2020 12:41 RESPONSE https://seguro.eupago.pt/api/v2/4741247f40244b04aef01ef66f704602/pedidoMBW BODY null 
 14-01-2021 12:42 RESPONSE EUPAGO [] 
 14-01-2021 12:43 RESPONSE EUPAGO {"statuscode":"200"} 
+15-02-2021 17:55 ERROR AO CONECTAR SELECT * FROM coupon WHERE code=BRC10 
+15-02-2021 17:55 ERROR AO CONECTAR SELECT * FROM coupon WHERE code=BRC10 
+15-02-2021 17:59 ERROR AO CONECTAR SELECT * FROM address WHERE post_code='7050332' AND client_id='4'  
+15-02-2021 17:59 ERROR AO CONECTAR INSERT INTO address 
+            ( client_id, name, address, number, city, post_code, complement ) 
+            VALUES
+            ( 4, '', 'quinta ponte lisboa', '', 'évora', '7050332', '' )  

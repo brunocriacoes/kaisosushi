@@ -13,25 +13,10 @@
             'logadouro' => 'Não definido',
             'number' => 'Não definido',
         ];
-
+        //var_dump($os);
         if(!empty($metas['ADDRESS_DATA'])) {
             $address = json_decode($metas['ADDRESS_DATA'], true);
         }
-    
-        // if(empty($metas) == true) {
-        //     $city = "Não informado";
-        //     $zip_code = "Não informado";
-        //     $address = "Não informado";
-        //     $number = "Não informado";
-        // }
-        // else {
-        //     $city = $metas['cyte'];
-        //     $zip_code = $metas['zip_code'];
-        //     $address = $metas['logadouro'];
-        //     $number = $metas['number'];
-        // }
-        
-        
         ?>
         
             <h4>Alterar status</h4>
@@ -52,7 +37,6 @@
                     </select>
                     <input type="submit" value="Alterar" disabled>
                 </form>
-                <?= var_dump($os['status']) ?>
                 <div class="space"></div>
                 <div>
                     <label for="email">E-mail: </label><?= $client["email"] ?? "Não definido"?></span>
@@ -110,12 +94,11 @@
                                 <button class="refresh" type="submit"></button>
                                 <input type="text" name="prod_id" value="<?= $prod["id"] ?>" hidden>
                             </form>
-                            <section><?= $prod["price_html"]?></section>
+                            <section>€<?= $prod["price_html"]?></section>
                         </div>
                         <?php  endforeach; ?>
                     </div>
                 </form>
-                
                 
                 
                 <div class="space"></div>
@@ -147,14 +130,14 @@
                     <div>
                         <label for="escolha">Entrega</label>    
                         <select disabled name="" id="escolha">
-                            <option value="">Delivery</option>
+                            <option value=""><?= ucfirst(tradutor($os['meta']['TYPE_SEND'])); ?></option>
                             <option value="">Retirada</option>
                         </select>
                     </div>
 
                     <div>   
                         <label for="frete">Frete</label>
-                        <input disabled type="text" name="frete" id="frete">
+                        <input disabled type="text" name="frete" id="frete" value="<?=$os['meta']['FEE_FRETE_HTML'];?>">
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
@@ -163,8 +146,8 @@
                 </form>                
                 <form class="detalhes-formularios grid-custom grid-tres" action="" method="POST">
                     <div>
-                        <label for="">Isira o código do cupom</label>
-                        <input type="text" name="coupon" id="cupom">
+                        <label for="">Insira o código do cupom</label>
+                        <input type="text" name="coupon" id="cupom" value="<?= arrayteste($os);?>">
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
