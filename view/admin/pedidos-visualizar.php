@@ -33,13 +33,11 @@
         
         
         ?>
+        
             <h4>Alterar status</h4>
             <form action="" method="POST" class="detalhes-formularios bef grid-custom" style="--cols: 1fr 100px" >
                 <select name="status" id="status" required >
-                    <option value="abandoned">Abandonado</option>
-                    <option <?= "selected"?> value="canceled">Cancelado</option>
-                    <option value="finished">Pago</option>
-                    <option value="waiting">Esperando pagamento</option>
+                    <?= selectCreator($os['status']); ?>
                 </select>
                 <input type="submit" value="Atualizar">
             </form>
