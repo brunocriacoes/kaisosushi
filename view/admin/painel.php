@@ -74,7 +74,7 @@
                         <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span> <b>€<?= corretorNum($pedido["total"]) ?></b> </span>
                         <span class="mobno"><?= ucfirst(estadoPedido($pedido["id"]));?></span>
-                        <span><?= tradutorEstados($pedido["status"]) ?></span>
+                        <span><?= tradutor($pedido["status"]) ?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>

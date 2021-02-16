@@ -23,7 +23,7 @@ class CouponRepository
     }
     function get_by_code($code)
     {
-        $sql = "SELECT * FROM coupon WHERE code={$code}";
+        $sql = "SELECT * FROM coupon WHERE code='{$code}'";
         $query = query($sql);
         return $query[0] ?? [];
     }

@@ -139,6 +139,7 @@ function query( $sql )
         return $result;
     } catch (\Throwable $th) {
         echo "error ao conectar ao banco";
+        file_put_contents(__DIR__ . "/.log", date("d-m-Y H:i") . " ERROR AO CONECTAR $sql \n", FILE_APPEND);
         return [];
     }
 }

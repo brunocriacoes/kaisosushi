@@ -1,6 +1,6 @@
 
 <?php
-function tradutorEstados($a){
+function tradutor($a){
     if($a == "abandoned"){
         $a = "Abandonado";
     }
@@ -12,6 +12,12 @@ function tradutorEstados($a){
     }
     elseif($a == "canceled") {
         $a = "Cancelado";
+    }
+    elseif($a == "delivery"){
+        $a = "Entrega";
+    }
+    elseif($a == "takeway"){
+        $a = "Retirada";
     }
     return $a;
 }
@@ -36,9 +42,17 @@ function selectCreator($status) {
     $statusCollection = $os->get_status();
     
     foreach($statusCollection as $indice => $valor) {
-        $traducao = tradutorEstados($indice);
+        $traducao = tradutor($indice);
         $selected = selecPedidoStatus($status, $indice);
         echo "<option value='".$indice."' ".$selected.">" .$traducao. "</option>" ;
     }
 }
 
+
+function arrayteste($os) {
+    if(array_key_exists('COUPON', $os['meta'])){
+        return $os['meta']['COUPON'];
+    }else {
+        return "";
+    }
+}

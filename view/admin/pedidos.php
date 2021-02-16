@@ -45,7 +45,7 @@ endif;
                         <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                         <span class="mobno"><?= date("d/m/y", strtotime($pedido["date_update"])) ?></span>
                         <span > <b>€<?= corretorNum($pedido["total"]) ?></b> </span>
-                        <span><?= ucfirst(tradutorEstados($pedido["status"]));?></span>
+                        <span><?= ucfirst(tradutor($pedido["status"]));?></span>
                         <a class="eye" href="<?php echo dir_template( '/admin/pedidos-visualizar/' ); ?><?= $pedido["ref"] ?>">
                             <img src="<?php echo dir_template( '/view/admin/img/eye.svg' ); ?>" alt="">
                         </a>
