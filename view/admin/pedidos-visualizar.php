@@ -5,7 +5,6 @@
         $os = cart_calc($parametro['id']); 
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id);
-
         $metas = get_meta($parametro['id']);
         $address = [
             'cyte' => 'Não definido',
@@ -13,7 +12,6 @@
             'logadouro' => 'Não definido',
             'number' => 'Não definido',
         ];
-        //var_dump($os);
         if(!empty($metas['ADDRESS_DATA'])) {
             $address = json_decode($metas['ADDRESS_DATA'], true);
         }
@@ -39,10 +37,11 @@
                 </form>
                 <div class="space"></div>
                 <div>
-                    <label for="email">E-mail: </label><?= $client["email"] ?? "Não definido"?></span>
+                    <label for="email">E-mail: </label><span><?= $client["email"] ?? "Não definido"?></span>
                 </div>
+                
                 <div>
-                    <label for="telefone">Telefone: </label><span></span>
+                    <label for="telefone">Telefone: </label><span><?= $client["phone"] ?? "Não definido"?></span>
                 </div>
                 <div class="space"></div>
                 
@@ -59,7 +58,7 @@
                 <div class="space"></div>
                 <div>
                     <p><?= $address['cyte'] ?>, <?= $address['zip_code'] ?>,</p>
-                    <p><?= $address['logadouro'] ?>, <?= $address['number'] ?>.</p>
+                    <p><?= $address['logadouro'] ?>, <?= $address['number'] ?></p>
                 </div>
             </div>
         </div>
