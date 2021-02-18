@@ -579,7 +579,7 @@ function client_is_logged()
 }
 function client_public()
 {
-    if (admin_is_logged()) :
+    if (client_is_logged()) :
         redirect(dir_template('/perfil'));
     endif;
 }

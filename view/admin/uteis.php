@@ -1,27 +1,19 @@
 
 <?php
 function tradutor($a){
-    if($a == "abandoned"){
-        $a = "Abandonado";
-    }
-    elseif($a == "waiting"){
-        $a = "Esperando pagamento";
-    }
-    elseif($a == "finished"){
-        $a = "Pago";
-    }
-    elseif($a == "canceled") {
-        $a = "Cancelado";
-    }
-    elseif($a == "delivery"){
-        $a = "Entrega";
-    }
-    elseif($a == "takeway"){
-        $a = "Retirada";
-    }
-    return $a;
+    $termos = [
+        "abandoned" => "Abandonado",
+        "waiting" => "Esperando pagamento",
+        "canceled" => "Cancelado",
+        "delivery" => "Entrega",
+        "finished" => "Pago",
+        "takeway" => "Retirada",
+        "preparing" => "Em preparação",
+        "en_route" => "A caminho",
+        "delivered" => "Entregue",
+    ];
+    return $termos[$a] ?? $termos;
 }
-
 function corretorNum($a){
     return number_format($a, 2, ",", ".");
 }
@@ -37,21 +29,19 @@ function selecPedidoStatus($status, $option) {
         return "";
     }
 }
-function selectCreator($status) {
+function selectCreator($status, $prefix = '') {
     $os = new OrderRepository;
     $statusCollection = $os->get_status();
     
     foreach($statusCollection as $indice => $valor) {
         $traducao = tradutor($indice);
         $selected = selecPedidoStatus($status, $indice);
-        echo "<option value='".$indice."' ".$selected.">" .$traducao. "</option>" ;
+        echo "<option value='{$prefix}".$indice."' ".$selected.">" .$traducao. "</option>" ;
     }
 }
-
-
 function arrayteste($os) {
     if(array_key_exists('COUPON', $os['meta'])){
-        return $os['meta']['COUPON'];
+        return ;
     }else {
         return "";
     }

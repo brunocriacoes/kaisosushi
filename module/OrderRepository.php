@@ -12,9 +12,12 @@ class OrderRepository
     {
         return [
             "abandoned" => "abandonado",
+            "waiting" => "aguardando",
             "canceled" => "cancelado",
             "finished" => "finalizado",
-            "waiting" => "aguardando"
+            "preparing" => "em preparacao",
+            "en_route" => "a caminho",
+            "delivered" => "Entregue",
         ];
     }
     function get_metas()

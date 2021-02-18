@@ -5,6 +5,7 @@
     $takeway = $type_send == 'takeway' ? 'active' : '';
     $delivery = $type_send == 'delivery' ? 'active' : '';
     $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
+
 ?>
 
     <div class="inner inner-slider">
