@@ -965,5 +965,33 @@ function save_scripts() {
         }
     }
 }
+function recuperar_senha()
+{
+    if ( !empty( $_POST['email'] ) ) {
+        $db = new ClientRepository;
+        $playload = $db->email_exist($_POST['email']);
+        if ( empty($playload) ) {
+            $GLOBALS['error'] = 'email invalido';
+        } else {
+            $GLOBALS['error'] = 'email enviado com sucesso';
+            $new_pass = $db->recoverPassword( (int)$playload[0]['id'] );
+            mail( $playload[0]['email'], 'kaiso sushi - senha temporaria', "sua senha temporaria é {$new_pass}" );
+        }
+    }
+}
+function __($a){
+    $termos = [
+        "abandoned" => "Abandonado",
+        "waiting" => "Esperando pagamento",
+        "canceled" => "Cancelado",
+        "delivery" => "Entrega",
+        "finished" => "Pago",
+        "takeway" => "Retirada",
+        "preparing" => "Em preparação",
+        "en_route" => "A caminho",
+        "delivered" => "Entregue",
+    ];
+    return $termos[$a] ?? $termos;
+}
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

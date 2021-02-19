@@ -17,6 +17,7 @@
     <input type="password" name="pass" placeholder="Senha" required>
     <button type="submit" class="btn-center">Entrar</button>
     <a href="<?= dir_template( '/me-registrar' ) ?>" class="link--login">Me Registrar</a>
+    <a href="<?= dir_template( '/recuperar-senha' ) ?>" class="link--login">Esqueceu sua senha ?</a>
 </form>
 <div class="space"></div>
 

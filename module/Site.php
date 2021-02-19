@@ -15,6 +15,7 @@ class Site
         add_router( '/acerca-kaiso', function() {}, __DIR__ . "/../view/site/page-acerca.php"  );
         add_router( '/alergenios', function() {}, __DIR__ . "/../view/site/page-alergenios.php"  );
         add_router( '/login', 'client_login', __DIR__ . "/../view/site/login.php"  );
+        add_router( '/recuperar-senha', 'recuperar_senha', __DIR__ . "/../view/site/recuperar-senha.php"  );
         add_router( '/logout', 'client_logout'  );
         add_router( '/perfil/alterar-senha', 'client_alter_pass', __DIR__ . "/../view/site/alter-pass.php"  );
         add_router( '/perfil/moradas', 'client_moradas', __DIR__ . "/../view/site/moradas.php"  );

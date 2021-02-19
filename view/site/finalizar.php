@@ -4,17 +4,20 @@ $cart = is_cart() ? cart_calc() : [];
 if ($cart['client_id'] == '0') {
     redirect('/login?error=401');
 }
+$valo_frete = $cart['meta']['FEE_FRETE'] ?? '0';
+$valo_frete = floatval($valo_frete);
 $type_send = !empty($cart["meta"]["TYPE_SEND"]) ? $cart["meta"]["TYPE_SEND"] : 'delivery';
 $takeway = $type_send == 'takeway' ? 'active' : '';
 $delivery = $type_send == 'delivery' ? 'active' : '';
 $takeway_check = $type_send == 'takeway' ? 'checked' : '';
 $delivery_check = $type_send == 'delivery' ? 'checked' : '';
-$type_frete = $type_send == 'delivery' ? 'hidden' : '';
 $metas = get_meta(get_id_cart());
 $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
 $postcode = preg_replace('/(.*)(\d{7})(.*)/', "$2", $address);
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
+$nao_definido_zip_code = empty($local['zip_code']??'');
+$type_frete = $valo_frete == 0 && $nao_definido_zip_code  ? 'hidden' : '';
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
@@ -83,8 +86,8 @@ $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
                 </div>
                 <div class="space"></div>
                 <div>
-                    <small>Instruções para entrega</small>
-                    <textarea name="obs" rows="4"><?= $metas['OS_OBS'] ?? '' ?></textarea>
+                    <!-- <small>Instruções para entrega</small> -->
+                    <textarea name="obs" rows="4" hidden><?= $metas['OS_OBS'] ?? '' ?></textarea>
                 </div>
             </div>
             <div>
@@ -137,13 +140,13 @@ $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
                     <div>
                         <input type="radio" name="type_payment" mix-box hidden id="mb_way" <?= $pay_type == 'mbway_create' ? 'checked' : '' ?> value="mbway_create">
                         <div>
-                            <small>PAGAMENTO DE SERVIÇOS NO MULTIBANCO</small>
+                            <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
                         </div>
                     </div>
                     <div>
                         <input type="radio" name="type_payment" mix-box hidden id="mult_bank" <?= $pay_type == 'multibanco_create' ? 'checked' : '' ?> value="multibanco_create">
                         <div>
-                            <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
+                            <small>PAGAMENTO DE SERVIÇOS NO MULTIBANCO</small>
                         </div>
                     </div>
                     <input type="text" name="paymento_value" value="<?= $metas['PAY_VALUE'] ?? '' ?>">

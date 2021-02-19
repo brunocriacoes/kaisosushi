@@ -15,11 +15,15 @@
         <h2 class="title-pages">Pedidos</h2>
         <div class="zebrado-os">
             <?php foreach( get_may_os() as $os ): ?>
-                <?php $meta = get_meta($os["id"]); ?>
+                <?php
+                    $meta = get_meta($os["id"]); 
+                    $meta_by_ref = get_meta($os["ref"]); 
+                    $address = json_decode( $meta_by_ref['ADDRESS_DATA'] ?? '{}', true );
+                ?>
                 <div class="grid-os text-white">
                     <div>
                         <small>Numero</small>
-                        <b><?= $os["number"] ?? '' ?></b>
+                        <b><?= $os["id"] + 1200 ?></b>
                     </div>
                     <div>
                         <small>Total</small>
@@ -31,11 +35,16 @@
                     </div>
                     <div class="hidden-md">
                         <small>Endereço </small>
-                        <b><?= $meta["ADDRESS_SEND"] ?? '' ?></b>
+                        <b>
+                            <?= $address["logadouro"] ?? '' ?> - 
+                            <?= $address["number"] ?? '' ?> - 
+                            <?= $address["cyte"] ?? '' ?> -
+                            <?= $address["zip_code"] ?? '' ?>
+                        </b>
                     </div>
                     <div>
                         <small>Status</small>
-                        <b><?=  translate_status( $os["status"] ) ?? '' ?></b>
+                        <b><?=  __( $os["status"] ) ?? '' ?></b>
                     </div>
                 </div>
             <?php endforeach; ?>
