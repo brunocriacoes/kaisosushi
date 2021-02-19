@@ -57,8 +57,8 @@
                 
                 <div class="space"></div>
                 <div>
-                    <p><?= $address['cyte'] ?>, <?= $address['zip_code'] ?>,</p>
-                    <p><?= $address['logadouro'] ?>, <?= $address['number'] ?></p>
+                    <p><?= $address['cyte'] ?? "Não definido" ?>, <?= $address['zip_code'] ?? "Não definido" ?>,</p>
+                    <p><?= $address['logadouro'] ?? "Não definido" ?>, <?= $address['number'] ?? "Não definido" ?></p>
                 </div>
             </div>
         </div>
