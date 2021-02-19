@@ -157,10 +157,10 @@
                 <div class="space"></div>
 
                 <div class="grid-custom" style="--cols: 1fr 70px" text-right>
-                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html']?></b>
-                    <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'];?></b>
-                    <p>Cupom <b>€-</b>: </p><b><?= arrayteste($os);?></b>
-                    <p>Total: </p><b>€<?= $os['total_fee_html']?></b>
+                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html'] ?? "00,00" ?></b>
+                    <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'] ?? "00,00" ;?></b>
+                    <p>Cupom <b>€-</b>: </p><b><?= $os['meta']['COUPON'] ?? "00,00" ;?></b>
+                    <p>Total: </p><b>€<?= $os['total_fee_html'] ?? "00,00" ?></b>
                     
                 </div>             
                 
