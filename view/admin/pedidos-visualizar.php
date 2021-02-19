@@ -133,7 +133,7 @@
                             <option value="">Retirada</option>
                         </select>
                     </div>
-
+                    
                     <div>   
                         <label for="frete">Frete</label>
                         <input disabled type="text" name="frete" id="frete" value="<?=$os['meta']['FEE_FRETE_HTML'];?>">
@@ -157,11 +157,11 @@
                 <div class="space"></div>
 
                 <div class="grid-custom" style="--cols: 1fr 70px" text-right>
-                    <p>Sub-total: </p><b>€53,33</b>
-                    <p>Desconto: </p><b>-€1,00</b>
-                    <p>Frete: </p><b>€3,00</b>
-                    <p>Cupom: </p><b>-€5,00</b>
+                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html']?></b>
+                    <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'];?></b>
+                    <p>Cupom <b>€-</b>: </p><b><?= arrayteste($os);?></b>
                     <p>Total: </p><b>€<?= $os['total_fee_html']?></b>
+                    
                 </div>             
                 
             </div>
