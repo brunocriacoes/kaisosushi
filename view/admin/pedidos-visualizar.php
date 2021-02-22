@@ -146,7 +146,7 @@
                 <form class="detalhes-formularios grid-custom grid-tres" action="" method="POST">
                     <div>
                         <label for="">Insira o código do cupom</label>
-                        <input type="text" name="coupon" id="cupom" value="<?= arrayteste($os);?>">
+                        <input type="text" name="coupon" id="cupom" value="<?= $os['meta']['COUPON'] ?? "" ;?>">
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
@@ -155,11 +155,10 @@
                 </form>
                             
                 <div class="space"></div>
-
                 <div class="grid-custom" style="--cols: 1fr 70px" text-right>
-                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html'] ?? "00,00" ?></b>
+                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total'] ?? "00,00" ?></b>
                     <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'] ?? "00,00" ;?></b>
-                    <p>Cupom <b>€-</b>: </p><b><?= $os['meta']['COUPON'] ?? "00,00" ;?></b>
+                    <p>Cupom <b></b>: </p><b><?= '€'.$os['fee']['coupon'].' €'.$os['fee']['coupon_html'] ?? "00,00" ;?></b>
                     <p>Total: </p><b>€<?= $os['total_fee_html'] ?? "00,00" ?></b>
                     
                 </div>             

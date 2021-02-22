@@ -13,6 +13,7 @@
                     <span>€</span>
                     <span></span>
                 </div>
+                
                 <?php foreach( get_all_coupon() as $coupon ) : ?>
                     <div class="grid-custom" style="--cols: 1fr 1fr 1fr 40px">
                         <span><?= $coupon["code"] ?></span>
@@ -21,6 +22,7 @@
                         <a class="bin-bg" href="<?= dir_template( '/admin/cupom/deletar' ) ?>/<?= $coupon["id"] ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>"></a>
                     </div>
                 <?php endforeach; ?>
+                
             </div>
     </div>
     <?php include __DIR__ . "/footer.php" ?>

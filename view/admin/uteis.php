@@ -36,13 +36,6 @@ function selectCreator($status, $prefix = '') {
     foreach($statusCollection as $indice => $valor) {
         $traducao = tradutor($indice);
         $selected = selecPedidoStatus($status, $indice);
-        echo "<option value='{$prefix}".$indice."' ".$selected.">" .$traducao. "</option>" ;
-    }
-}
-function arrayteste($os) {
-    if(array_key_exists('COUPON', $os['meta'])){
-        return ;
-    }else {
-        return "";
+        echo "<option value='{$prefix}".$indice."' ".$selected.">" .$traducao. "</option>";
     }
 }
