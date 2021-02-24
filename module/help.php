@@ -418,7 +418,8 @@ function add_prod()
         $os = new OrderRepository;
         $os->update_user($ref, $corruent_client);
     }
-    echo json_encode(cart_calc());
+    $result = cart_calc();   
+    echo json_encode($result);
 }
 function del_prod()
 {
@@ -464,7 +465,7 @@ function cart_calc($id = null)
         $total += $subtotal;
         return [
             "id" => $info["id"],
-            "name" => $info["name"],
+            "name" =>  json_encode( $info["name"], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ),
             "price" =>  $info["price_offer"],
             "price_html" => number_format(+$info["price_offer"], 2, ',', '.'),
             "sub_total" => $subtotal,
@@ -990,6 +991,10 @@ function __($a){
         "delivered" => "Entregue",
     ];
     return $termos[$a] ?? $termos;
+}
+
+function webhook() {
+    echo json_encode( $_REQUEST );
 }
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

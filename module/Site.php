@@ -31,6 +31,7 @@ class Site
         add_router( '/webhook', function() {
             $json = json_encode( $_REQUEST );
             set_log( 'RESPONSE EUPAGO ' . $json );
+            webhook();
         }  );
 
         add_router( '/api/v1/cart', function() {
