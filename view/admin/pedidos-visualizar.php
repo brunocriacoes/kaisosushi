@@ -136,7 +136,7 @@
                     
                     <div>   
                         <label for="frete">Frete</label>
-                        <input disabled type="text" name="frete" id="frete" value="<?=$os['meta']['FEE_FRETE_HTML'];?>">
+                        <input disabled type="text" name="frete" id="frete" value="<?= $os['meta']['FEE_FRETE_HTML'] ?? '' ?>">
                     </div>
                     <div>
                         <label for="">&nbsp;</label>
@@ -156,9 +156,9 @@
                             
                 <div class="space"></div>
                 <div class="grid-custom" style="--cols: 1fr 70px" text-right>
-                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total'] ?? "00,00" ?></b>
+                    <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html'] ?? "00,00" ?></b>
                     <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'] ?? "00,00" ;?></b>
-                    <p>Cupom <b></b>: </p><b><?= '€'.$os['fee']['coupon'].' €'.$os['fee']['coupon_html'] ?? "00,00" ;?></b>
+                    <p>Cupom <b></b>: </p><b>-&euro;<?= $os['fee']['coupon_html'] ?? "00,00" ;?></b>
                     <p>Total: </p><b>€<?= $os['total_fee_html'] ?? "00,00" ?></b>
                     
                 </div>             

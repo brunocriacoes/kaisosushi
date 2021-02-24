@@ -485,7 +485,7 @@ function cart_calc($id = null)
         $cal_percent = $total * $percentage / 100;
         $total_fee = ($money + $cal_percent) - $total_fee;
         $fee['coupon'] = - ($money + $cal_percent);
-        $fee['coupon_html'] = number_format(-$money, 2, ',', '.');
+        $fee['coupon_html'] = number_format($money, 2, ',', '.');
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
 
