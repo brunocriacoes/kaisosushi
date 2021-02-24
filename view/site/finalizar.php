@@ -17,7 +17,7 @@ $postcode = preg_replace('/(.*)(\d{7})(.*)/', "$2", $address);
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
 $nao_definido_zip_code = empty($local['zip_code']??'');
-$type_frete = $valo_frete == 0 && $nao_definido_zip_code  ? 'hidden' : '';
+$type_frete = !($valo_frete == 0 && $nao_definido_zip_code)  ? 'hidden' : '';
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
@@ -116,7 +116,7 @@ $type_frete = $valo_frete == 0 && $nao_definido_zip_code  ? 'hidden' : '';
                     </div>
                     <div>
                         <span>Cupon</span>
-                        <span>&euro;<span id="js-end-coupon-html"><?= $cart['fee']['coupon_html'] ?? '0,00' ?></span></span>
+                        <span>-&euro;<span id="js-end-coupon-html"><?= $cart['fee']['coupon_html'] ?? '0,00' ?></span></span>
                     </div>
                     <div>
                         <span>Total</span>

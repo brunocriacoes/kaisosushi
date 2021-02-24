@@ -13,7 +13,7 @@
         </div>
         <?php foreach (get_last_product(1000) as $prods) : ?>
             <div class="grid-custom " style="--cols: 1fr 70px 70px">
-                <span><?= $prods["title"] ?></span>
+                <span><?= $prods["name"] ?></span>
                 <span> <b><?= $prods["price"] ?></b> </span>
                 <div class="grid produtos-icones" style="--cols: 2">
                     <a class="pencil-bg" href="<?= dir_template('/admin/editar-produto') ?>/<?= $prods["id"] ?>"><img src="<?php echo dir_template('/view/admin/img/pencil.svg'); ?>" alt=""></a>

@@ -77,7 +77,7 @@ function get_last_product($number = 12)
         else :
             $prod["photo"] = dir_template('/view/upload/product/') . utf8_encode($prod['photo']);
         endif;
-        $prod["title"] = utf8_encode($prod['name']);
+        $prod["title"] = $prod['name'];
         $prod["price"] = '&euro;' . number_format($prod["price"], '2', ',', '.');
         return $prod;
     }, $list);
@@ -122,7 +122,7 @@ function get_all_category()
     $list = array_map(function ($cat) {
         return [
             "id" => $cat['id'],
-            "title" => utf8_encode($cat['name']),
+            "title" => $cat['name'],
             "link" => dir_template('/menu/') . $cat['slug']
         ];
     }, $list);
@@ -464,7 +464,7 @@ function cart_calc($id = null)
         $total += $subtotal;
         return [
             "id" => $info["id"],
-            "name" => utf8_encode($info["name"]),
+            "name" => $info["name"],
             "price" =>  $info["price_offer"],
             "price_html" => number_format(+$info["price_offer"], 2, ',', '.'),
             "sub_total" => $subtotal,
@@ -484,20 +484,19 @@ function cart_calc($id = null)
         $percentage = empty($desconto["percentage"]) ? 0 : $desconto["percentage"];
         $cal_percent = $total * $percentage / 100;
         $total_fee = ($money + $cal_percent) - $total_fee;
-        $fee['coupon'] = - ($money + $cal_percent);
-        $fee['coupon_html'] = number_format($money, 2, ',', '.');
+        $fee['coupon'] = $total_fee;
+        $fee['coupon_html'] = number_format($total_fee, 2, ',', '.');
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
 
-    $is_adrress = get_meta($order["id"], 'ADDRESS_SEND');
-    $is_adrress = explode(' ', $is_adrress["ADDRESS_SEND"] ?? '');
-    $is_adrress = end($is_adrress);
-    $price_frete = calc_frete(floatval($is_adrress));
+    $address_json = json_decode( $metas_meta['ADDRESS_DATA'] ?? '{}' );
+    $distance = $address_json->distance ?? '15000.00';
+    $price_frete = calc_frete(floatval($distance));
     if ($price_frete > 0) {
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
         set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
         set_meta($order["id"], 'TYPE_SEND', 'delivery');
-        $total += $price_frete;
+        $total_fee -= $price_frete;
     } else {
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
@@ -829,7 +828,6 @@ function eu_pago()
         "valor_maximo" => "122.5",
         "per_dup" => "0"
     ]);
-    var_dump($res);
 }
 function editar_detalhes_pedidos()
 {

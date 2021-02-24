@@ -110,7 +110,7 @@
                         <label for="produto">Produto</label>
                         <select name="add_prod_id" id="produto">
                         <?php foreach (get_last_product(1000) as $prods) : ?>
-                            <option value="<?= $prods["id"] ?>"><?= $prods["title"] ?></option>
+                            <option value="<?= $prods["id"] ?>"><?= $prods["name"] ?></option>
                         <?php endforeach; ?>
                         </select>
                     </div>

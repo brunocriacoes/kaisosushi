@@ -70,7 +70,7 @@
                         <div>
                             <a href="<?= $prod['link'] ?>" title="<?= $prod['title'] ?>">
                                 <img src="<?= $prod['photo'] ?>" alt="<?= $prod['title'] ?>">
-                                <span><?= $prod['title'] ?></span>
+                                <span><?= $prod['name'] ?></span>
                             </a>
                             <i onclick="globalThis.cart.add( <?= $prod['id'] ?> )"> 
                                 <?= $prod['price'] ?>
