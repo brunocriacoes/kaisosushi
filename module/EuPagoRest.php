@@ -57,8 +57,8 @@ class EuPagoRest
     {
         return $this->post( '/multibanco/info', [
             "chave" => self::KEY_API,
-            "referencia" => floatval($params['referencia']),
-            "entidade" => floatval($params['entidade'])
+            "referencia" => $params['referencia'],
+            "entidade" => $params['entidade']
         ] );
     }
     function cc_purchase_tds( $params )

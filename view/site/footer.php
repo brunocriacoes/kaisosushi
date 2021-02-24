@@ -76,7 +76,8 @@
         <?php do_action('js_footer')?>
         globalThis.max_km = <?= get_max_km() ?>
     </script>
-    <script src="<?= dir_template( '/view/site/src/js/index.js' ) ?>" type="module"></script>
+    <script src="<?= dir_template( '/view/site/src/js/index.js?version=1.0.4' ) ?>" type="module"></script>
     <?= get_end() ?>
 </body>
 </html>
+<!-- 1.0.4 -->

@@ -994,7 +994,24 @@ function __($a){
 }
 
 function webhook() {
-    echo json_encode( $_REQUEST );
+    $eupago = new EuPagoRest;
+    $pedido = new OrderRepository;
+    $info = $eupago->multibanco_info( [
+        "referencia" => $_REQUEST['referencia'],
+        "entidade" => $_REQUEST['entidade'],
+    ]);
+    
+    $estado = (object) [
+        "status" => !empty( $info->pagamentos[0]->estado ) ? $info->pagamentos[0]->estado : 'nao_paga',
+        "order_id" => !empty( $info->identificador ) ? $info->identificador : '0'
+    ];
+
+    if( $estado->status == 'paga' ) {
+        $pedido->update_status( $estado->order_id, "finished" );
+        echo json_encode( [ $estado ] );
+    }
+
+
 }
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

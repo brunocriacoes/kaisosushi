@@ -35,7 +35,7 @@ class OrderRepository
     function update_status($ref, $status)
     {
         $date_update = date('Y-m-d');
-        query("UPDATE `order` SET status='{$status}', date_update='{$date_update}'  WHERE ref='{$ref}'");
+        query("UPDATE `order` SET status='{$status}', date_update='{$date_update}'  WHERE ref='{$ref}' OR id='{$ref}'");
     }
     function update_user($ref, $client_id)
     {
