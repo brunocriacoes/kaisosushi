@@ -17,7 +17,13 @@ $postcode = preg_replace('/(.*)(\d{7})(.*)/', "$2", $address);
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
 $nao_definido_zip_code = empty($local['zip_code']??'');
-$type_frete = !($valo_frete == 0 && $nao_definido_zip_code)  ? 'hidden' : '';
+
+$type_frete = 'hidden';
+if(!$nao_definido_zip_code) {
+    $type_frete = $valo_frete == 0   ? '' : 'hidden';
+}
+
+
 ?>
 <span id="js-is-finalizar"></span>
 <div class="inner inner-title" style="background-image: url('<?= dir_template('/view/site/src/bg/banner-2.jpeg') ?>');">
