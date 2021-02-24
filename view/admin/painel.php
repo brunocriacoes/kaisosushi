@@ -3,7 +3,12 @@
     $pedidos = get_all_pedido();
     $total = count($pedidos);
     $total_finished = array_reduce( $pedidos, function( $acc, $os ) {
-        if($os['status'] == "finished") {
+        if(
+            $os['status'] == "finished" || 
+            $os['status'] == "preparing" ||
+            $os['status'] == "en_route" ||
+            $os['status'] == "delivered"
+        ) {
             $acc += $os['total'];
         }
         return $acc;
