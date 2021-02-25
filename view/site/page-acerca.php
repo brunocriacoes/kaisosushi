@@ -8,7 +8,7 @@
         <div class="space" style="--line:70px"></div>
         <p>
             Somos o melhor restaurante de culinária japonesa de Lisboa, 
-            contamos uma equipe de mais de 20 colaboradores onde todos são 
+            contamos com uma equipe de mais de 20 colaboradores onde todos são 
             treinados e capacitados para entregar o melhor para a sua família
         </p>
         <p>

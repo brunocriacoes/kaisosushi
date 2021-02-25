@@ -1,5 +1,5 @@
    
-    <a href="<?= get_whatsapp() ?>?text=Ola" target="_blank" class="link-whatsapp">
+    <a href="<?= get_whatsapp() ?>" target="_blank" class="link-whatsapp">
         <img src="<?= dir_template( '/view/site/src/ico/whatsapp.svg' ) ?>" height="50" alt="whatsapp">
     </a>
     <div class="inner inner-footer">
