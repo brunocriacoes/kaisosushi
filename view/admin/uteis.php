@@ -11,6 +11,9 @@ function tradutor($a){
         "preparing" => "Em preparação",
         "en_route" => "A caminho",
         "delivered" => "Entregue",
+        "multibanco_create" => "Multibanco",
+        "mbway_create" => "MB WAY",
+        "money" => "Dinheiro",
     ];
     return $termos[$a] ?? $termos;
 }

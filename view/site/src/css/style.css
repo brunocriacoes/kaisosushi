@@ -1047,7 +1047,7 @@ button:hover {
 }
 .grid-os {
     display: grid;
-    grid-template-columns: 100px 70px 120px 1fr 1fr;
+    grid-template-columns: 100px 70px 120px 1fr 1fr 1fr;
     padding: 7px 14px;
 }
 @media screen and (max-width: 800px ) 
@@ -1277,4 +1277,12 @@ button:hover {
 }
 .label--finalizar {
     color: #CCC;
+}
+@media (min-width:761px) {
+    .lg-hidden { display: none !important; }    
+    .sm-hidden { display: block !important; }
+}
+@media (max-width:761px) {
+    .sm-hidden { display: none !important; }
+    .lg-hidden { display: block !important; }    
 }

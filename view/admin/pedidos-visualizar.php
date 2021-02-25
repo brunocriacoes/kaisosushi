@@ -6,6 +6,7 @@
         $client_id = $os["client_id"] == 0 ? 2 : $os["client_id"] ; 
         $client = get_client($client_id);
         $metas = get_meta($parametro['id']);
+        $pay_type = $os['meta']['PAY_TYPE'] ?? 'money';
         $address = [
             'cyte' => 'Não definido',
             'zip_code' => 'Não definido',
@@ -156,6 +157,7 @@
                             
                 <div class="space"></div>
                 <div class="grid-custom" style="--cols: 1fr 70px" text-right>
+                    <p>meio pagamento: </p><b><?= tradutor( $pay_type ) ?></b>
                     <p>Sub-total: </p><b>€<?= $os['prods']['0']['sub_total_html'] ?? "00,00" ?></b>
                     <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'] ?? "00,00" ;?></b>
                     <p>Cupom <b></b>: </p><b>-&euro;<?= $os['fee']['coupon_html'] ?? "00,00" ;?></b>

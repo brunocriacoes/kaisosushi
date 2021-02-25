@@ -1,5 +1,8 @@
    
-    <a href="<?= get_whatsapp() ?>" target="_blank" class="link-whatsapp">
+    <a href="<?= get_whatsapp() ?>" target="_blank" class="link-whatsapp sm-hidden">
+        <img src="<?= dir_template( '/view/site/src/ico/whatsapp.svg' ) ?>" height="50" alt="whatsapp">
+    </a>
+    <a href="<?= get_whatsapp_telemovel() ?>" target="_blank" class="link-whatsapp lg-hidden">
         <img src="<?= dir_template( '/view/site/src/ico/whatsapp.svg' ) ?>" height="50" alt="whatsapp">
     </a>
     <div class="inner inner-footer">

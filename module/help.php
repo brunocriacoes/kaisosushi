@@ -4,6 +4,10 @@ function get_whatsapp()
 {
     return $_ENV['LINK_WATSAPP'];
 }
+function get_whatsapp_telemovel()
+{
+    return $_ENV['LINK_WATSAPP_TELEMOVEL'];
+}
 function get_email()
 {
     return $_ENV['EMAIL'];
@@ -989,6 +993,9 @@ function __($a){
         "preparing" => "Em preparação",
         "en_route" => "A caminho",
         "delivered" => "Entregue",
+        "multibanco_create" => "Multibanco",
+        "mbway_create" => "MB WAY",
+        "money" => "Dinheiro",
     ];
     return $termos[$a] ?? $termos;
 }

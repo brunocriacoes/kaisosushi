@@ -19,6 +19,7 @@
                     $meta = get_meta($os["id"]); 
                     $meta_by_ref = get_meta($os["ref"]); 
                     $address = json_decode( $meta_by_ref['ADDRESS_DATA'] ?? '{}', true );
+                    $meta_by_ref["PAY_TYPE"] = $meta_by_ref["PAY_TYPE"] ?? 'money';
                 ?>
                 <div class="grid-os text-white">
                     <div>
@@ -42,9 +43,13 @@
                             <?= $address["zip_code"] ?? '' ?>
                         </b>
                     </div>
+                    <div class="hidden-md">
+                        <small>Meio Pagamento </small>
+                        <b><?=  __(  $meta_by_ref["PAY_TYPE"] ) ?? ''  ?></b>
+                    </div>
                     <div>
                         <small>Status</small>
-                        <b><?=  __( $os["status"] ) ?? '' ?></b>
+                        <b><?=  __( $os["status"] ?? '' ) ?? ''  ?></b>
                     </div>
                 </div>
             <?php endforeach; ?>
