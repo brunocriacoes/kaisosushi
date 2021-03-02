@@ -15,17 +15,7 @@ export default {
             key:this.key
         }
         let param = Object.keys(body).map( indice => `${indice}=${encodeURI(body[indice])}` ).join('&')
-        let header = {
-            method: 'GET',
-            headers: new Headers({
-                "Content-Type": "text/plain",
-                "Content-Length": param.length.toString(),
-                "X-Custom-Header": "ProcessThisImmediately",
-              }),
-            mode: 'no-cors',
-            cache: 'default'
-        }
-        let res = await ( await fetch( `${this.path}?${param}`, header ) ).json()
+        let res = await ( await fetch( `${this.path}?${param}` ) ).json()
         let distance = res?.rows?.elements?.distance?.value
         if(distance) {
             alert( (distance / 1000) + "km")
