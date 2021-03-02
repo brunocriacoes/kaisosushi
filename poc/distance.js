@@ -16,7 +16,18 @@ export default {
         }
         let salt = `&drivingOptions[departureTime]=${Date.now()}&drivingOptions[trafficModel]=optimistic`
         let param = Object.keys(body).map( indice => `${indice}=${encodeURI(body[indice])}` ).join('&')
-        let res = await ( await fetch( `${this.path}?${param}${salt}` ) ).json()
+
+        var header = { 
+            method: 'GET',
+            headers: new Headers({
+                "Content-Type": "text/plain",
+                "Content-Length": param.length.toString(),
+                "X-Custom-Header": "ProcessThisImmediately",
+              }),
+            mode: 'no-cors',
+            cache: 'default' 
+        };
+        let res = await ( await fetch( `${this.path}?${param}${salt}`, header ) ).json()
         let distance = res?.rows?.elements?.distance?.value
         if(distance) {
             alert( (distance / 1000) + "km")
