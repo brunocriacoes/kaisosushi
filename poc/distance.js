@@ -14,7 +14,7 @@ export default {
             destinations: destino,
             key:this.key,
             drivingOptions: {
-                departureTime: new Date(Date.now() + N),
+                departureTime: Date.now(),
                 trafficModel: 'optimistic'
             }
         }
