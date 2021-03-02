@@ -12,14 +12,11 @@ export default {
             units: "imperial",
             origins: this.origen.address,
             destinations: destino,
-            key:this.key,
-            drivingOptions: {
-                departureTime: Date.now(),
-                trafficModel: 'optimistic'
-            }
+            key:this.key            
         }
+        let salt = `&drivingOptions[departureTime]=${Date.now()}&drivingOptions[trafficModel]=optimistic`
         let param = Object.keys(body).map( indice => `${indice}=${encodeURI(body[indice])}` ).join('&')
-        let res = await ( await fetch( `${this.path}?${param}` ) ).json()
+        let res = await ( await fetch( `${this.path}?${param}${salt}` ) ).json()
         let distance = res?.rows?.elements?.distance?.value
         if(distance) {
             alert( (distance / 1000) + "km")
