@@ -19,11 +19,10 @@ export default {
 
         var header = { 
             method: 'GET',
-            headers: new Headers({
-                "Content-Type": "text/plain",
-                "Content-Length": param.length.toString(),
-                "X-Custom-Header": "ProcessThisImmediately",
-              }),
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            },
+            credentials: 'include',
             mode: 'no-cors',
             cache: 'default' 
         };
