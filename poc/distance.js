@@ -12,7 +12,11 @@ export default {
             units: "imperial",
             origins: this.origen.address,
             destinations: destino,
-            key:this.key
+            key:this.key,
+            drivingOptions: {
+                departureTime: new Date(Date.now() + N),
+                trafficModel: 'optimistic'
+            }
         }
         let param = Object.keys(body).map( indice => `${indice}=${encodeURI(body[indice])}` ).join('&')
         let res = await ( await fetch( `${this.path}?${param}` ) ).json()
