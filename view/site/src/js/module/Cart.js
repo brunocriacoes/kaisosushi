@@ -97,19 +97,17 @@ export default {
         let $data_list = document.querySelector(`#${selector_data_list}`)
         $data_list.innerHTML = '<span class="loading"></span>'
         globalThis.debounce_search = setTimeout( () => {
-            this.get(`/postcode?search=${$input.value}`, res => {
-                let address_print = local => `${local.logadouro} - ${local.cyte} - ${local.zip_code}`
-                let address_data = local => JSON.stringify(local)
-                $data_list.innerHTML = res.map( local => `<span onclick='globalThis.cart.set_data_list(${address_data(local)}, "${selector}", "${selector_data_list}")'> ${address_print(local)} </span>` ).join('')
+            this.get(`/matrix?s=${$input.value}`, res => {
+                let address_data = JSON.stringify(res)
+                $data_list.innerHTML = `<span onclick='globalThis.cart.set_data_list(${address_data}, "${selector}", "${selector_data_list}")'> ${res.address} </span>` 
             } );
         }, 1000 )      
     },
     set_data_list( $data, selector, selector_data_list ) {
         let $input = document.querySelector(`#${selector}`)
         let $data_list = document.querySelector(`#${selector_data_list}`)
-        let address_print = local => `${local.logadouro} - ${local.cyte} - ${local.zip_code}`
-        $input.value = address_print($data)
-        this.get(`/data_address?json=${JSON.stringify($data)}`, res => {})
+        $input.value = $data.address
+        this.get(`/data_address?json=${JSON.stringify($data)}&distance=${$data.distance}`, res => {})
         $data_list.innerHTML = ''
         if( globalThis.max_km < $data.distance ) {
             document.querySelector('.alert--delivery').removeAttribute('hidden')

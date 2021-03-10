@@ -422,7 +422,7 @@ function add_prod()
         $os = new OrderRepository;
         $os->update_user($ref, $corruent_client);
     }
-    $result = cart_calc();   
+    $result = cart_calc();
     echo json_encode($result);
 }
 function del_prod()
@@ -469,7 +469,7 @@ function cart_calc($id = null)
         $total += $subtotal;
         return [
             "id" => $info["id"],
-            "name" =>  json_encode( $info["name"], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ),
+            "name" =>  json_encode($info["name"], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
             "price" =>  $info["price_offer"],
             "price_html" => number_format(+$info["price_offer"], 2, ',', '.'),
             "sub_total" => $subtotal,
@@ -494,8 +494,8 @@ function cart_calc($id = null)
         $fee['coupon_porcentage_html'] = $cal_percent;
     endif;
 
-    $address_json = json_decode( $metas_meta['ADDRESS_DATA'] ?? '{}' );
-    $distance = $address_json->distance ?? '15000.00';
+    $address_json = json_decode($metas_meta['ADDRESS_DATA'] ?? '{}');
+    $distance = $metas_meta['ADDRESS_DISTANCE'] ?? '15000.00';
     $price_frete = calc_frete(floatval($distance));
     if ($price_frete > 0) {
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
@@ -644,7 +644,8 @@ function client_moradas()
         endif;
     endif;
 }
-function get_gravatar_corruent_user() {
+function get_gravatar_corruent_user()
+{
     return gravatar($_SESSION['ADMIN_EMAIL']);
 }
 function gravatar($email)
@@ -796,6 +797,7 @@ function set_data_address()
         "data" => $_REQUEST['json']
     ];
     set_meta(get_id_cart(), 'ADDRESS_DATA', $_REQUEST['json']);
+    set_meta(get_id_cart(), 'ADDRESS_DISTANCE', $_REQUEST['distance'] ?? 100000);
     echo json_encode($data);
 }
 function render_post_code()
@@ -874,7 +876,7 @@ function editar_detalhes_pedidos()
 function update_address_user($user_id, $address)
 {
     $db = new AddressRepository;
-    $db->register( [
+    $db->register([
         "client_id" => $user_id,
         "name" => $address['name'] ?? '',
         "address" => $address['logadouro'] ?? '',
@@ -882,7 +884,7 @@ function update_address_user($user_id, $address)
         "city" => $address['cyte'] ?? '',
         "post_code" => $address['zip_code'] ?? '',
         "complement" => $address['complement'] ?? ''
-    ] );
+    ]);
 }
 function finalizar()
 {
@@ -893,7 +895,7 @@ function finalizar()
         $_POST['total'] = $os['total_fee'];
         $metas = get_meta(get_id_cart());
         $res = $eupago->{$_POST["type_payment"]}($_POST);
-        update_address_user( $os['client_id'], json_decode($metas['ADDRESS_DATA'] ?? '{}', true ) );
+        update_address_user($os['client_id'], json_decode($metas['ADDRESS_DATA'] ?? '{}', true));
         set_meta($os['ref'], 'PAY_VALUE', $_REQUEST['paymento_value']);
         set_meta($os['ref'], 'OS_OBS', $_REQUEST['obs']);
         set_meta($os['ref'], 'PAY_TYPE', $_REQUEST['type_payment']);
@@ -910,9 +912,10 @@ function finalizar()
         else :
             $order = new OrderRepository;
             $order->update_status($os['ref'], 'waiting');
+            $order->update_total($os['ref'], $_POST['total']);
             cart_clear();
             $referencia = '?referencia=';
-            if($_POST["type_payment"] == "multibanco_create"):
+            if ($_POST["type_payment"] == "multibanco_create") :
                 $referencia .= $res->referencia;
                 $referencia .= "&valor=";
                 $referencia .= $res->valor;
@@ -935,7 +938,8 @@ function is_postcode($post_code_1, $post_code_2)
     $post_code_2 = str_replace('-', '', $post_code_2);
     return $post_code_1 == $post_code_2;
 }
-function translate_status($termo) {
+function translate_status($termo)
+{
     $translate = [
         "abandoned" => "abandonado",
         "canceled" => "cancelado",
@@ -944,45 +948,51 @@ function translate_status($termo) {
     ];
     return $translate[$termo] ?? $termo;
 }
-function get_script( $name_file ) {
+function get_script($name_file)
+{
     $file = __DIR__ . "/../view/upload/scripts/{$name_file}.html";
-    if( file_exists($file) )
-        return file_get_contents( $file );
+    if (file_exists($file))
+        return file_get_contents($file);
     return "";
 }
-function get_header() {
+function get_header()
+{
     return get_script('header');
 }
-function get_body() {
+function get_body()
+{
     return get_script('inicioDoBody');
 }
-function get_end() {
+function get_end()
+{
     return get_script('finalDoBody');
 }
-function save_scripts() {
-    if( !empty( $_POST['header'] ) )  {
+function save_scripts()
+{
+    if (!empty($_POST['header'])) {
         $files = ["header", "inicioDoBody", "finalDoBody"];
-        foreach( $files as $name ) {
+        foreach ($files as $name) {
             $file = __DIR__ . "/../view/upload/scripts/{$name}.html";
-            file_put_contents( $file, $_POST[$name] );
+            file_put_contents($file, $_POST[$name]);
         }
     }
 }
 function recuperar_senha()
 {
-    if ( !empty( $_POST['email'] ) ) {
+    if (!empty($_POST['email'])) {
         $db = new ClientRepository;
         $playload = $db->email_exist($_POST['email']);
-        if ( empty($playload) ) {
+        if (empty($playload)) {
             $GLOBALS['error'] = 'email invalido';
         } else {
             $GLOBALS['error'] = 'email enviado com sucesso';
-            $new_pass = $db->recoverPassword( (int)$playload[0]['id'] );
-            mail( $playload[0]['email'], 'kaiso sushi - senha temporaria', "sua senha temporaria é {$new_pass}" );
+            $new_pass = $db->recoverPassword((int)$playload[0]['id']);
+            mail($playload[0]['email'], 'kaiso sushi - senha temporaria', "sua senha temporaria é {$new_pass}");
         }
     }
 }
-function __($a){
+function __($a)
+{
     $termos = [
         "abandoned" => "Abandonado",
         "waiting" => "Esperando pagamento",
@@ -1000,25 +1010,79 @@ function __($a){
     return $termos[$a] ?? $termos;
 }
 
-function webhook() {
+function webhook()
+{
     $eupago = new EuPagoRest;
     $pedido = new OrderRepository;
-    $info = $eupago->multibanco_info( [
+    $info = $eupago->multibanco_info([
         "referencia" => $_REQUEST['referencia'],
         "entidade" => $_REQUEST['entidade'],
     ]);
-    
     $estado = (object) [
-        "status" => !empty( $info->pagamentos[0]->estado ) ? $info->pagamentos[0]->estado : 'nao_paga',
-        "order_id" => !empty( $info->identificador ) ? $info->identificador : '0'
+        "status" => !empty($info->pagamentos[0]->estado) ? $info->pagamentos[0]->estado : 'nao_paga',
+        "order_id" => !empty($info->identificador) ? $info->identificador : '0'
     ];
-
-    if( $estado->status == 'paga' ) {
-        $pedido->update_status( $estado->order_id, "finished" );
-        echo json_encode( [ $estado ] );
+    if ($estado->status == 'paga') {
+        $pedido->update_status($estado->order_id, "finished");
+        echo json_encode([$estado]);
     }
-
-
 }
+function curlPost(string $url)
+{
+    $defaults = array(
+        CURLOPT_POST           => 1,
+        CURLOPT_HEADER         => 0,
+        CURLOPT_URL            => $url,
+        CURLOPT_FRESH_CONNECT  => 1,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FORBID_REUSE   => 1,
+        CURLOPT_TIMEOUT        => 12,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_HTTPHEADER     => ['Content-Type' => 'application/json; charset=UTF-8', 'accept' => 'application/json']
+    );
+    $request = curl_init();
+    curl_setopt_array($request, $defaults);
+    if (!$result = curl_exec($request)) {
+        trigger_error(curl_error($request));
+    }
+    curl_close($request);
+    return json_decode($result, true);
+}
+
+function distance(string $destinations)
+{
+    $destinations = str_replace(' ', '+', $destinations);
+    $patch    = "https://maps.googleapis.com/maps/api/distancematrix/json";
+    $endpoint = "?origins=Rua+Carlos+Reis+43,+1600-030+Lisboa,+Portugal&destinations=$destinations,+Portugal&mode=driving&language=pt_BR&key=AIzaSyBOOAbjw68Vg_3-Ekk8aZnq0FCgU3FZFQ0";
+    $response = curlPost($patch . $endpoint);
+    
+    return [
+        'address' => $response['destination_addresses'][0],
+        'distance' =>  $response['rows'][0]['elements'][0]['distance']['value']  ?? 0,
+        'code' => $response['status'] ?? 'ok'
+    ];
+}
+
+function matrix()
+{
+    $address = $_REQUEST['s'] ?? '';
+    if ( !empty($address) ) :
+        echo json_encode(distance( $address ));
+    else:
+        echo json_encode( [
+            'address' => '',
+            'distance' => 0,
+            'code' => '404'
+        ] );
+    endif;
+}
+// R. Moinhos da Casela 2, Milharado, Portugal -> 30km
+// R. Dr. José Silva Marques 2-20, Reguengo Grande, Portugal -> 78km
+// R. Alberto de Sousa 10-123 -> 700mt
+
+
+
+
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );

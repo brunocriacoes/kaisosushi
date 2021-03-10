@@ -13,7 +13,9 @@ $takeway_check = $type_send == 'takeway' ? 'checked' : '';
 $delivery_check = $type_send == 'delivery' ? 'checked' : '';
 $metas = get_meta(get_id_cart());
 $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
-$postcode = preg_replace('/(.*)(\d{7})(.*)/', "$2", $address);
+$postcode = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$2", $address); 
+$endereco = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$1", $address); 
+$distrito = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$3", $address); 
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
 $nao_definido_zip_code = empty($local['zip_code']??'');
@@ -47,7 +49,7 @@ if(!$nao_definido_zip_code) {
                     <div class="grid-2">
                         <div>
                             <small class="label--finalizar">Código postal</small>
-                            <input type="" name="zip_code" value="<?= $local['zip_code'] ?? '' ?>">
+                            <input type="" name="zip_code" value="<?= $postcode  ?? '' ?>">
                         </div>
                         <div>
                             <small class="label--finalizar">Nome</small>
@@ -57,7 +59,7 @@ if(!$nao_definido_zip_code) {
                     <div class="grid-2">
                         <div>
                             <small class="label--finalizar">Endereço</small>
-                            <input type="text" name="logadouro" value="<?= $local['logadouro'] ?? '' ?>">
+                            <input type="text" name="logadouro" value="<?= $endereco ?? '' ?>">
                         </div>
                         <div>
                             <small class="label--finalizar">Número</small>
@@ -71,7 +73,7 @@ if(!$nao_definido_zip_code) {
                         </div>
                         <div>
                             <small class="label--finalizar">Distrito</small>
-                            <input type="text" name="cyte" value="<?= $local['cyte'] ?? '' ?>">
+                            <input type="text" name="cyte" value="<?= $distrito ?? '' ?>">
                         </div>
                     </div>
                 </div>
