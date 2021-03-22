@@ -1,57 +1,57 @@
 <?php
 class ClientRepository
 {
-    function register( $name, $email, $pass )
+    function register($name, $email, $pass)
     {
-        $data_register = date( 'Y-m-d' );
-        $password = md5( $pass );
-        query( "INSERT INTO client 
+        $data_register = date('Y-m-d');
+        $password = md5($pass);
+        query("INSERT INTO client 
         ( name, email, password, data_register ) 
         VALUES 
-        ( '{$name}', '{$email}', '{$password}', '{$data_register}' ) " );
-    }    
-    function update( array $params )
+        ( '{$name}', '{$email}', '{$password}', '{$data_register}' ) ");
+    }
+    function update(array $params)
     {
-        query( "UPDATE client SET
+        query("UPDATE client SET
         name='{$params['name']}', last_name='{$params['last_name']}', phone='{$params['phone']}', whatsapp='{$params['whatsapp']}'
-        WHERE id='{$params['id']}' " );
-    }    
-    function suspend( int $client_id )
-    {
-        query( "UPDATE client SET status=0 WHERE id='{$client_id}'" );
+        WHERE id='{$params['id']}' ");
     }
-    function active( int $client_id )
+    function suspend(int $client_id)
     {
-        query( "UPDATE client SET status=1 WHERE id='{$client_id}'" );
+        query("UPDATE client SET status=0 WHERE id='{$client_id}'");
     }
-    function alterPassword( $id, $pass )
+    function active(int $client_id)
     {
-        $password = md5( $pass );
-        query( "UPDATE client SET password='{$password}' WHERE id='{$id}'" );
+        query("UPDATE client SET status=1 WHERE id='{$client_id}'");
     }
-    function recoverPassword( int $client_id )
+    function alterPassword($id, $pass)
+    {
+        $password = md5($pass);
+        query("UPDATE client SET password='{$password}' WHERE id='{$id}'");
+    }
+    function recoverPassword(int $client_id)
     {
         $new_pass = uniqid();
-        $password = md5( $new_pass );
-        query( "UPDATE client SET password='{$password}' WHERE id='{$client_id}'" );
+        $password = md5($new_pass);
+        query("UPDATE client SET password='{$password}' WHERE id='{$client_id}'");
         return $new_pass;
-    }    
-    function list( array $params )
+    }
+    function list(array $params)
     {
-        return query( "SELECT * FROM client LIMIT {$params['offset']},{$params['max_result']}" );
-    }    
+        return query("SELECT * FROM client LIMIT {$params['offset']},{$params['max_result']}");
+    }
     function count()
     {
-        return query( "SELECT COUNT(*) AS total FROM product" );
+        return query("SELECT COUNT(*) AS total FROM product");
     }
-    function about( int $client_id )
+    function about(int $client_id)
     {
-        return query( "SELECT * FROM client WHERE id=$client_id" );
+        return query("SELECT * FROM client WHERE id=$client_id");
     }
-    function login( $email, $pass )
+    function login($email, $pass)
     {
-        $password = md5( $pass );
-        return query( "SELECT * FROM client WHERE email='{$email}' AND password='$password'" );
+        $password = md5($pass);
+        return query("SELECT * FROM client WHERE email='{$email}' AND password='$password'");
     }
     function get_by_id($id)
     {
@@ -59,10 +59,31 @@ class ClientRepository
         $query = query($sql);
         return $query[0] ?? null;
     }
-    function email_exist( $email )
+    function email_exist($email)
     {
         $sql = "SELECT * FROM client WHERE email='{$email}'";
         $query = query($sql);
         return $query;
     }
+    function set_address($data)
+    {
+        $id = $data['id'];
+        $address = $data['address'];
+        $number = $data['number'];
+        $provincia = $data['provincia'];
+        $post_code = $data['post_code'];
+        $sql = "UPDATE client SET address='{$address}', number='{$number}', provincia='{$provincia}', post_code='{$post_code}' WHERE id=$id";
+        query($sql);
+    }
+    function set_matrix($data)
+    {
+        $id = $data['id'];
+        $address = $data['address'];
+        $distance = $data['distance'];
+        $provincia = $data['provincia'];
+        $post_code = $data['post_code'];
+        $sql = "UPDATE client SET address='{$address}', distance='{$distance}', provincia='{$provincia}', post_code='{$post_code}' WHERE id=$id";
+        query($sql);
+    }
 }
+

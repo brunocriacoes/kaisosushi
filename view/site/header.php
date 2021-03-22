@@ -1,3 +1,4 @@
+<?php force_update() ?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -63,4 +64,7 @@
             <a href="<?= dir_template( '/menu/menu' ) ?>" class="link-menu-completo"> ver menu completo </a>
         </div>
     </div>
-    
+
+    <?php 
+    ?>
+  

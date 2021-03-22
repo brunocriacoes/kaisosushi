@@ -55,9 +55,12 @@ export default {
         $quant.innerHTML = +$quant.innerHTML + 1
         this.get(`/add/${id}/${$quant.innerHTML}`, res => { })
     },
+    set(id, selector) {
+        let $quant = document.querySelector(`#${selector}`)
+        this.get(`/add/${id}/${$quant.innerHTML}`, res => { })
+    },
     addSingle(id, selector) {
         let $quant = document.querySelector(`#${selector}`)
-        $quant.innerHTML = +$quant.innerHTML + 1
         this.get(`/add/${id}/${$quant.innerHTML}`, res => {
             this.$cart.classList.toggle('active')
         })
@@ -121,9 +124,10 @@ export default {
         let $is_page_finalizar = document.querySelector("#js-is-finalizar")
         if($is_page_finalizar)
         {
-            document.querySelector('#js-end-total-html').innerHTML = res.total_html
+            document.querySelector('#js-end-total-html').innerHTML = res.total_html || '0,00'
+            console.log(res.meta.FEE_FRETE_HTML)
             document.querySelector('#js-end-fee-frete-html').innerHTML = res.meta.FEE_FRETE_HTML || ''
-            document.querySelector('#js-end-coupon-html').innerHTML = res.fee.coupon_html
+            document.querySelector('#js-end-coupon-html').innerHTML = res.fee.coupon_html || '0,00'
             document.querySelector('#js-end-total-fee-html').innerHTML = res.total_fee_html
             document.querySelector("#js-end-list-iten").innerHTML = res.prods.map( item => `
                 <div>
@@ -142,5 +146,23 @@ export default {
     {
         let $input = document.querySelector(`#${selector}`)
         fetch( `${this.serve}/api/v1/cart/coupon/${$input?.value}` )
+    },
+    address_blur( $el ) {
+        this.get(`/matrix?s=${$el.value}`, res => {
+            let $post_code = document.querySelector('.js-f-post-code')
+            let $provincia = document.querySelector('.js-f-provincia')
+            let $address = document.querySelector('.js-f-address')
+            let $distance = document.querySelector('.js-f-distance')
+            $post_code.value = res.data.post_code || ''
+            $provincia.value = res.data.provincia || ''
+            $address.value = res.data.address || ''
+            $distance.value = res.distance || 0
+            setTimeout( () => {
+                this.get('/', res => {
+                    this.render(res)
+                    this.render_finalizar( res )
+                })
+            }, 1200 )
+        } );
     }
 }

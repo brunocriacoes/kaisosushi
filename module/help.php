@@ -456,6 +456,7 @@ function calc_frete($distance = 0)
 }
 function cart_calc($id = null)
 {
+    force_update();
     $ref = $id ? $id : get_id_cart();
     $producty = new ProductRepository;
     $iten = new ItenRepository;
@@ -601,8 +602,11 @@ function client_logout()
 function get_client($id = false)
 {
     $client_id = $id ? $id : client_is_logged();
-    $client = new ClientRepository;
-    return $client->get_by_id($client_id);
+    if ($client_id) :
+        $client = new ClientRepository;
+        return $client->get_by_id($client_id);
+    endif;
+    return [];
 }
 function client_perfil()
 {
@@ -636,11 +640,9 @@ function client_alter_pass()
 function client_moradas()
 {
     if (!empty($_POST)) :
-        $address =  new AddressRepository;
+        $address =  new ClientRepository;
         if (!empty($_POST["id"])) :
-            $address->update($_POST);
-        else :
-            $address->register($_POST);
+            $address->set_address($_POST);
         endif;
     endif;
 }
@@ -675,6 +677,7 @@ function me_registar()
                 $client->register($_POST["name"], $_POST["email"], $_POST["pass"]);
                 $new_user = $client->email_exist($_POST["email"]);
                 $_SESSION["CLIENT"] = $new_user[0]["id"];
+                force_update();
                 redirect(dir_template('/perfil'));
             else :
                 $GLOBALS['error'] = 'Email já cadastrado';
@@ -889,9 +892,21 @@ function update_address_user($user_id, $address)
 function finalizar()
 {
     if (!empty($_POST)) :
+        if ($_POST['frete'] == 'delivery') :
+            if (
+                empty($_POST['post_code'])
+                || empty($_POST['address'])
+                || empty($_POST['number'])
+                || empty($_POST['provincia'])
+
+            ) :
+                $GLOBALS['error'] = 'Informe um endereço';
+                return null;
+            endif;
+        endif;
         $eupago = new EuPagoRest;
         $os = cart_calc();
-        $_POST['id'] = $os['id'];
+        $_POST['id'] = +$os['id'] + 1200;
         $_POST['total'] = $os['total_fee'];
         $metas = get_meta(get_id_cart());
         $res = $eupago->{$_POST["type_payment"]}($_POST);
@@ -900,12 +915,12 @@ function finalizar()
         set_meta($os['ref'], 'OS_OBS', $_REQUEST['obs']);
         set_meta($os['ref'], 'PAY_TYPE', $_REQUEST['type_payment']);
         set_meta($os['ref'], 'ADDRESS_DATA', json_encode([
-            "zip_code" => $_POST['zip_code'],
-            "name" => $_POST['name'],
-            "logadouro" => $_POST['logadouro'],
+            "zip_code" => $_POST['post_code'],
+            "name" => '',
+            "logadouro" => $_POST['address'],
             "number" => $_POST['number'],
-            "complement" => $_POST['complement'],
-            "cyte" => $_POST['cyte'],
+            "complement" => '',
+            "cyte" => $_POST['provincia'],
         ]));
         if (!$res->sucesso) :
             $GLOBALS['error'] = $res->resposta;
@@ -1056,31 +1071,104 @@ function distance(string $destinations)
     $patch    = "https://maps.googleapis.com/maps/api/distancematrix/json";
     $endpoint = "?origins=Rua+Carlos+Reis+43,+1600-030+Lisboa,+Portugal&destinations=$destinations,+Portugal&mode=driving&language=pt_BR&key=AIzaSyBOOAbjw68Vg_3-Ekk8aZnq0FCgU3FZFQ0";
     $response = curlPost($patch . $endpoint);
-    
+    $data = parse_address($response['destination_addresses'][0] ?? '');
+    update_address([
+        "address" => $data['address'],
+        "provincia" => $data['provincia'],
+        "post_code" => $data['post_code'],
+        "distance" => $response['rows'][0]['elements'][0]['distance']['value']  ?? 0,
+    ]);
+    cart_calc();
     return [
         'address' => $response['destination_addresses'][0],
         'distance' =>  $response['rows'][0]['elements'][0]['distance']['value']  ?? 0,
-        'code' => $response['status'] ?? 'ok'
+        'code' => $response['status'] ?? 'ok',
+        'data' => $data
     ];
 }
 
 function matrix()
 {
     $address = $_REQUEST['s'] ?? '';
-    if ( !empty($address) ) :
-        echo json_encode(distance( $address ));
-    else:
-        echo json_encode( [
+    if (!empty($address)) :
+        echo json_encode(distance($address));
+    else :
+        echo json_encode([
             'address' => '',
             'distance' => 0,
             'code' => '404'
-        ] );
+        ]);
     endif;
 }
+
+function get_corruent_address()
+{
+    $cliente_data = (object) get_client();
+    $id = $cliente_data->id ?? '';
+    $address = $cliente_data->address ?? '';
+    $provincia = $cliente_data->provincia ?? '';
+    $post_code = $cliente_data->post_code ?? '';
+    if (!empty($address))
+        return "{$address}, {$post_code} {$provincia}, Portugal";
+    return '';
+}
+
+function force_update()
+{
+    $os = new OrderRepository;
+    $cliente_id = $_SESSION["CLIENT"] ?? 0;
+    $ref = $_SESSION['CART'] ?? null;
+    if ($ref)
+        $os->update_user($ref, $cliente_id);
+}
+
+function parse_address($address)
+{
+    $postcode = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$2", $address);
+    $endereco = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$1", $address);
+    $distrito = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$3", $address);
+    return [
+        "post_code" =>  $postcode,
+        "address" =>  $endereco,
+        "provincia" =>  $distrito,
+    ];
+}
+
+function update_address($data)
+{
+    if (!empty($_SESSION["CLIENT"])) :
+        $user = new ClientRepository;
+        $user->set_matrix([
+            "id" => $_SESSION["CLIENT"],
+            "address" => $data['address'],
+            "provincia" => $data['provincia'],
+            "post_code" => $data['post_code'],
+            "distance" => $data['distance'],
+        ]);
+        set_address_matrix([
+            "logadouro" => $data['address'],
+            "number" => 0,
+            "cyte" => $data['provincia'],
+            "zip_code" => $data['post_code'],
+            "distance" => $data['distance']
+        ]);
+        set_distance_matrix($data['distance']);
+    endif;
+}
+function set_address_matrix($data) 
+{
+    $id = get_id_cart();    
+    set_meta( $id, 'ADDRESS_DATA', json_encode($data) );    
+}
+function set_distance_matrix($distance) {
+    $id = get_id_cart();    
+    set_meta( $id, 'ADDRESS_DISTANCE', $distance );    
+}
+
 // R. Moinhos da Casela 2, Milharado, Portugal -> 30km
 // R. Dr. José Silva Marques 2-20, Reguengo Grande, Portugal -> 78km
 // R. Alberto de Sousa 10-123 -> 700mt
-
+// Rua José Dias Simão 100 -> 0
 
 
 

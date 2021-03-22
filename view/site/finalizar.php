@@ -13,12 +13,18 @@ $takeway_check = $type_send == 'takeway' ? 'checked' : '';
 $delivery_check = $type_send == 'delivery' ? 'checked' : '';
 $metas = get_meta(get_id_cart());
 $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
-$postcode = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$2", $address); 
-$endereco = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$1", $address); 
-$distrito = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$3", $address); 
+
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
 $nao_definido_zip_code = empty($local['zip_code']??'');
+
+$cliente_data = (object) get_client();
+$id = $cliente_data->id;
+$address = $cliente_data->address ?? '';
+$number = $cliente_data->number ?? '';
+$provincia = $cliente_data->provincia ?? '';
+$post_code = $cliente_data->post_code ?? '';
+$distance = $cliente_data->distance ?? '';
 
 $type_frete = 'hidden';
 if(!$nao_definido_zip_code) {
@@ -44,38 +50,31 @@ if(!$nao_definido_zip_code) {
                     <label for="html-delivery" class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">Delivery</label>
                     <label for="html-takeway" class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">Takeway</label>
                 </div>
+                <input hidden type="radio" id="html-delivery" checked name="frete" value="delivery">
+                <input hidden type="radio" id="html-takeway" name="frete" value="takeway">
+                <input hidden type="text" name="distance" class="js-f-distance" value="<?= $distance ?>">
                 <div>
                     <div class="space"></div>
                     <div class="grid-2">
                         <div>
                             <small class="label--finalizar">Código postal</small>
-                            <input type="" name="zip_code" value="<?= $postcode  ?? '' ?>">
+                            <input class="js-f-post-code" type="" name="post_code" value="<?= $post_code ?>">
                         </div>
                         <div>
-                            <small class="label--finalizar">Nome</small>
-                            <input type="text" name="name" value="<?= $local['name'] ?? '' ?>">
-                        </div>
+                            <small class="label--finalizar">Provincia</small>
+                            <input class="js-f-provincia" type="text" name="provincia" value="<?= $provincia ?>">
+                        </div>                       
                     </div>
                     <div class="grid-2">
                         <div>
                             <small class="label--finalizar">Endereço</small>
-                            <input type="text" name="logadouro" value="<?= $endereco ?? '' ?>">
+                            <input class="js-f-address" onblur="globalThis.cart.address_blur( this )" type="text" name="address" value="<?= $address ?>">
                         </div>
                         <div>
                             <small class="label--finalizar">Número</small>
-                            <input type="text" name="number" value="<?= $local['number'] ?? '' ?>">
+                            <input type="text" name="number" value="<?= $number ?>">
                         </div>
-                    </div>
-                    <div class="grid-2">
-                        <div>
-                            <small class="label--finalizar">Complemento</small>
-                            <input type="text" name="complement" value="<?= $local['complement'] ?? '' ?>">
-                        </div>
-                        <div>
-                            <small class="label--finalizar">Distrito</small>
-                            <input type="text" name="cyte" value="<?= $distrito ?? '' ?>">
-                        </div>
-                    </div>
+                    </div>                   
                 </div>
                 <span class="alert--delivery" <?= $type_frete ?>>
                     A opção de <b>Delivery</b> esta desabilitada para você, Entregamos até <?= get_max_km() ?>km de distância.
@@ -149,6 +148,7 @@ if(!$nao_definido_zip_code) {
                         <input type="radio" name="type_payment" mix-box hidden id="mb_way" <?= $pay_type == 'mbway_create' ? 'checked' : '' ?> value="mbway_create">
                         <div>
                             <small>NÚMERO DE TELEFONE REGISTADO NO MBWAY</small>
+                            <span class="obs_pay">DIGITE O NÚMERO DO TELEMÓVEL SEM ESPAÇO E SEM O CÓDIGO DE PORTUGAL +351</span>
                         </div>
                     </div>
                     <div>

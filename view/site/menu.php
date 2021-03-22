@@ -4,7 +4,7 @@
     $type_send = !empty($cart["meta"]["TYPE_SEND"]) ? $cart["meta"]["TYPE_SEND"] : 'delivery';
     $takeway = $type_send == 'takeway' ? 'active' : '';
     $delivery = $type_send == 'delivery' ? 'active' : '';
-    $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
+    $address = get_corruent_address();
 ?>
     <div class="inner inner-header-category">
         <div>

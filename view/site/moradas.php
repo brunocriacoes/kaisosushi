@@ -6,83 +6,47 @@
     <div class="tabs-perfil">
         <a href="<?= dir_template( '/perfil' ) ?>" >Meus Dados</a>
         <a href="<?= dir_template( '/perfil/pedidos' ) ?>">Pedidos</a>
-        <a href="<?= dir_template( '/perfil/moradas' ) ?>" class="active">Moradas</a>
+        <a href="<?= dir_template( '/perfil/moradas' ) ?>" class="active">Morada</a>
         <a href="<?= dir_template( '/perfil/alterar-senha' ) ?>" >Alterar Senha</a>
         <a href="<?= dir_template( '/logout' ) ?>">Sair</a>
     </div>
     <div class="space"></div>
     <div class="container">
         <div class="box-max">
-            <h2 class="title-pages">Minhas Moradas</h2>
-            <?php foreach( get_moradas() as $morada ): ?>   
-            <form action="" method="POST" class="form grid-morada">
-                <input type="text" name="id" value="<?= $morada['id'] ?>" hidden>
-                <input type="text" name="client_id" value="<?= $morada['client_id'] ?>" hidden>
-                <div>
-                    <small class="label--finalizar">Nome</small>
-                    <input type="text" name="name" value="<?= $morada['name'] ?>" required>
-                </div>
-                <div>
-                    <small class="label--finalizar">Endereço</small>
-                    <input type="text" name="address" value="<?= $morada['address'] ?>" required>
-                </div>
-                <div>
-                    <small class="label--finalizar">Número</small>
-                    <input type="" name="number" value="<?= $morada['number'] ?>" required>
-                </div>
-                <div>
-                    <small class="label--finalizar">Complemento</small>
-                    <input type="" name="complement" value="<?= $morada['complement'] ?>">
-                </div>
-                <div>
-                    <small class="label--finalizar">Distrito</small>
-                    <input type="" name="city" value="<?= $morada['city'] ?>" required>
-                </div>
-                <div>
-                    <small class="label--finalizar">Código postal</small>
-                    <input type="" name="post_code" value="<?= $morada['post_code'] ?>" required>
-                </div>
-                <div>
-                    <small> </small>
-                    <button type="submit" class="btn-morada">Alterar</button>
-                </div>           
-            </form>
-            <?php endforeach; ?>
-            <div class="space" style="--line:50px"></div>
-            <div class="box-add-morada">    
-                <h2 class="title-pages">Adicionar Nova</h2>
-                <form action="" method="POST" class="form grid-morada">
-                    <input type="text" name="client_id" value="<?= $_SESSION["CLIENT"] ?>" hidden>
+            <h2 class="title-pages">Minha Morada </h2>
+            <?php
+               $cliente_data = (object) get_client();
+               $id = $cliente_data->id;
+               $address = $cliente_data->address;
+               $number = $cliente_data->number;
+               $provincia = $cliente_data->provincia;
+               $post_code = $cliente_data->post_code;
+            ?>
+            <div class="box-center">
+                <form action="" method="POST" class="form ">
+                    <input type="text" name="id" value="<?= $id ?>" hidden>                   
                     <div>
-                        <small class="label--finalizar">Nome</small>
-                        <input type="text" name="name" required>
+                        <small class="label--finalizar">Código postal</small>
+                        <input type="" name="post_code" maxlength="8" value="<?= $post_code ?>" required>
                     </div>
                     <div>
                         <small class="label--finalizar">Endereço</small>
-                        <input type="text" name="address" required>
+                        <input type="text" name="address" value="<?= $address ?>" required>
                     </div>
                     <div>
                         <small class="label--finalizar">Número</small>
-                        <input type="" name="number" required>
-                    </div>
-                    <div>
-                        <small class="label--finalizar">Complemento</small>
-                        <input type="" name="complement">
-                    </div>
+                        <input type="" name="number" maxlength="12" value="<?= $number ?>" required>
+                    </div>                   
                     <div>
                         <small class="label--finalizar">Distrito</small>
-                        <input type="" name="city" required>
-                    </div>
-                    <div>
-                        <small class="label--finalizar">Código postal</small>
-                        <input type="" name="post_code" required>
+                        <input type="" name="provincia" value="<?= $provincia ?>" required>
                     </div>
                     <div>
                         <small> </small>
-                        <button type="submit" class="btn-morada">Adicionar</button>
+                        <button type="submit" class="btn-morada">Salvar</button>
                     </div>           
-                </form>
-            </div> 
+                </form> 
+            </div>
         </div>        
     </div>
     <div class="space"></div>

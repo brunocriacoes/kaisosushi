@@ -17,7 +17,7 @@
                         <span class="prod-quant" id="js-single-quant">1</span>
                         <img onclick="globalThis.cart.plus('<?= id() ?>', 'js-single-quant')" src="<?= dir_template( '/view/site/src/ico/plus.svg' ) ?>" class="prod-ico" alt="add">
                         <div>
-                            <span class="btn-add-to-cart" onclick="globalThis.cart.addSingle( '<?= id() ?>', 'js-single-quant' )">
+                            <span class="btn-add-to-cart" onclick="globalThis.cart.addSingle('<?= id() ?>', 'js-single-quant')">
                                 <img src="<?= dir_template( '/view/site/src/ico/cart.svg' ) ?>" alt="carrinho">
                                 <span>ADICIONAR</span>
                             </span>

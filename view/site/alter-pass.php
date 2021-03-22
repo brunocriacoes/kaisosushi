@@ -6,7 +6,7 @@
     <div class="tabs-perfil">
         <a href="<?= dir_template( '/perfil' ) ?>" >Meus Dados</a>
         <a href="<?= dir_template( '/perfil/pedidos' ) ?>">Pedidos</a>
-        <a href="<?= dir_template( '/perfil/moradas' ) ?>">Moradas</a>
+        <a href="<?= dir_template( '/perfil/moradas' ) ?>">Morada</a>
         <a href="<?= dir_template( '/perfil/alterar-senha' ) ?>" class="active">Alterar Senha</a>
         <a href="<?= dir_template( '/logout' ) ?>">Sair</a>
     </div>

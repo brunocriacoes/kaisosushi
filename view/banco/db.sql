@@ -82,7 +82,13 @@ create table client (
     password varchar(64),
     photo varchar(75),
     status tinyint(1),
-    data_register date
+    data_register date,
+    address varchar(255),
+    provincia varchar(255),
+    post_code varchar(8),
+    number varchar(12),
+    distance varchar(12)
+
 );
 
 create table admin (
