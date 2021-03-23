@@ -214,7 +214,7 @@ function get_all_frete()
     $frete = new DeliveryRepository;
     return $frete->list([
         "offset" => 0,
-        "max_result" => 1000
+        "max_result" => 3000
     ]);
 }
 function get_all_pedido()
@@ -222,7 +222,7 @@ function get_all_pedido()
     $order = new OrderRepository;
     return $order->list([
         "offset" => 0,
-        "max_result" => 100
+        "max_result" => 3000
     ]);
 }
 function get_all_client()
@@ -230,7 +230,7 @@ function get_all_client()
     $order = new ClientRepository;
     return $order->list([
         "offset" => 0,
-        "max_result" => 1000
+        "max_result" => 3000
     ]);
 }
 function add_frente()
@@ -435,12 +435,12 @@ function del_prod()
 }
 function calc_frete($distance = 0)
 {
-    $distance = $distance == 0 ? 1000000 : $distance;
+    $distance = $distance == 0 ? 3000000 : $distance;
     $fretes = new DeliveryRepository;
     $list_calc_frete = [];
     $lista = $fretes->list([
         "offset" => 0,
-        "max_result" => 1000
+        "max_result" => 3000
     ]);
     foreach ($lista as $address) :
         $range_max = $address["address"];
@@ -800,7 +800,7 @@ function set_data_address()
         "data" => $_REQUEST['json']
     ];
     set_meta(get_id_cart(), 'ADDRESS_DATA', $_REQUEST['json']);
-    set_meta(get_id_cart(), 'ADDRESS_DISTANCE', $_REQUEST['distance'] ?? 100000);
+    set_meta(get_id_cart(), 'ADDRESS_DISTANCE', $_REQUEST['distance'] ?? 300000);
     echo json_encode($data);
 }
 function render_post_code()
