@@ -1012,7 +1012,8 @@ function recuperar_senha()
         } else {
             $GLOBALS['error'] = 'email enviado com sucesso';
             $new_pass = $db->recoverPassword((int)$playload[0]['id']);
-            mail($playload[0]['email'], 'kaiso sushi - senha temporaria', "sua senha temporaria é {$new_pass}");
+            $headers = "From: contato@kaisosushi.pt" . "\r\n";
+            mail($playload[0]['email'], 'kaiso sushi - senha temporaria', "sua senha temporaria é {$new_pass}", $headers);
         }
     }
 }
