@@ -17,8 +17,8 @@
                 </h2>
                 <div class="perquisa-box">
                     <div class="perquisa-title">
-                        <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">DELIVERY</span>
-                        <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">TAKEWAY</span>
+                        <span class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">DELIVERY</span>
+                        <span class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">TAKEWAY</span>
                     </div>
                     <form  action="/menu/menu" method="POST" onsubmit="globalThis.cart.set_address_send('js-address-send')" class="search">
                         <input autocomplete="off" onkeyup="globalThis.cart.postcode('js-address-send', 'js-address-box')" type="text" value="<?= $address ?>" id="js-address-send" placeholder="INTRODUZA A SUA MORADA OU CÓDIGO POSTAL">

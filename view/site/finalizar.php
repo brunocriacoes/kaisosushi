@@ -27,8 +27,8 @@ $post_code = $cliente_data->post_code ?? '';
 $distance = $cliente_data->distance ?? '';
 
 $type_frete = 'hidden';
-if(!$nao_definido_zip_code) {
-    $type_frete = $valo_frete == 0   ? '' : 'hidden';
+if ( $cart["meta"]["TYPE_SEND"] == 'takeway') {
+    $type_frete =  '' ;
 }
 
 
@@ -47,8 +47,8 @@ if(!$nao_definido_zip_code) {
         <div class="grid-finalizar">
             <div>
                 <div class="change_send">
-                    <label for="html-delivery" class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_type_send('delivery', this)">Delivery</label>
-                    <label for="html-takeway" class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_type_send('takeway', this)">Takeway</label>
+                    <label for="html-delivery" class="js-type_send <?= $delivery ?>" onclick="globalThis.cart.set_send_final('delivery', this)">Delivery</label>
+                    <label for="html-takeway" class="js-type_send <?= $takeway ?>" onclick="globalThis.cart.set_send_final('takeway', this)">Takeway</label>
                 </div>
                 <input hidden type="radio" id="html-delivery" checked name="frete" value="delivery">
                 <input hidden type="radio" id="html-takeway" name="frete" value="takeway">

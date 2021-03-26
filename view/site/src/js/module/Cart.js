@@ -74,6 +74,17 @@ export default {
         el.classList.add('active')
         this.get(`/frete/method?text=${$type}`, res => {} );
     },
+    set_send_final( $type, el ) {
+        let $list_option = document.querySelectorAll('.js-type_send');
+        $list_option = Object.values( $list_option );
+        $list_option.forEach( btn => {
+            btn.classList.remove('active')
+        } )
+        el.classList.add('active')
+        this.get(`/frete/method?text=${$type}`, res => {
+            document.location.reload(true);
+        } );
+    },
     set_address_send( selector ) {
         let $address = document.querySelector(`#${selector}`);
         this.get(`/frete/address?text=${$address.value}`, res => {} );
