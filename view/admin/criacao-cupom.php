@@ -7,8 +7,8 @@
                 <input required type="text" name="code" id="code" value="<?= $_REQUEST["code"] ?? '' ?>">
             </div>
             <div>
-                <label for="desconto-porcento">Desconto %</label>
-                <input required type="text" name="percentage" value="<?= $_REQUEST["percentage"] ?? '' ?>">
+                <!-- <label for="desconto-porcento">Desconto %</label> -->
+                <input  type="text" name="percentage" value="0" hidden>
             </div>
             <div>
                 <label for="desconto-euro">Desconto €</label>

@@ -24,11 +24,12 @@ endif;
     <div class="space"></div>
     <h4>Pedidos</h4>
     <div class="bef lista-de-pedidos">
-        <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
+        <div class="grid-custom grid-pedido" style="--cols: 1fr 1fr 1fr 1fr 1fr 1fr 30px">
             <span>Pedido</span>
             <span>Cliente</span>
             <span>Data</span>
-            <span class="mobye">Valor</span>
+            <span ></span>
+            <span >Envio</span>
             <span>Status</span>
             <span></span>
         </div>
@@ -37,11 +38,12 @@ endif;
             $client_id = $pedido["client_id"] == 0 ? 2 : $pedido["client_id"];
             $client = get_client($client_id);
             ?>
-            <div class="grid-custom grid-list-pedidos" style="--cols: 1fr 1fr 1fr 1fr 1fr 30px">
+            <div class="grid-custom grid-list-pedidos" style="--cols: 1fr 1fr 1fr 1fr 1fr 1fr 30px">
                 <span><?= $pedido["id"] + 1200 ?></span>
                 <span class="mobno"><?= $client["name"] ?? 'Não definido' ?></span>
                 <span class="mobno"><?= date("d/m/y", strtotime($pedido["date_update"])) ?></span>
                 <span> <b>€<?= corretorNum($pedido["total"]) ?></b> </span>
+                <span> <?= ucfirst(estadoPedido($pedido["id"]));?></span>
                 <span><?= ucfirst(tradutor($pedido["status"])); ?></span>
                 <a class="eye" href="<?php echo dir_template('/admin/pedidos-visualizar/'); ?><?= $pedido["ref"] ?>">
                     <img src="<?php echo dir_template('/view/admin/img/eye.svg'); ?>" alt="">

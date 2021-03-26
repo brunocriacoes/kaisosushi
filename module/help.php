@@ -498,18 +498,28 @@ function cart_calc($id = null)
     $address_json = json_decode($metas_meta['ADDRESS_DATA'] ?? '{}');
     $distance = $metas_meta['ADDRESS_DISTANCE'] ?? '15000.00';
     $price_frete = calc_frete(floatval($distance));
-    if ($price_frete > 0) {
+    if($metas['TYPE_SEND'] != 'delivery') {
+        $total_fee -= $price_frete;
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
         set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
-        set_meta($order["id"], 'TYPE_SEND', 'delivery');
-        $total_fee -= $price_frete;
-    } else {
+    }else {
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
-        set_meta($order["id"], 'TYPE_SEND', 'takeway');
     }
+    // if ($price_frete > 0) {
+    //     set_meta($order["id"], 'FEE_FRETE', $price_frete);
+    //     set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
+    //     // set_meta($order["id"], 'TYPE_SEND', 'delivery');
+    //     $total_fee -= $price_frete;
+    // } else {
+    //     set_meta($order["id"], 'FEE_FRETE', 0);
+    //     set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
+    //     // set_meta($order["id"], 'TYPE_SEND', 'takeway');
+    // }
     $os->update_total($ref, $total);
     $render =  [
+        "valor_frete"=> $price_frete,
+        "distance" => $distance,
         "client_id" => $order["client_id"],
         "id" => $order["id"],
         "status" => $order["status"],

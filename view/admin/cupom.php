@@ -7,17 +7,15 @@
             </div>
             <div class="space"></div>
             <div class="bef cupom-lista">
-                <div class="grid-custom corL" style="--cols: 1fr 1fr 1fr 40px">
+                <div class="grid-custom corL" style="--cols: 1fr 1fr  40px">
                     <span>Código</span>
-                    <span>%</span>
                     <span>€</span>
                     <span></span>
                 </div>
                 
                 <?php foreach( get_all_coupon() as $coupon ) : ?>
-                    <div class="grid-custom" style="--cols: 1fr 1fr 1fr 40px">
+                    <div class="grid-custom" style="--cols: 1fr 1fr  40px">
                         <span><?= $coupon["code"] ?></span>
-                        <span><?= $coupon["percentage"] ?>%</span>
                         <span> <b>€<?= corretorNum($coupon["money"]) ?></b> </span>
                         <a class="bin-bg" href="<?= dir_template( '/admin/cupom/deletar' ) ?>/<?= $coupon["id"] ?>"><img src="<?php echo dir_template( '/view/admin/img/bin.svg' ); ?>"></a>
                     </div>

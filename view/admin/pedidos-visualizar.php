@@ -162,8 +162,9 @@
                     <p>Frete: </p><b>€<?=$os['meta']['FEE_FRETE_HTML'] ?? "00,00" ;?></b>
                     <p>Cupom <b></b>: </p><b>-&euro;<?= $os['fee']['coupon_html'] ?? "00,00" ;?></b>
                     <p>Total: </p><b>€<?= $os['total_fee_html'] ?? "00,00" ?></b>
+                    <p>Envio: </p><b><?= $os['meta']['TYPE_SEND'] ?? "" ?></b>
                     
-                </div>             
+                </div> 
                 
             </div>
         </div>
