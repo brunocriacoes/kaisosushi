@@ -156,7 +156,9 @@ export default {
     apply_coupon( selector )
     {
         let $input = document.querySelector(`#${selector}`)
-        fetch( `${this.serve}/api/v1/cart/coupon/${$input?.value}` )
+        fetch( `${this.serve}/api/v1/cart/coupon/${$input?.value}` ).then( res => {
+            document.location.reload(true);
+        } )
     },
     address_blur( $el ) {
         this.get(`/matrix?s=${$el.value}`, res => {

@@ -16,7 +16,7 @@ $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"]
 
 $pay_type = $metas['PAY_TYPE'] ?? 'money';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
-$nao_definido_zip_code = empty($local['zip_code']??'');
+$nao_definido_zip_code = empty($local['zip_code'] ?? '');
 
 $cliente_data = (object) get_client();
 $id = $cliente_data->id;
@@ -27,8 +27,8 @@ $post_code = $cliente_data->post_code ?? '';
 $distance = $cliente_data->distance ?? '';
 
 $type_frete = 'hidden';
-if ( $cart["meta"]["TYPE_SEND"] == 'takeway') {
-    $type_frete =  '' ;
+if (intval($cart['distance']) > 60000) {
+    $type_frete =  '';
 }
 
 
@@ -63,7 +63,7 @@ if ( $cart["meta"]["TYPE_SEND"] == 'takeway') {
                         <div>
                             <small class="label--finalizar">Provincia</small>
                             <input class="js-f-provincia" type="text" name="provincia" value="<?= $provincia ?>">
-                        </div>                       
+                        </div>
                     </div>
                     <div class="grid-2">
                         <div>
@@ -74,7 +74,7 @@ if ( $cart["meta"]["TYPE_SEND"] == 'takeway') {
                             <small class="label--finalizar">Número</small>
                             <input type="text" name="number" value="<?= $number ?>">
                         </div>
-                    </div>                   
+                    </div>
                 </div>
                 <span class="alert--delivery" <?= $type_frete ?>>
                     A opção de <b>Delivery</b> esta desabilitada para você, Entregamos até <?= get_max_km() ?>km de distância.
