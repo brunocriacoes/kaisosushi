@@ -24,4 +24,9 @@ class CategoryRepository
     {
         return query( "SELECT * FROM category" );
     }
+    function all_cat()
+    {     
+        $sql = "SELECT * FROM taxonomy WHERE relation='IN_CATEGORY'";
+        return query($sql);
+    }
 }

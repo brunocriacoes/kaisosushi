@@ -133,5 +133,8 @@ class Admin
         add_router( '/admin/logout', function() {
             admin_logout();
         }, __DIR__ . "/../view/admin/index.php"  );
+        
+        
+        add_router( '/admin/set-cat', 'setCat'  );
     }
 }

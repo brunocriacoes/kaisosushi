@@ -64,3 +64,9 @@ add?.addEventListener('click', () =>{
 sub?.addEventListener('click', () =>{
     input.value = parseInt(input.value) - 1;
 })
+
+function setCat( id_cat, id_prod, state ) {
+    let url = new URL( window.location.href )    
+    let path = `${url.protocol}//${url.hostname}/admin/set-cat?id_cat=${id_cat}&id_prod=${id_prod}&state=${state}`
+    fetch(path)
+}

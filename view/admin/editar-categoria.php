@@ -24,11 +24,20 @@
     </div>
     <div class="produto-right">
         <h4>Incluir Produto</h4>
+        <?php
+            $checked = function($id) { 
+                return in_array($id,CATS, true) ? 'checked' : ''; 
+            };
+        ?>
         <div class="bef lista-categorias <?= $GLOBALS["is_category"] ? '' : 'is_disabled' ?>">
             <?php foreach (get_last_product(1000) as $prods) : ?>                
                 <div class="grid-custom" style="--cols: 1fr 20px">
                     <span><?= $prods["title"] ?></span>
-                    <input type="checkbox" <?= $GLOBALS["is_category"] ? '' : 'disabled' ?>  data-set-cat="<?= $prods["id"] ?>">
+                    <input 
+                        <?= $checked($prods['id']) ?>
+                        type="checkbox" <?= $GLOBALS["is_category"] ? '' : 'disabled' ?>  
+                        oninput="setCat( <?= $_REQUEST['id']?>, <?= $prods['id'] ?>,this.checked ? 1 : 0 )"
+                    >
                 </div>
             <?php endforeach; ?>
         </div>

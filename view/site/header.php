@@ -53,7 +53,7 @@
     <div class="inner inner-pop-menu menu">
         <div class="container">
             <div class="grid-pop-menu">
-                <?php foreach( get_last_product(14) as $prod ) : ?>
+                <?php foreach( get_last_product(14, 'destaque') as $prod ) : ?>
                     <a href="<?= $prod['link'] ?>" title="<?= $prod['title'] ?>">
                         <img src="<?= $prod['photo'] ?>" alt="<?= $prod['title'] ?>">
                         <span> <?= $prod['title'] ?> </span>

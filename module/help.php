@@ -70,10 +70,10 @@ function import_foto($foto_dir)
     // copy($foto_dir, __DIR__ . "/../view/upload/product/" . $image["basename"]);
     return $image["basename"];
 }
-function get_last_product($number = 12)
+function get_last_product($number = 12, $slug_cat = null)
 {
     $prods = new ProductRepository;
-    $list = $prods->list(["offset" => 0, "max_result" => $number]);
+    $list = $prods->list(["offset" => 0, "max_result" => $number, "slug_cat" => $slug_cat ]);
     $list = array_map(function ($prod) {
         $prod["link"] = dir_template('/produto/') . $prod['slug'];
         if (!file_exists(__DIR__ . "/../view/upload/product/" . $prod["photo"])) :
@@ -294,6 +294,16 @@ function edit_category()
     else :
         $_REQUEST = $cat->get_by_id($parse_url["id"]);
     endif;
+    
+    $cats = $cat->all_cat();
+    $cats = array_filter($cats, function ($post) use ($parse_url) {
+        return $post['post_id'] == $parse_url["id"];
+    });
+    $cats = array_map( function($post) {
+        return $post['post_taxonomy_id'];
+    }, $cats );
+    $cats = array_values( $cats );
+    define( 'CATS', $cats );
 }
 function del_category()
 {
@@ -371,6 +381,15 @@ function edit_product()
     else :
         $_REQUEST = $prod->get_by_id($parse_url["id"]);
     endif;
+    $cats = $prod->all_cat();
+    $cats = array_filter($cats, function ($post) use ($parse_url) {
+        return $post['post_taxonomy_id'] == $parse_url["id"];
+    });
+    $cats = array_map( function($post) {
+        return $post['post_id'];
+    }, $cats );
+    $cats = array_values( $cats );
+    define( 'CATS', $cats );
 }
 function del_product()
 {
@@ -498,11 +517,11 @@ function cart_calc($id = null)
     $address_json = json_decode($metas_meta['ADDRESS_DATA'] ?? '{}');
     $distance = $metas_meta['ADDRESS_DISTANCE'] ?? '15000.00';
     $price_frete = calc_frete(floatval($distance));
-    if($metas['TYPE_SEND'] != 'takeway') {
+    if ($metas['TYPE_SEND'] != 'takeway') {
         $total_fee -= $price_frete;
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
         set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
-    }else {
+    } else {
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
     }
@@ -518,7 +537,7 @@ function cart_calc($id = null)
     // }
     $os->update_total($ref, $total);
     $render =  [
-        "valor_frete"=> $price_frete,
+        "valor_frete" => $price_frete,
         "distance" => $distance,
         "client_id" => $order["client_id"],
         "id" => $order["id"],
@@ -1166,14 +1185,24 @@ function update_address($data)
         set_distance_matrix($data['distance']);
     endif;
 }
-function set_address_matrix($data) 
+function set_address_matrix($data)
 {
-    $id = get_id_cart();    
-    set_meta( $id, 'ADDRESS_DATA', json_encode($data) );    
+    $id = get_id_cart();
+    set_meta($id, 'ADDRESS_DATA', json_encode($data));
 }
-function set_distance_matrix($distance) {
-    $id = get_id_cart();    
-    set_meta( $id, 'ADDRESS_DISTANCE', $distance );    
+function set_distance_matrix($distance)
+{
+    $id = get_id_cart();
+    set_meta($id, 'ADDRESS_DISTANCE', $distance);
+}
+
+function setCat()
+{
+    $prod = new ProductRepository;
+    $sql = $prod->add_cat($_REQUEST['id_cat'], $_REQUEST['id_prod'], (bool) $_REQUEST['state']);
+    echo json_encode([
+        "next" => true,
+    ]);
 }
 
 // R. Moinhos da Casela 2, Milharado, Portugal -> 30km
