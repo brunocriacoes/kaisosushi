@@ -61,7 +61,7 @@
                 <?php endforeach; ?>
             </div>
             <div class="space"></div>
-            <a href="<?= dir_template( '/menu/menu' ) ?>" class="link-menu-completo"> ver menu completo </a>
+            <a href="<?= dir_template( '/menu/combinados' ) ?>" class="link-menu-completo"> ver menu completo </a>
         </div>
     </div>
 
