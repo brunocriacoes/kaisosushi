@@ -363,6 +363,11 @@ body {
     animation-timing-function: ease-in-out;
     transition: all 1s ease;
 }
+@media (max-width:761px) {
+    .inner-slider {
+        background-position: center right;
+    }   
+}
 @keyframes to_right {
     to {        
         background-position: -50px center center;

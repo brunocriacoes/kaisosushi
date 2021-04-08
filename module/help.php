@@ -517,11 +517,13 @@ function cart_calc($id = null)
     $address_json = json_decode($metas_meta['ADDRESS_DATA'] ?? '{}');
     $distance = $metas_meta['ADDRESS_DISTANCE'] ?? '15000.00';
     $price_frete = calc_frete(floatval($distance));
-    if ($metas['TYPE_SEND'] != 'takeway') {
+    if (($metas['TYPE_SEND'] ?? 'takeway') != 'takeway') {
         $total_fee -= $price_frete;
+        set_meta($order["id"], 'TYPE_SEND', 'delivery');
         set_meta($order["id"], 'FEE_FRETE', $price_frete);
         set_meta($order["id"], 'FEE_FRETE_HTML', number_format($price_frete, 2, ',', '.'));
     } else {
+        set_meta($order["id"], 'TYPE_SEND', 'takeway');
         set_meta($order["id"], 'FEE_FRETE', 0);
         set_meta($order["id"], 'FEE_FRETE_HTML', '00,00');
     }
