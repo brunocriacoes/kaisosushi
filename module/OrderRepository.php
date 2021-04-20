@@ -52,7 +52,7 @@ class OrderRepository
     }
     function list(array $params)
     {
-        $sql = "SELECT * FROM `order` ORDER BY id DESC LIMIT {$params['offset']},{$params['max_result']} ";
+        $sql = "SELECT * FROM `order` WHERE total != 0 ORDER BY id DESC LIMIT {$params['offset']},{$params['max_result']} ";
         return query($sql);
     }
     function about(int $order_id)

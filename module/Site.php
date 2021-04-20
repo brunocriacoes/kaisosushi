@@ -3,7 +3,10 @@ class Site
 {
     function run()
     {
-        
+        if ($_SERVER['REQUEST_SCHEME'] == "http" && $_SERVER["HTTP_HOST"] != 'dev.kaisosushi.con' ) {
+            header("Location: " . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+            exit();
+        }
         add_router( '/', function() {}, __DIR__ . "/../view/site/index.php"  );
         add_router( '/menu/:slug_cat', function() {}, __DIR__ . "/../view/site/menu.php"  );
         add_router( '/produto/:slug_prod', function() {}, __DIR__ . "/../view/site/produto.php"  );
