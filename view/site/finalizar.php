@@ -53,6 +53,10 @@ if (intval($cart['distance']) > 60000) {
                 <input hidden type="radio" id="html-delivery" checked name="frete" value="delivery">
                 <input hidden type="radio" id="html-takeway" name="frete" value="takeway">
                 <input hidden type="text" name="distance" class="js-f-distance" value="<?= $distance ?>">
+                <div class="buscar-morada">
+                    <input type="text" class="margin-zero js-search-address" placeholder="Morada">
+                    <span onclick="globalThis.cart.address_blur( document.querySelector('.js-search-address') )">Buscar</span>
+                </div>
                 <div>
                     <div class="space"></div>
                     <div class="grid-2">
@@ -68,7 +72,7 @@ if (intval($cart['distance']) > 60000) {
                     <div class="grid-2">
                         <div>
                             <small class="label--finalizar">Endereço</small>
-                            <input class="js-f-address" onblur="globalThis.cart.address_blur( this )" type="text" name="address" value="<?= $address ?>">
+                            <input class="js-f-address" type="text" name="address" value="<?= $address ?>">
                         </div>
                         <div>
                             <small class="label--finalizar">Número</small>
