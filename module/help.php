@@ -920,6 +920,43 @@ function update_address_user($user_id, $address)
         "complement" => $address['complement'] ?? ''
     ]);
 }
+function json_finalizar() {
+    $cart = (object) cart_calc();
+    // var_dump($cart);
+    echo json_encode([
+        "next" => true,
+        "message" => null,
+        "order" => [
+            "id" => $cart->id ?? null,
+            "numero" => $cart->numero ?? null,
+            "ref" => $cart->ref ?? null,
+            "subtotal" => $cart->total ?? 0,
+            "total" => $cart->total_fee ?? 0,
+        ],
+        "customer" => [
+            "id" => $cart->client_id ?? null,
+            "name" => null,
+            "email" => null,
+            "phone" => null
+        ],
+        "address" => [
+            "street" => null,
+            "number" => null,
+            "zip_code" => null,
+            "district" => null
+        ],
+        "coupon" => [
+            "code" => null,
+            "price" => null
+        ],
+        "item" => $cart->prods ?? [],
+        "shiping" => [
+            "type" => $cart->meta['TYPE_SEND'] ?? null,
+            "price" => $cart->valor_frete ?? null,
+            "distance" => floatval( $cart->distance ?? 0 ) 
+        ]
+    ]);
+}
 function finalizar()
 {
     if (!empty($_POST)) :
@@ -937,6 +974,10 @@ function finalizar()
         endif;
         $eupago = new EuPagoRest;
         $os = cart_calc();
+        if( $os['valor_frete'] < 1 && $os['meta']['TYPE_SEND'] == 'delivery' ) :
+            $GLOBALS['error'] = "Error ao calcular frete";
+            return;
+        endif;
         $_POST['id'] = +$os['id'] + 1200;
         $_POST['total'] = $os['total_fee'];
         $metas = get_meta(get_id_cart());

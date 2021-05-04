@@ -11,6 +11,7 @@ class Site
         add_router( '/menu/:slug_cat', function() {}, __DIR__ . "/../view/site/menu.php"  );
         add_router( '/produto/:slug_prod', function() {}, __DIR__ . "/../view/site/produto.php"  );
         add_router( '/me-registrar', 'me_registar', __DIR__ . "/../view/site/me-registrar.php"  );
+        add_router( '/json/finalizar', 'json_finalizar' );
         add_router( '/finalizar', 'finalizar', __DIR__ . "/../view/site/finalizar.php"  );
         add_router( '/perfil', 'client_perfil', __DIR__ . "/../view/site/perfil.php"  );
         add_router( '/termos-e-consicoes', function() {}, __DIR__ . "/../view/site/termo.php"  );
