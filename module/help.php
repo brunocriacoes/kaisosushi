@@ -975,6 +975,10 @@ function finalizar()
         $eupago = new EuPagoRest;
         $os = cart_calc();
         if( $os['valor_frete'] < 1 && $os['meta']['TYPE_SEND'] == 'delivery' ) :
+            distance($_POST['address']);
+            $os = cart_calc();
+        endif;
+        if( $os['valor_frete'] < 1 && $os['meta']['TYPE_SEND'] == 'delivery' ) :
             $GLOBALS['error'] = "Error ao calcular frete";
             return;
         endif;
