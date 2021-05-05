@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <h3>CENTRO DE AJUDA</h3>
-                    <a href="mail:<?= get_email() ?>" class="btn-to-email">
+                    <a href="mailto:<?= get_email() ?>" class="btn-to-email">
                         <img src="<?= dir_template( '/view/site/src/ico/email.svg' ) ?>" alt="">
                         Precisa de ajuda?
                     </a>

@@ -87,12 +87,12 @@ if (intval($cart['distance']) > 60000) {
                 <div class="space"></div>
                 <div class="grid-cupom">
                     <div>
-                        <small class="label--finalizar">Codigo do cupom</small>
+                        <small class="label--finalizar">Codigo do cupão</small>
                         <input type="text" id="js-coupon" value="<?= $metas['COUPON'] ?? '' ?>">
                     </div>
                     <div>
                         <small> </small>
-                        <a href="javascript:void(globalThis.cart.apply_coupon('js-coupon'))" class="btn-morada-finalizar">Aplicar Cupom</a>
+                        <a href="javascript:void(globalThis.cart.apply_coupon('js-coupon'))" class="btn-morada-finalizar">Aplicar Cupão</a>
                     </div>
                 </div>
                 <div class="space"></div>
