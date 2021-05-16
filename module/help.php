@@ -974,7 +974,8 @@ function finalizar()
         endif;
         $eupago = new EuPagoRest;
         $os = cart_calc();
-        if( $os['valor_frete'] < 1 && $os['meta']['TYPE_SEND'] == 'delivery' ) :
+        $distance = $os['meta']['ADDRESS_DISTANCE'];
+        if( $os['valor_frete'] < 1 && $os['meta']['TYPE_SEND'] == 'delivery' AND $distance > 15000 ) :
             $GLOBALS['error'] = "Error ao calcular frete";
             return;
         endif;
@@ -1197,9 +1198,9 @@ function force_update()
 
 function parse_address($address)
 {
-    $postcode = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$2", $address);
-    $endereco = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$1", $address);
-    $distrito = preg_replace('/(.*), (\d{4}-\d{3}) (.*), (.*)/', "$3", $address);
+    $postcode = preg_replace('/(.*)(\d{4}-\d{3})(.*)/', "$2", $address);
+    $endereco = preg_replace('/(.*)(\d{4}-\d{3})(.*)/', "$1", $address);
+    $distrito = preg_replace('/(.*)(\d{4}-\d{3}) (.*),(.*)/', "$3", $address);
     return [
         "post_code" =>  $postcode,
         "address" =>  $endereco,
@@ -1257,3 +1258,4 @@ function setCat()
 
 // http://www.diogomatheus.com.br/blog/php/configurando-o-php-para-enviar-email-no-windows-atraves-do-gmail/
 // mail( 'br.rafael@outlook.com', 'teste off', 'mensagem de teste' );
+
