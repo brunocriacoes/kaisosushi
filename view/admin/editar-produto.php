@@ -58,19 +58,28 @@
     <div class="produto-right">
         <?php
             $checked = function($id) { 
-                return in_array($id,CATS, true) ? 'checked' : ''; 
+                $cats = [];
+                if( defined('CATS') ) {
+                    $cats = CATS ;
+                }
+                return in_array($id,$cats, true) ? 'checked' : ''; 
             };
         ?>
         <h4>Categorias</h4>
         <div class="bef lista-categorias">
             <?php foreach (get_all_category() as $cat) : ?>
+                <?php
+
+                    
+                ?>
                 <div class="grid-custom" style="--cols:1fr 40px">
                     <span><?= $cat["id"] ?> <?= $cat["title"] ?></span>
                     
-                    <input type="checkbox" name="" <?= $checked($cat['id']) ?> oninput="setCat( <?= $cat['id']?>, <?= $_REQUEST['id'] ?>,this.checked ? 1 : 0 )" <?= $GLOBALS["is_category"] ? '' : 'disabled' ?> id="">
+                    <input type="checkbox" name="" <?= $checked($cat['id']) ?> oninput="setCat( <?= $cat['id']?>, <?= $_REQUEST['id'] ?? 1 ?>,this.checked ? 1 : 0 )" <?= $GLOBALS["is_category"] ? '' : 'disabled' ?> id="">
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
 </div>
+
 <?php include __DIR__ . "/footer.php" ?>
