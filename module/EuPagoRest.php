@@ -1,14 +1,14 @@
 <?php
 class EuPagoRest
 {
-    const KEY_API = "be7d-e267-6f99-131b-6a85";
+    const KEY_API = "ed4c-3687-af30-106b-d631";
     const PROD_URI = 'https://clientes.eupago.pt/clientes/rest_api';
 
     // const KEY_API = 'demo-71b4-b43b-f789-c9f';
     // const PROD_URI = 'https://sandbox.eupago.pt/clientes/rest_api';
 
-    const CLIENT_ID = "4741247f40244b04aef01ef66f704602";
-    const SECRET = "4abaeca304e0415c82f82026e5bd8827";
+    const CLIENT_ID = "7debf0ed81174315843f079549675c94";
+    const SECRET = "c87932b43d304416b0671aae54bee73d";
     const REQUEST_TIMEOUT = 3;
     function web_hook()
     {
