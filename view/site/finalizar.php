@@ -14,7 +14,7 @@ $delivery_check = $type_send == 'delivery' ? 'checked' : '';
 $metas = get_meta(get_id_cart());
 $address = !empty($cart["meta"]["ADDRESS_SEND"]) ? $cart["meta"]["ADDRESS_SEND"] : '';
 
-$pay_type = $metas['PAY_TYPE'] ?? 'money';
+$pay_type = $metas['PAY_TYPE'] ?? 'mult_bank';
 $local = json_decode($metas['ADDRESS_DATA'] ?? '{}', true);
 $nao_definido_zip_code = empty($local['zip_code'] ?? '');
 
@@ -137,8 +137,8 @@ if (intval($cart['distance']) > 60000) {
                 <div class="space"></div>
                 <div class="box-payment">
                     <div class="payment-options">
-                        <label onclick="globalThis.cart.set_method_payment( this, 'js-options-payment' )" for="money" class="js-options-payment active">Dinheiro</label>
-                        <label onclick="globalThis.cart.set_method_payment( this, 'js-options-payment' )" for="mult_bank" class="js-options-payment">Multibanco</label>
+                        <label hidden onclick="globalThis.cart.set_method_payment( this, 'js-options-payment' )" for="money" class="js-options-payment active">Dinheiro</label>
+                        <label onclick="globalThis.cart.set_method_payment( this, 'js-options-payment' )" for="mult_bank" class="js-options-payment active">Multibanco</label>
                         <label onclick="globalThis.cart.set_method_payment( this, 'js-options-payment' )" for="mb_way" class="js-options-payment">MB WAY</label>
                     </div>
                     <div class="space"></div>

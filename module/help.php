@@ -100,7 +100,9 @@ function set_corruent_prod()
 }
 function title()
 {
-    return $GLOBALS["corruent"]["title"] ?? null;
+    $content = $GLOBALS["corruent"]["title"] ?? '';
+    $content = utf8_decode($content);
+    return $content;
 }
 function photo()
 {
@@ -112,7 +114,10 @@ function price()
 }
 function description()
 {
-    return $GLOBALS["corruent"]["description"] ?? null;
+    $content = $GLOBALS["corruent"]["description"] ?? '';
+    $content = str_replace("\n", "<br>", $content);
+    $content = utf8_decode($content);
+    return $content;
 }
 function id()
 {
