@@ -46,7 +46,7 @@
                     <a href="<?= get_facebook() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/facebook.svg' ) ?>" alt=""> </a>
                     <a href="<?= get_instagram() ?>"> <img class="ico-redes" src="<?= dir_template( '/view/site/src/ico/instagram.svg' ) ?>" alt=""> </a>
                     <p>Rua Carlos Reis, 43 Lisboa - Portugal / <b>1600-032</b> </p>
-                    <p>horário de funcionamento De terça a domingo das <b>10:00</b> as <b>23:00</b> </p>
+                    <p>horário de funcionamento De Segunda a Segunda das <b>11:30</b> as <b>15:00</b> e das <b>18:30</b> as <b>23:30</b></p>
                     
                 </div>
             </div>
