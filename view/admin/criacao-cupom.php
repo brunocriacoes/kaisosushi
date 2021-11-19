@@ -11,8 +11,9 @@
                 <input  type="text" name="percentage" value="0" hidden>
             </div>
             <div>
-                <label for="desconto-euro">Desconto €</label>
-                <input required type="text" name="money" id="money" value=<?= $_REQUEST["money"] ?? '' ?>>
+                <label for="desconto-euro">Desconto em %</label>
+                <input required type="number" name="money" id="money" value=<?= $_REQUEST["money"] ?? '' ?>>
+                <small>Os descontos não leva em consideração o valor do frete</small>
             </div>
             <input type="submit" value="Adicionar">
         </form>
