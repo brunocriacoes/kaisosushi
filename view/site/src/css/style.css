@@ -1330,3 +1330,7 @@ button:hover {
 .buscar-morada span:hover {
     background-color: #d35400;
 }
+
+.inner-destaque-menu {
+    background-image: url(../bg/bg-menu.jpeg);
+}
